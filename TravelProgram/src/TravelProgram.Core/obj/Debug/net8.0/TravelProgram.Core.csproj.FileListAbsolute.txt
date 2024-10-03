@@ -1,0 +1,12 @@
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\bin\Debug\net8.0\TravelProgram.Core.deps.json
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\bin\Debug\net8.0\TravelProgram.Core.dll
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\bin\Debug\net8.0\TravelProgram.Core.pdb
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\TravelProgram.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\TravelProgram.Core.AssemblyInfoInputs.cache
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\TravelProgram.Core.AssemblyInfo.cs
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\TravelProgram.Core.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\TravelProgram.Core.dll
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\refint\TravelProgram.Core.dll
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\TravelProgram.Core.pdb
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\ref\TravelProgram.Core.dll
+C:\Users\Lenovo\source\repos\TravelProgram\src\TravelProgram.Core\obj\Debug\net8.0\TravelProgram.Core.csproj.AssemblyReference.cache
