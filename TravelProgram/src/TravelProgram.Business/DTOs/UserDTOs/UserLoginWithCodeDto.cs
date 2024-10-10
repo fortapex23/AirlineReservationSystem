@@ -1,4 +1,4 @@
 ﻿namespace TravelProgram.Business.DTOs.UserDTOs
 {
-	public record UserLoginWithCodeDto(string Email, string Code);
+	//public record UserLoginWithCodeDto(string Email, string Code);
 }

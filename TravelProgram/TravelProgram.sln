@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelProgram.Core", "src\T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelProgram.Data", "src\TravelProgram.Data\TravelProgram.Data.csproj", "{759001B9-732D-43B2-9CA3-3DAB0E79D96D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelProgram.Business", "src\TravelProgram.Business\TravelProgram.Business.csproj", "{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelProgram.Business", "src\TravelProgram.Business\TravelProgram.Business.csproj", "{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelProgram.API", "src\TravelProgram.API\TravelProgram.API.csproj", "{993A0895-EFC7-4652-804A-0117D3199B0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelProgram.API", "src\TravelProgram.API\TravelProgram.API.csproj", "{993A0895-EFC7-4652-804A-0117D3199B0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelProgram.MVC", "src\TravelProgram.MVC\TravelProgram.MVC.csproj", "{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{993A0895-EFC7-4652-804A-0117D3199B0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{993A0895-EFC7-4652-804A-0117D3199B0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{993A0895-EFC7-4652-804A-0117D3199B0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{759001B9-732D-43B2-9CA3-3DAB0E79D96D} = {489EBD48-31CA-483F-8D4F-F570912A12AC}
 		{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790} = {489EBD48-31CA-483F-8D4F-F570912A12AC}
 		{993A0895-EFC7-4652-804A-0117D3199B0D} = {489EBD48-31CA-483F-8D4F-F570912A12AC}
+		{31173EA9-ACF4-4650-AF28-8EA5A0EC9134} = {489EBD48-31CA-483F-8D4F-F570912A12AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDD699C7-6B93-4BBC-AFAA-BD5C34BF5317}

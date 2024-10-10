@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TravelProgram.Business.DTOs.TokenDTOs;
 using TravelProgram.Business.DTOs.UserDTOs;
 using TravelProgram.Business.Services.Interfaces;
+using TravelProgram.Core.Models;
 
 namespace TravelProgram.API.Controllers
 {
@@ -10,12 +15,17 @@ namespace TravelProgram.API.Controllers
 	public class AuthController : ControllerBase
 	{
 		private readonly IAuthService _authService;
+		private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
 
-		public AuthController(IAuthService authService)
-        {
+        public AuthController(IAuthService authService, RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager)
+		{
 			_authService = authService;
-		}
+			_roleManager = roleManager;
+            _userManager = userManager;
+        }
 
+		[HttpPost("[action]")]
 		public async Task<IActionResult> Register(UserRegisterDto dto)
 		{
 			try
@@ -34,18 +44,67 @@ namespace TravelProgram.API.Controllers
 			return Ok();
 		}
 
-  //      [HttpPost("login-with-code")]
-		//public async Task<IActionResult> LoginWithCode(UserLoginWithCodeDto dto)
+		[HttpPost("[action]")]
+		public async Task<IActionResult> Login(UserLoginDto dto)
+		{
+			TokenResponseDto rDto = null;
+
+			try
+			{
+				rDto = await _authService.Login(dto);
+			}
+			catch (NullReferenceException)
+			{
+				return BadRequest();
+			}
+			catch (Exception)
+			{
+				return BadRequest();
+			}
+
+			return Ok(rDto);
+		}
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AdminLogin(UserLoginDto dto)
+        {
+            TokenResponseDto rDto = null;
+            try
+            {
+                rDto = await _authService.AdminLogin(dto);
+                return Ok(rDto);
+            }
+            catch (NullReferenceException)
+            {
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+		//[HttpGet("")]
+		//public async Task<IActionResult> CreateAdmin()
 		//{
-		//	try
-		//	{
-		//		var token = await _authService.LoginWithCode(dto);
-		//		return Ok(token);
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return BadRequest(ex.Message);
-		//	}
+		//	AppUser appUser = await _userManager.FindByEmailAsync("admin@gmail.com");
+
+		//	await _userManager.AddToRoleAsync(appUser, "Admin");
+
+		//	return Ok();
+		//}
+
+
+		//[HttpGet("")]
+		//public async Task<IActionResult> CreateRole()
+		//{
+		//	IdentityRole role2 = new IdentityRole("Admin");
+		//	IdentityRole role3 = new IdentityRole("Member");
+
+		//	await _roleManager.CreateAsync(role2);
+		//	await _roleManager.CreateAsync(role3);
+
+		//	return Ok();
 		//}
 
 	}

@@ -9,15 +9,19 @@ namespace TravelProgram.Data.Configurations
 		public void Configure(EntityTypeBuilder<Booking> builder)
 		{
 			builder.Property(b => b.BookingNumber).IsRequired().HasMaxLength(50);
-			builder.Property(b => b.SeatNumber).IsRequired();
 			builder.Property(b => b.Status).IsRequired();
+			builder.Property(b => b.SeatId).IsRequired();
 
 			builder.HasOne(b => b.Flight)
-				   .WithMany()
+				   .WithMany(b => b.Bookings)
 				   .HasForeignKey(b => b.FlightId);
 
+			builder.HasOne(b => b.Seat)
+				   .WithOne()
+				   .HasForeignKey<Booking>(b => b.SeatId);
+
 			builder.HasOne(b => b.AppUser)
-				   .WithMany()
+				   .WithMany(b => b.Bookings)
 				   .HasForeignKey(b => b.AppUserId);
 		}
 	}

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using TravelProgram.Business;
+using TravelProgram.Business.DTOs.AirlineDTOs;
 using TravelProgram.Business.DTOs.UserDTOs;
+using TravelProgram.Business.MappingProfiles;
 using TravelProgram.Core.Models;
 using TravelProgram.Data;
 using TravelProgram.Data.DAL;
@@ -17,11 +19,27 @@ namespace TravelProgram.API
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowAll",
+					builder =>
+					{
+						builder.AllowAnyOrigin()
+							   .AllowAnyMethod()
+							   .AllowAnyHeader();
+					});
+			});
+
 			builder.Services.AddControllers().AddFluentValidation(op =>
 			{
-				op.RegisterValidatorsFromAssembly(typeof(UserRegisterDtoValidator).Assembly);
+				op.RegisterValidatorsFromAssembly(typeof(AirlineCreateDtoValidator).Assembly);
 			}).AddNewtonsoftJson(options =>
 				options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+			builder.Services.AddAutoMapper(op =>
+			{
+				op.AddProfile<MapProfile>();
+			});
 
 			builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
 			{
@@ -67,6 +85,7 @@ namespace TravelProgram.API
 				app.UseSwaggerUI();
 			}
 
+			app.UseCors("AllowAll");
 			app.UseHttpsRedirection();
 			app.UseAuthentication();
 			app.UseAuthorization();

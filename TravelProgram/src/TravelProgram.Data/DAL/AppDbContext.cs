@@ -17,7 +17,7 @@ namespace TravelProgram.Data.DAL
 		public DbSet<Plane> Planes { get; set; }
 		public DbSet<Seat> Seats { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
 		{
 			builder.ApplyConfigurationsFromAssembly(typeof(AirlineConfiguration).Assembly);
 

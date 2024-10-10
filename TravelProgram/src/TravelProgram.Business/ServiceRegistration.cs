@@ -9,6 +9,12 @@ namespace TravelProgram.Business
 		public static void AddServices(this IServiceCollection services)
 		{
 			services.AddScoped<IAuthService, AuthService>();
+			services.AddScoped<IAirlineService, AirlineService>();
+			services.AddScoped<IAirportService, AirportService>();
+			services.AddScoped<IPlaneService, PlaneService>();
+			services.AddScoped<IFlightService, FlightService>();
+			services.AddScoped<ISeatService, SeatService>();
+			services.AddScoped<IBookingService, BookingService>();
 		}
 	}
 }

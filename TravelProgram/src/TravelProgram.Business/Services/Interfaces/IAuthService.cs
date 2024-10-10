@@ -7,6 +7,10 @@ namespace TravelProgram.Business.Services.Interfaces
 	{
 		Task Register(UserRegisterDto dto);
 
-		//Task<TokenResponseDto> LoginWithCode(UserLoginWithCodeDto dto);
-	}
+		Task<TokenResponseDto> Login(UserLoginDto dto);
+
+		Task<TokenResponseDto> AdminLogin(UserLoginDto dto);
+
+        //Task<TokenResponseDto> LoginWithCode(UserLoginWithCodeDto dto);
+    }
 }

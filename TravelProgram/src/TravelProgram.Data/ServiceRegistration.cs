@@ -17,7 +17,7 @@ namespace TravelProgram.Data
 			services.AddScoped<IPlaneRepository, PlaneRepository>();
 			services.AddScoped<ISeatRepository, SeatRepository>();
 
-			services.AddDbContext<AppDbContext>(op =>
+            services.AddDbContext<AppDbContext>(op =>
 			{
 				op.UseSqlServer(connectionstring);
 			});

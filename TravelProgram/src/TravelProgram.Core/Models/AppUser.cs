@@ -9,5 +9,7 @@ namespace TravelProgram.Core.Models
 		public string PassportNumber { get; set; }
 		public GenderType Gender { get; set; }
         public DateTime BirthDate { get; set; }
+
+        public ICollection<Booking> Bookings { get; set; }
     }
 }

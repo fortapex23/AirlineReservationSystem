@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "KyIGNQblCTnY9tSxNC7GMomC/AEQ/CTNtBjhDI/dU5so8r8INEoxciA8kZ4IiYpch45s+TiU7b+2Yr8lkWzQEw==",
+  "dgSpecHash": "RMHYQeDBe03ytTdXygSY3tR18tLBSY/+mou5Q4Uyqys4heHWD7qvwj/Cy/RZZcnZ1qS0p6P9fJo4UIV/HvSc5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Lenovo\\source\\repos\\TravelProgram\\src\\TravelProgram.API\\TravelProgram.API.csproj",
+  "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.API\\TravelProgram.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Lenovo\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\fluentvalidation\\11.10.0\\fluentvalidation.11.10.0.nupkg.sha512",

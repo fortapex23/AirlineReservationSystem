@@ -1,0 +1,71 @@
+﻿@using TravelProgram.MVC.ViewModels.AuthVMs
+@model UserRegisterVM
+
+@{
+    Layout = "_LoginLayout";
+}
+
+<!-- Sign up form -->
+<section class="signup">
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-form">
+                <h2 class="form-title">Register Travele</h2>
+                <form asp-action="register" method="post" class="register-form" id="login-form">
+                    <div class="form-group">
+                        <label for="FullName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" asp-for="FullName" id="FullName" placeholder="Your FullName" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Email"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="Email" asp-for="Email" id="Email" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="PhoneNumber"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" asp-for="PhoneNumber" id="PhoneNumber" placeholder="Your PhoneNumber" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="PassportNumber"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" asp-for="PassportNumber" id="PassportNumber" placeholder="Your PassportNumber" />
+                        <span asp-validation-for="PassportNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Gender"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <select asp-for="Gender" class="form-control">
+                            <option value="">-- Select Gender --</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="BirthDate"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="date" asp-for="BirthDate" id="BirthDate" placeholder="Your BirthDate" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="Password"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" asp-for="Password" id="Password" placeholder="Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ConfirmPassword"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" asp-for="ConfirmPassword" id="ConfirmPassword" placeholder="ConfirmPassword" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                    </div>
+                    <div asp-validation-summary="ModelOnly"></div>
+                </form>
+            </div>
+            <div class="signup-image">
+                <figure><img src="~/login/images/signup-image.jpg" alt="sign up image"></figure>
+                <a asp-controller="auth" asp-action="login" class="signup-image-link">Login</a>
+            </div>
+        </div>
+    </div>
+</section>

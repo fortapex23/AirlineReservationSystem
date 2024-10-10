@@ -3,8 +3,8 @@ using TravelProgram.Core.Enum;
 
 namespace TravelProgram.Business.DTOs.UserDTOs
 {
-	public record UserRegisterDto(string FullName, string Email, string Password, string PassportNumber,
-		string ConfirmPassword, string PhoneNumber, DateTime BirthDate, GenderType Gender);
+	public record UserRegisterDto(string FullName, string Email, string Password, string ConfirmPassword,
+		string PassportNumber, string PhoneNumber, DateTime BirthDate, GenderType Gender);
 
 	public class UserRegisterDtoValidator : AbstractValidator<UserRegisterDto>
 	{
@@ -14,12 +14,12 @@ namespace TravelProgram.Business.DTOs.UserDTOs
 
 			RuleFor(x => x.Password).MinimumLength(8).MaximumLength(40);
 
-			RuleFor(x => x.PassportNumber).NotNull().NotEmpty().MaximumLength(100);
+			RuleFor(x => x.PassportNumber).NotNull().NotEmpty().MaximumLength(120);
 
 			RuleFor(x => x.Email).NotNull().NotEmpty();
 
 			RuleFor(x => x.BirthDate).NotEmpty().WithMessage("cant be empty")
-				.GreaterThan(x => DateTime.Now).WithMessage("wrong birthdate");
+				.LessThan(x => DateTime.Now).WithMessage("wrong birthdate");
 
 
 

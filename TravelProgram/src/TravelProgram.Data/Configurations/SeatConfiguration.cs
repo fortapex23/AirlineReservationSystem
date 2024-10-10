@@ -20,7 +20,7 @@ namespace TravelProgram.Data.Configurations
 				   .OnDelete(DeleteBehavior.Restrict);
 
 			builder.HasOne(s => s.Flight)
-				   .WithMany()
+				   .WithMany(s => s.Seats)
 				   .HasForeignKey(s => s.FlightId)
 				   .OnDelete(DeleteBehavior.Restrict);
 		}

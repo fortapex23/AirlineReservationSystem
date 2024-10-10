@@ -9,15 +9,17 @@ namespace TravelProgram.Data.Configurations
 		public void Configure(EntityTypeBuilder<Airline> builder)
 		{
 			builder.Property(a => a.Name).IsRequired().HasMaxLength(100);
-			builder.Property(a => a.Country).IsRequired().HasMaxLength(50);
+			builder.Property(a => a.Country).IsRequired();
 
 			builder.HasMany(a => a.Planes)
 				   .WithOne(p => p.Airline)
-				   .HasForeignKey(p => p.AirlineId);
+				   .HasForeignKey(p => p.AirlineId)
+				   .OnDelete(DeleteBehavior.Restrict);
 
 			builder.HasMany(a => a.Flights)
 				   .WithOne(f => f.Airline)
-				   .HasForeignKey(f => f.AirlineId);
+				   .HasForeignKey(f => f.AirlineId)
+				   .OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }

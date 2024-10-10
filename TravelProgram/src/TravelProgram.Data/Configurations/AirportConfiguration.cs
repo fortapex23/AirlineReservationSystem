@@ -9,7 +9,7 @@ namespace TravelProgram.Data.Configurations
 		public void Configure(EntityTypeBuilder<Airport> builder)
 		{
 			builder.Property(a => a.Name).IsRequired().HasMaxLength(100);
-			builder.Property(a => a.Location).IsRequired().HasMaxLength(100);
+			builder.Property(a => a.City).IsRequired();
 
 			builder.HasMany(ap => ap.DepartingFlights)
 			   .WithOne(f => f.DepartureAirport)
