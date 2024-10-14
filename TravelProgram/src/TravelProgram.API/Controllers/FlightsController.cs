@@ -18,7 +18,34 @@ namespace TravelProgram.API.Controllers
 			_flightService = FlightService;
         }
 
-		[HttpGet("")]
+        [HttpGet("isexist/{id}")]
+        public async Task<IActionResult> IsExist(int id)
+        {
+            bool exists = false;
+            try
+            {
+                exists = await _flightService.IsExist(f => f.Id == id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = ex.Message,
+                    Data = null
+                });
+            }
+
+            return Ok(new ApiResponse<bool>
+            {
+                Data = exists,
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
+
+
+
+        [HttpGet("")]
 		public async Task<IActionResult> GetAll()
 		{
 			return Ok(new ApiResponse<ICollection<FlightGetDto>>
@@ -30,7 +57,7 @@ namespace TravelProgram.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromForm] FlightCreateDto dto) //, IFormFile? imageFile
+		public async Task<IActionResult> Create(FlightCreateDto dto) //, IFormFile? imageFile
         {
 			FlightGetDto flight = null;
 			try

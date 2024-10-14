@@ -1,0 +1,32 @@
+﻿@using TravelProgram.MVC.Areas.Admin.ViewModels.PlaneVMs
+@model PlaneCreateVM
+
+@{
+    List<AirlineGetVM> airlines = ViewBag.Airlines;
+}
+
+<div style="margin-left: 280px; margin-top: 50px" class="container-fluid">
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" style="width: 40%" placeholder="Enter Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">TotalSeats</label>
+            <input asp-for="TotalSeats" class="form-control" style="width: 40%" placeholder="Enter TotalSeats">
+            <span asp-validation-for="TotalSeats" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <select class="form-control" asp-for="AirlineId" asp-items="@(new SelectList(airlines, "Id", "Name"))">
+                <option selected disabled>choose airline</option>
+            </select>
+            <span asp-validation-for="AirlineId" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button asp-action="" class="btn btn-warning">Cancel</button>
+    </form>
+</div>

@@ -10,6 +10,7 @@ namespace TravelProgram.Core.Models
 		public GenderType Gender { get; set; }
         public DateTime BirthDate { get; set; }
 
+        public List<BasketItem> BasketItems { get; set; }
         public ICollection<Booking> Bookings { get; set; }
     }
 }

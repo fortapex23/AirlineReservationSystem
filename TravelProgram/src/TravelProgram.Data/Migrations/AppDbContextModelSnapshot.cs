@@ -289,6 +289,39 @@ namespace TravelProgram.Data.Migrations
                     b.ToTable("Airports");
                 });
 
+            modelBuilder.Entity("TravelProgram.Core.Models.BasketItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("FlightId");
+
+                    b.ToTable("BasketItems");
+                });
+
             modelBuilder.Entity("TravelProgram.Core.Models.Booking", b =>
                 {
                     b.Property<int>("Id")
@@ -344,9 +377,6 @@ namespace TravelProgram.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AirlineId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ArrivalAirportId")
                         .HasColumnType("int");
 
@@ -365,10 +395,6 @@ namespace TravelProgram.Data.Migrations
                     b.Property<int>("FlightNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -382,8 +408,6 @@ namespace TravelProgram.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AirlineId");
 
                     b.HasIndex("ArrivalAirportId");
 
@@ -547,6 +571,23 @@ namespace TravelProgram.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TravelProgram.Core.Models.BasketItem", b =>
+                {
+                    b.HasOne("TravelProgram.Core.Models.AppUser", "AppUser")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelProgram.Core.Models.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightId");
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Flight");
+                });
+
             modelBuilder.Entity("TravelProgram.Core.Models.Booking", b =>
                 {
                     b.HasOne("TravelProgram.Core.Models.AppUser", "AppUser")
@@ -576,12 +617,6 @@ namespace TravelProgram.Data.Migrations
 
             modelBuilder.Entity("TravelProgram.Core.Models.Flight", b =>
                 {
-                    b.HasOne("TravelProgram.Core.Models.Airline", "Airline")
-                        .WithMany("Flights")
-                        .HasForeignKey("AirlineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TravelProgram.Core.Models.Airport", "ArrivalAirport")
                         .WithMany("ArrivingFlights")
                         .HasForeignKey("ArrivalAirportId")
@@ -600,8 +635,6 @@ namespace TravelProgram.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Airline");
-
                     b.Navigation("ArrivalAirport");
 
                     b.Navigation("DepartureAirport");
@@ -614,7 +647,7 @@ namespace TravelProgram.Data.Migrations
                     b.HasOne("TravelProgram.Core.Models.Airline", "Airline")
                         .WithMany("Planes")
                         .HasForeignKey("AirlineId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Airline");
@@ -630,7 +663,7 @@ namespace TravelProgram.Data.Migrations
                     b.HasOne("TravelProgram.Core.Models.Plane", "Plane")
                         .WithMany("Seats")
                         .HasForeignKey("PlaneId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Flight");
@@ -640,8 +673,6 @@ namespace TravelProgram.Data.Migrations
 
             modelBuilder.Entity("TravelProgram.Core.Models.Airline", b =>
                 {
-                    b.Navigation("Flights");
-
                     b.Navigation("Planes");
                 });
 
@@ -668,6 +699,8 @@ namespace TravelProgram.Data.Migrations
 
             modelBuilder.Entity("TravelProgram.Core.Models.AppUser", b =>
                 {
+                    b.Navigation("BasketItems");
+
                     b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618

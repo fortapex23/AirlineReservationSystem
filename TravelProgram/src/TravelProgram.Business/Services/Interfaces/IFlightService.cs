@@ -13,5 +13,6 @@ namespace TravelProgram.Business.Services.Interfaces
 		Task<FlightGetDto> GetById(int id);
 		Task<ICollection<FlightGetDto>> GetByExpression(bool asnotracking = false, Expression<Func<Flight, bool>>? expression = null, params string[] includes);
 		Task<FlightGetDto> GetSingleByExpression(bool asnotracking = false, Expression<Func<Flight, bool>>? expression = null, params string[] includes);
-	}
+        Task<bool> IsExist(Expression<Func<Flight, bool>> expression);
+    }
 }

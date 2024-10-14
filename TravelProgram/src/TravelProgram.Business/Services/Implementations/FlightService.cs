@@ -117,5 +117,11 @@ namespace TravelProgram.Business.Services.Implementations
 
 			await _flightRepository.CommitAsync();
 		}
-	}
+
+        public Task<bool> IsExist(Expression<Func<Flight, bool>> expression)
+        {
+            return _flightRepository.Table.AnyAsync(expression);
+        }
+
+    }
 }

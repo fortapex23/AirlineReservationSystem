@@ -1,247 +1,211 @@
-(function($) {
-  'use strict';
-  $(function() {
+$(function () {
 
-    if ($('#cash-deposits-chart').length) {
-      var cashDepositsCanvas = $("#cash-deposits-chart").get(0).getContext("2d");
-      var data = {
-        labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
-        datasets: [
-          {
-            label: 'Returns',
-            data: [27, 35, 30, 40, 52, 48, 54, 46, 70],
-            borderColor: [
-              '#ff4747'
-            ],
-            borderWidth: 2,
-            fill: false,
-            pointBackgroundColor: "#fff"
-          },
-          {
-            label: 'Sales',
-            data: [29, 40, 37, 48, 64, 58, 70, 57, 80],
-            borderColor: [
-              '#4d83ff'
-            ],
-            borderWidth: 2,
-            fill: false,
-            pointBackgroundColor: "#fff"
-          },
-          {
-            label: 'Loss',
-            data: [90, 62, 80, 63, 72, 62, 40, 50, 38],
-            borderColor: [
-              '#ffc100'
-            ],
-            borderWidth: 2,
-            fill: false,
-            pointBackgroundColor: "#fff"
-          }
-        ]
-      };
-      var options = {
-        scales: {
-          yAxes: [{
-            display: true,
-            gridLines: {
-              drawBorder: false,
-              lineWidth: 1,
-              color: "#e9e9e9",
-              zeroLineColor: "#e9e9e9",
-            },
-            ticks: {
-              min: 0,
-              max: 100,
-              stepSize: 20,
-              fontColor: "#6c7383",
-              fontSize: 16,
-              fontStyle: 300,
-              padding: 15
-            }
-          }],
-          xAxes: [{
-            display: true,
-            gridLines: {
-              drawBorder: false,
-              lineWidth: 1,
-              color: "#e9e9e9",
-            },
-            ticks : {
-              fontColor: "#6c7383",
-              fontSize: 16,
-              fontStyle: 300,
-              padding: 15
-            }
-          }]
-        },
-        legend: {
-          display: false
-        },
-        legendCallback: function(chart) {
-          var text = [];
-          text.push('<ul class="dashboard-chart-legend">');
-          for(var i=0; i < chart.data.datasets.length; i++) {
-            text.push('<li><span style="background-color: ' + chart.data.datasets[i].borderColor[0] + ' "></span>');
-            if (chart.data.datasets[i].label) {
-              text.push(chart.data.datasets[i].label);
-            }
-          }
-          text.push('</ul>');
-          return text.join("");
-        },
-        elements: {
-          point: {
-            radius: 3
-          },
-          line :{
-            tension: 0
-          }
-        },
-        stepsize: 1,
-        layout : {
-          padding : {
-            top: 0,
-            bottom : -10,
-            left : -10,
-            right: 0
-          }
-        }
-      };
-      var cashDeposits = new Chart(cashDepositsCanvas, {
-        type: 'line',
-        data: data,
-        options: options
-      });
-      document.getElementById('cash-deposits-chart-legend').innerHTML = cashDeposits.generateLegend();
-    }
 
-    if ($('#total-sales-chart').length) {
-      var totalSalesChartCanvas = $("#total-sales-chart").get(0).getContext("2d");
+  // =====================================
+  // Profit
+  // =====================================
+  var chart = {
+    series: [
+      { name: "Earnings this month:", data: [355, 390, 300, 350, 390, 180, 355, 390] },
+      { name: "Expense this month:", data: [280, 250, 325, 215, 250, 310, 280, 250] },
+    ],
 
-      var data = {
-        labels: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",'10', '11','12', '13', '14', '15','16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26','27','28','29', '30','31', '32', '33', '34', '35', '36', '37','38', '39', '40'],
-        datasets: [
-          {
-            label: '2019',
-            data: [42, 42, 30, 30, 18, 22, 16, 21, 22, 22, 22, 20, 24, 20, 18, 22, 30, 34 ,32, 33, 33, 24, 32, 34 , 30, 34, 19 ,34, 18, 10, 22, 24, 20, 22, 20, 21, 10, 10, 5, 9, 14 ],
-            borderColor: [
-              'transparent'
-            ],
-            borderWidth: 2,
-            fill: true,
-            backgroundColor: "rgba(47,91,191,0.77)"
-          },
-          {
-            label: '2018',
-            data: [35, 28, 32, 42, 44, 46, 42, 50, 48, 30, 35, 48, 42, 40, 54, 58, 56, 55, 59, 58, 57, 60, 66, 54, 38, 40, 42, 44, 42, 43, 42, 38, 43, 41, 43, 50, 58 ,58, 68, 72, 72 ],
-            borderColor: [
-              'transparent'
-            ],
-            borderWidth: 2,
-            fill: true,
-            backgroundColor: "rgba(77,131,255,0.77)"
-          },
-          {
-            label: 'Past years',
-            data: [98, 88, 92, 90, 98, 98, 90, 92, 78, 88, 84, 76, 80, 72, 74, 74, 88, 80, 72, 62, 62, 72, 72, 78, 78, 72, 75, 78, 68, 68, 60, 68, 70, 75, 70, 80, 82, 78, 78, 84, 82 ],
-            borderColor: [
-              'transparent'
-            ],
-            borderWidth: 2,
-            fill: true,
-            backgroundColor: "rgba(77,131,255,0.43)"
-          }
-        ]
-      };
-      var options = {
-        scales: {
-          yAxes: [{
-            display: false,
-            gridLines: {
-              drawBorder: false,
-              lineWidth: 1,
-              color: "#e9e9e9",
-              zeroLineColor: "#e9e9e9",
-            },
-            ticks: {
-              display : true,
-              min: 0,
-              max: 100,
-              stepSize: 10,
-              fontColor: "#6c7383",
-              fontSize: 16,
-              fontStyle: 300,
-              padding: 15
-            }
-          }],
-          xAxes: [{
-            display: false,
-            gridLines: {
-              drawBorder: false,
-              lineWidth: 1,
-              color: "#e9e9e9",
-            },
-            ticks : {
-              display: true,
-              fontColor: "#6c7383",
-              fontSize: 16,
-              fontStyle: 300,
-              padding: 15
-            }
-          }]
-        },
-        legend: {
-          display: false
-        },
-        legendCallback: function(chart) {
-          var text = [];
-          text.push('<ul class="dashboard-chart-legend mb-0 mt-4">');
-          for(var i=0; i < chart.data.datasets.length; i++) {
-            text.push('<li><span style="background-color: ' + chart.data.datasets[i].backgroundColor + ' "></span>');
-            if (chart.data.datasets[i].label) {
-              text.push(chart.data.datasets[i].label);
-            }
-          }
-          text.push('</ul>');
-          return text.join("");
-        },
-        elements: {
-          point: {
-            radius: 0
-          },
-          line :{
-            tension: 0
-          }
-        },
-        stepsize: 1,
-        layout : {
-          padding : {
-            top: 0,
-            bottom : 0,
-            left : 0,
-            right: 0
-          }
-        }
-      };
-      var totalSalesChart = new Chart(totalSalesChartCanvas, {
-        type: 'line',
-        data: data,
-        options: options
-      });
-      document.getElementById('total-sales-chart-legend').innerHTML = totalSalesChart.generateLegend();
-    }
+    chart: {
+      type: "bar",
+      height: 345,
+      offsetX: -15,
+      toolbar: { show: true },
+      foreColor: "#adb0bb",
+      fontFamily: 'inherit',
+      sparkline: { enabled: false },
+    },
 
-    $('#recent-purchases-listing').DataTable({
-      "aLengthMenu": [
-        [5, 10, 15, -1],
-        [5, 10, 15, "All"]
-      ],
-      "iDisplayLength": 10,
-      "language": {
-        search: ""
+
+    colors: ["#5D87FF", "#49BEFF"],
+
+
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: "35%",
+        borderRadius: [6],
+        borderRadiusApplication: 'end',
+        borderRadiusWhenStacked: 'all'
       },
-      searching: false, paging: false, info: false
-    });
+    },
+    markers: { size: 0 },
 
-  });
-})(jQuery);
+    dataLabels: {
+      enabled: false,
+    },
+
+
+    legend: {
+      show: false,
+    },
+
+
+    grid: {
+      borderColor: "rgba(0,0,0,0.1)",
+      strokeDashArray: 3,
+      xaxis: {
+        lines: {
+          show: false,
+        },
+      },
+    },
+
+    xaxis: {
+      type: "category",
+      categories: ["16/08", "17/08", "18/08", "19/08", "20/08", "21/08", "22/08", "23/08"],
+      labels: {
+        style: { cssClass: "grey--text lighten-2--text fill-color" },
+      },
+    },
+
+
+    yaxis: {
+      show: true,
+      min: 0,
+      max: 400,
+      tickAmount: 4,
+      labels: {
+        style: {
+          cssClass: "grey--text lighten-2--text fill-color",
+        },
+      },
+    },
+    stroke: {
+      show: true,
+      width: 3,
+      lineCap: "butt",
+      colors: ["transparent"],
+    },
+
+
+    tooltip: { theme: "light" },
+
+    responsive: [
+      {
+        breakpoint: 600,
+        options: {
+          plotOptions: {
+            bar: {
+              borderRadius: 3,
+            }
+          },
+        }
+      }
+    ]
+
+
+  };
+
+  var chart = new ApexCharts(document.querySelector("#chart"), chart);
+  chart.render();
+
+
+  // =====================================
+  // Breakup
+  // =====================================
+  var breakup = {
+    color: "#adb5bd",
+    series: [38, 40, 25],
+    labels: ["2022", "2021", "2020"],
+    chart: {
+      width: 180,
+      type: "donut",
+      fontFamily: "Plus Jakarta Sans', sans-serif",
+      foreColor: "#adb0bb",
+    },
+    plotOptions: {
+      pie: {
+        startAngle: 0,
+        endAngle: 360,
+        donut: {
+          size: '75%',
+        },
+      },
+    },
+    stroke: {
+      show: false,
+    },
+
+    dataLabels: {
+      enabled: false,
+    },
+
+    legend: {
+      show: false,
+    },
+    colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+
+    responsive: [
+      {
+        breakpoint: 991,
+        options: {
+          chart: {
+            width: 150,
+          },
+        },
+      },
+    ],
+    tooltip: {
+      theme: "dark",
+      fillSeriesColor: false,
+    },
+  };
+
+  var chart = new ApexCharts(document.querySelector("#breakup"), breakup);
+  chart.render();
+
+
+
+  // =====================================
+  // Earning
+  // =====================================
+  var earning = {
+    chart: {
+      id: "sparkline3",
+      type: "area",
+      height: 60,
+      sparkline: {
+        enabled: true,
+      },
+      group: "sparklines",
+      fontFamily: "Plus Jakarta Sans', sans-serif",
+      foreColor: "#adb0bb",
+    },
+    series: [
+      {
+        name: "Earnings",
+        color: "#49BEFF",
+        data: [25, 66, 20, 40, 12, 58, 20],
+      },
+    ],
+    stroke: {
+      curve: "smooth",
+      width: 2,
+    },
+    fill: {
+      colors: ["#f3feff"],
+      type: "solid",
+      opacity: 0.05,
+    },
+
+    markers: {
+      size: 0,
+    },
+    tooltip: {
+      theme: "dark",
+      fixed: {
+        enabled: true,
+        position: "right",
+      },
+      x: {
+        show: false,
+      },
+    },
+  };
+  new ApexCharts(document.querySelector("#earning"), earning).render();
+})

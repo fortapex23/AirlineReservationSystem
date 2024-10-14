@@ -26,28 +26,26 @@
                             <div class="trip-search-section">
                                 <div class="container">
                                     <div class="trip-search-inner secondary-bg">
-                                        <div class="input-group width-col-1">
-                                            <label> City Destination* </label>
-                                            <input type="text" name="s" placeholder="Enter Destination">
-                                        </div>
-                                        @* <div class="input-group width-col-1">
-                                            <label> Pax Number* </label>
-                                            <input type="text" name="s" placeholder="No.of People">
-                                        </div> *@
-                                        <div class="input-group width-col-1">
-                                            <label> Departure Time* </label>
-                                            <i class="far fa-calendar"></i>
-                                            <input class="input-date-picker" type="text" name="s" placeholder="MM / DD / YY" autocomplete="off" readonly="readonly">
-                                        </div>
-                                        @* <div class="input-group width-col-1">
-                                            <label> Checkout Date* </label>
-                                            <i class="far fa-calendar"></i>
-                                            <input class="input-date-picker" type="text" name="s" placeholder="MM / DD / YY" autocomplete="off" readonly="readonly">
-                                        </div> *@
-                                        <div class="input-group width-col-1">
-                                            <label class="screen-reader-text"> Search </label>
-                                            <input type="submit" name="travel-search" value="INQUIRE NOW">
-                                        </div>
+                                        <form asp-action="Search" method="post">
+                                            <div class="input-group width-col-1">
+                                                <label> Departure City* </label>
+                                                <input type="text" name="departureCity" placeholder="Enter City">
+                                            </div>
+                                            <div class="input-group width-col-1">
+                                                <label> City Destination* </label>
+                                                <input type="text" name="destinationCity" placeholder="Enter Destination">
+                                            </div>
+                                            <div class="input-group width-col-1">
+                                                <label> Departure Time* </label>
+                                                <i class="far fa-calendar"></i>
+                                                <input class="input-date-picker" type="text" name="departureTime" placeholder="MM / DD / YY" autocomplete="off" readonly="readonly">
+                                            </div>
+                                            <div id="validation-summary" asp-validation-summary="ModelOnly"></div>
+                                            <div class="input-group width-col-1">
+                                                <label class="screen-reader-text"> Search </label>
+                                                <button type="submit" class="btn btn-outline-light">SEARCH NOW</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -60,55 +58,101 @@
         </div>
     </section>
     <!-- banner html start -->
-    <section class="destination-section">
+    
+    
+
+    <!-- client html end -->
+    <!-- Home packages section html start -->
+    <section class="package-section bg-light-grey">
         <div class="container">
             <div class="section-heading text-center">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h5>POPULAR DESTINATION</h5>
-                        <h2>TOP NOTCH DESTINATION</h2>
+                        <h5>EXPLORE GREAT CITIES</h5>
+                        <h2>FOR YOU DESTINATION</h2>
                         <div class="title-icon-divider"><i class="fas fa-suitcase-rolling"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="destination-inner destination-four-column">
-                @if (Model.Flights is null)
-                {
-                    <div class="alert text-center">No flights available rn</div>
-                }
-                else
-                {
-                    <div class="row">
-                        @foreach (var item in Model.Flights)
+            <div class="package-inner package-inner-list">
+                <div class="row">
+                    @if (Model == null || Model.Flights is null || !Model.Flights.Any())
+                    {
+                        <h2 style="margin-left: 310px" class="text-danger">NO FLIGHTS AVAILABLE</h2>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model.Flights.Where(x => x.DepartureTime > DateTime.UtcNow.AddDays(1)))
                         {
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="desti-item text-center">
-                                    <figure class="desti-image">
-                                        @* <img src="~/assets/images/img50.jpg" alt="">
-                                <div class="rating-start" title="Rated 5 out of 4">
-                                <span style="width: 53%"></span>
-                                </div> *@
-                                    </figure>
-                                    <div class="desti-content">
-                                        <h3>
-                                            <a href="#">@item.DepartureAirportCity -> @item.ArrivalAirportCity</a>
-                                        </h3>
-                                        <div class="meta-cat">
-                                            <a href="#">@item.AirlineName (@item.AirlineCountry)</a>
+                            <main style="margin-top: 20px" class="ticket-system">
+                                <div class="receipts-wrapper">
+                                    <div class="receipts">
+                                        <div class="receipt">
+                                            <div style="display: flex; justify-content: space-between">
+                                                <div>
+                                                    <i class="fa-solid fa-plane-departure"></i>
+                                                    <a style="font-family: cursive; font-size: large; margin-left: 3px">@item.Plane.AirlineName</a>
+                                                </div>
+                                                <div>
+                                                    <a>@item.DepartureTime.ToString("M")</a>
+                                                </div>
+                                            </div>
+                                            <div class="route">
+                                                <h2>@item.DepartureAirportCity</h2>
+                                                <svg class="plane-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 510 510">
+                                                    <path fill="#3f32e5" d="M497.25 357v-51l-204-127.5V38.25C293.25 17.85 275.4 0 255 0s-38.25 17.85-38.25 38.25V178.5L12.75 306v51l204-63.75V433.5l-51 38.25V510L255 484.5l89.25 25.5v-38.25l-51-38.25V293.25l204 63.75z" />
+                                                </svg>
+                                                <h2>@item.ArrivalAirportCity</h2>
+                                            </div>
+                                            <div class="details">
+                                                <div class="item">
+                                                    <span>Departure</span>
+                                                    <h3 style="font-family: Arial; font-size: larger">@item.DepartureTime.ToShortTimeString()</h3>
+                                                </div>
+                                                <div class="item">
+                                                    <span>Flight No.</span>
+                                                    <h3 style="font-family: Arial; font-size: larger">@item.FlightNumber</h3>
+                                                </div>
+                                                <div class="item">
+                                                    <span>Arrival</span>
+                                                    <h3 style="font-family: Arial; font-size: larger">@item.ArrivalTime.ToShortTimeString()</h3>
+                                                </div>
+                                                <div class="item">
+                                                    <span>Plane</span>
+                                                    <h3 style="font-family: Arial; font-size: large">@item.PlaneName</h3>
+                                                </div>
+                                                <div class="item">
+                                                    <span>Price(Eco)</span>
+                                                    <h3 style="font-family: Arial; font-size: larger">$@item.SeatPrice</h3>
+                                                </div>
+                                                <div class="item">
+                                                    <span>Total Seats</span>
+                                                    <h3 style="font-family: Arial; font-size: larger">@item.Seats.Count</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="receipt qr-code">
+                                            <a class="btn btn-outline-primary">Book Now<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
+                                            <form asp-action="AddToBasket" asp-route-flightId="@item.Id" method="post" style="display:inline;">
+                                                <button type="submit" class="btn btn-outline-success" style="margin-left: 3px">Add to Basket<i style="margin-left: 3px" class="fas fa-arrow-right"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </main>
                         }
-                        
-                    </div>
-                }
+                    }
+                </div>
                 <div class="btn-wrap text-center">
-                    <a href="#" class="button-primary">MORE DESTINATION</a>
+                    <a href="#" class="button-primary">VIEW ALL FLIGHTS</a>
                 </div>
             </div>
         </div>
     </section>
+    <!-- packages html end -->
+
+
     <section class="home-about-section">
         <div class="container">
             <div class="row">
@@ -120,15 +164,15 @@
                                 <a href="#" class="button-primary">LEARN MORE</a>
                             </div>
                             <div class="about-img">
-                                <img src="~/assets/images/img9.jpg" alt="">
+                                <img src="https://picsum.photos/360/450" alt="">
                             </div>
                         </div>
                         <div class="about-img-right">
                             <div class="about-img">
-                                <img src="~/assets/images/img12.jpg" alt="">
+                                <img src="https://picsum.photos/455/330" alt="">
                             </div>
                             <div class="about-img">
-                                <img src="~/assets/images/img34.jpg" alt="">
+                                <img src="https://picsum.photos/365/305" alt="">
                             </div>
                         </div>
                     </div>
@@ -210,213 +254,7 @@
             </div>
         </div>
     </div>
-    <!-- client html end -->
-    <!-- Home packages section html start -->
-    <section class="package-section bg-light-grey">
-        <div class="container">
-            <div class="section-heading text-center">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <h5>EXPLORE GREAT PLACES</h5>
-                        <h2>POPULAR PACKAGES</h2>
-                        <div class="title-icon-divider"><i class="fas fa-suitcase-rolling"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="package-inner package-inner-list">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="package-wrap package-wrap-list">
-                            <figure class="feature-image">
-                                <a href="#">
-                                    <img src="~/assets/images/img9.jpg" alt="">
-                                </a>
-                                <div class="package-price">
-                                    <h6>
-                                        <span>$1,900 </span> / per person
-                                    </h6>
-                                </div>
-                                <div class="package-meta text-center">
-                                    <ul>
-                                        <li>
-                                            <i class="far fa-clock"></i>
-                                            7D/6N
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-user-friends"></i>
-                                            People: 5
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            Malaysia
-                                        </li>
-                                    </ul>
-                                </div>
-                            </figure>
-                            <div class="package-content">
-                                <h3>
-                                    <a href="#">Sunset view of beautiful lakeside</a>
-                                </h3>
-                                <div class="review-area">
-                                    <span class="review-text">(25 reviews)</span>
-                                    <div class="rating-start" title="Rated 5 out of 5">
-                                        <span style="width: 60%"></span>
-                                    </div>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit luctus nec ullam. Ut elit tellus, luctus nec ullam elit tellpus.</p>
-                                <div class="btn-wrap">
-                                    <a href="#" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
-                                    <a href="#" class="button-text width-6">Wish List<i class="far fa-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="package-wrap package-wrap-list">
-                            <figure class="feature-image">
-                                <a href="#">
-                                    <img src="~/assets/images/img10.jpg" alt="">
-                                </a>
-                                <div class="package-price">
-                                    <h6>
-                                        <span>$1,350 </span> / per person
-                                    </h6>
-                                </div>
-                                <div class="package-meta text-center">
-                                    <ul>
-                                        <li>
-                                            <i class="far fa-clock"></i>
-                                            7D/6N
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-user-friends"></i>
-                                            People: 5
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            Malaysia
-                                        </li>
-                                    </ul>
-                                </div>
-                            </figure>
-                            <div class="package-content">
-                                <h3>
-                                    <a href="#">Holiday to the Oxolotan River</a>
-                                </h3>
-                                <div class="review-area">
-                                    <span class="review-text">(22 reviews)</span>
-                                    <div class="rating-start" title="Rated 5 out of 5">
-                                        <span style="width: 80%"></span>
-                                    </div>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit luctus nec ullam. Ut elit tellus, luctus nec ullam elit tellpus.</p>
-                                <div class="btn-wrap">
-                                    <a href="#" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
-                                    <a href="#" class="button-text width-6">Wish List<i class="far fa-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="package-wrap package-wrap-list">
-                            <figure class="feature-image">
-                                <a href="#">
-                                    <img src="~/assets/images/img11.jpg" alt="">
-                                </a>
-                                <div class="package-price">
-                                    <h6>
-                                        <span>$1,000 </span> / per person
-                                    </h6>
-                                </div>
-                                <div class="package-meta text-center">
-                                    <ul>
-                                        <li>
-                                            <i class="far fa-clock"></i>
-                                            7D/6N
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-user-friends"></i>
-                                            People: 5
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            Malaysia
-                                        </li>
-                                    </ul>
-                                </div>
-                            </figure>
-                            <div class="package-content">
-                                <h3>
-                                    <a href="#">Experience the beauty of island</a>
-                                </h3>
-                                <div class="review-area">
-                                    <span class="review-text">(22 reviews)</span>
-                                    <div class="rating-start" title="Rated 5 out of 5">
-                                        <span style="width: 80%"></span>
-                                    </div>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit luctus nec ullam. Ut elit tellus, luctus nec ullam elit tellpus.</p>
-                                <div class="btn-wrap">
-                                    <a href="#" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
-                                    <a href="#" class="button-text width-6">Wish List<i class="far fa-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="package-wrap">
-                            <figure class="feature-image">
-                                <a href="#">
-                                    <img src="~/assets/images/img9.jpg" alt="">
-                                </a>
-                                <div class="package-price">
-                                    <h6>
-                                        <span>$1,100 </span> / per person
-                                    </h6>
-                                </div>
-                                <div class="package-meta text-center">
-                                    <ul>
-                                        <li>
-                                            <i class="far fa-clock"></i>
-                                            7D/6N
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-user-friends"></i>
-                                            People: 5
-                                        </li>
-                                        <li>
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            Malaysia
-                                        </li>
-                                    </ul>
-                                </div>
-                            </figure>
-                            <div class="package-content">
-                                <h3>
-                                    <a href="#">Vacation to water city of Portugal</a>
-                                </h3>
-                                <div class="review-area">
-                                    <span class="review-text">(22 reviews)</span>
-                                    <div class="rating-start" title="Rated 5 out of 5">
-                                        <span style="width: 100%"></span>
-                                    </div>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit luctus nec ullam. Ut elit tellus, luctus nec ullam elit tellpus.</p>
-                                <div class="btn-wrap">
-                                    <a href="#" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
-                                    <a href="#" class="button-text width-6">Wish List<i class="far fa-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="btn-wrap text-center">
-                    <a href="#" class="button-primary">VIEW ALL PACKAGES</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- packages html end -->
+    
     <!-- Home activity section html start -->
     <section class="activity-section activity-bg-image" style="background-image: url(assets/images/img29.jpg);">
         <div class="container">

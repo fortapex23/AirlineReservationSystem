@@ -22,31 +22,31 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			return View(datas);
 		}
 
-		public async Task<IActionResult> Detail(int id)
-		{
-			AirportGetVM data = null;
-			try
-			{
-				data = await _crudService.GetByIdAsync<AirportGetVM>($"/Airports/{id}", id);
-			}
-			//catch (BadrequestException ex)
-			//{
-			//	TempData["Err"] = ex.Message;
-			//	return View("Error");
-			//}
-			//catch (ModelNotFoundException ex)
-			//{
-			//	TempData["Err"] = ex.Message;
-			//	return View("Error");
-			//}
-			catch (Exception ex)
-			{
-				TempData["Err"] = ex.Message;
-				return View("Error");
-			}
+		//public async Task<IActionResult> Detail(int id)
+		//{
+		//	AirportGetVM data = null;
+		//	try
+		//	{
+		//		data = await _crudService.GetByIdAsync<AirportGetVM>($"/Airports/{id}", id);
+		//	}
+		//	//catch (BadrequestException ex)
+		//	//{
+		//	//	TempData["Err"] = ex.Message;
+		//	//	return View("Error");
+		//	//}
+		//	//catch (ModelNotFoundException ex)
+		//	//{
+		//	//	TempData["Err"] = ex.Message;
+		//	//	return View("Error");
+		//	//}
+		//	catch (Exception ex)
+		//	{
+		//		TempData["Err"] = ex.Message;
+		//		return View("Error");
+		//	}
 
-			return View(data);
-		}
+		//	return View(data);
+		//}
 
 		public IActionResult Create()
 		{

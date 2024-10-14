@@ -7,23 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\admin\fonts\.DS_Store" />
-    <None Include="wwwroot\admin\fonts\Roboto\.DS_Store" />
-    <None Include="wwwroot\admin\images\.DS_Store" />
-    <None Include="wwwroot\admin\images\auth\.DS_Store" />
-    <None Include="wwwroot\admin\images\faces\.DS_Store" />
-    <None Include="wwwroot\admin\js\.DS_Store" />
-    <None Include="wwwroot\admin\pages\.DS_Store" />
-    <None Include="wwwroot\admin\pages\charts\.DS_Store" />
-    <None Include="wwwroot\admin\pages\forms\.DS_Store" />
-    <None Include="wwwroot\admin\pages\icons\.DS_Store" />
-    <None Include="wwwroot\admin\pages\samples\.DS_Store" />
-    <None Include="wwwroot\admin\pages\tables\.DS_Store" />
-    <None Include="wwwroot\admin\pages\ui-features\.DS_Store" />
-    <None Include="wwwroot\admin\scss\.DS_Store" />
-    <None Include="wwwroot\admin\scss\components\.DS_Store" />
-    <None Include="wwwroot\admin\scss\mixins\.DS_Store" />
-    <None Include="wwwroot\admin\vendors\.DS_Store" />
     <None Include="wwwroot\login\.sass-cache\21880c0ffe15753a53f8402e9f64e1077e071510\style.scssc" />
     <None Include="wwwroot\login\.sass-cache\2866be86c578bb583fbf023501bb9fd24cc3bf22\extend.scssc" />
     <None Include="wwwroot\login\.sass-cache\2866be86c578bb583fbf023501bb9fd24cc3bf22\fonts.scssc" />

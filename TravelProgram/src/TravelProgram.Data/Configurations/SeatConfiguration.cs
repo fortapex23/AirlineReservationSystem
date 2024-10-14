@@ -17,7 +17,7 @@ namespace TravelProgram.Data.Configurations
 			builder.HasOne(s => s.Plane)
 				   .WithMany(p => p.Seats)
 				   .HasForeignKey(s => s.PlaneId)
-				   .OnDelete(DeleteBehavior.Restrict);
+				   .OnDelete(DeleteBehavior.Cascade);
 
 			builder.HasOne(s => s.Flight)
 				   .WithMany(s => s.Seats)

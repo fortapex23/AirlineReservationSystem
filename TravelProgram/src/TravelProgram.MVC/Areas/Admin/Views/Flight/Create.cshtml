@@ -1,0 +1,61 @@
+﻿@using TravelProgram.MVC.Areas.Admin.ViewModels.FlightVMs
+@using TravelProgram.MVC.ViewModels.AirportVMs
+@using TravelProgram.MVC.ViewModels.PlaneVMs
+
+@model FlightCreateVM
+
+@{
+    List<AirlineGetVM> airlines = ViewBag.Airlines;
+    List<AirportGetVM> airports = ViewBag.Airports;
+    List<PlaneGetVM> planes = ViewBag.Planes;
+}
+
+<div style="margin-left: 280px; margin-top: 50px" class="container-fluid">
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Flight Number</label>
+            <input asp-for="FlightNumber" class="form-control" style="width: 40%" placeholder="Enter FlightNumber">
+            <span asp-validation-for="FlightNumber" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Seat Price</label>
+            <input asp-for="SeatPrice" class="form-control" style="width: 40%" placeholder="Enter SeatPrice">
+            <span asp-validation-for="SeatPrice" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">DepartureAirport</label>
+            <select class="form-control" asp-for="DepartureAirportId" asp-items="@(new SelectList(airports, "Id", "Name"))">
+                <option selected disabled>choose DepartureAirport</option>
+            </select>
+            <span asp-validation-for="DepartureAirportId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">ArrivalAirport</label>
+            <select class="form-control" asp-for="ArrivalAirportId" asp-items="@(new SelectList(airports, "Id", "Name"))">
+                <option selected disabled>choose ArrivalAirport</option>
+            </select>
+            <span asp-validation-for="ArrivalAirportId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Plane</label>
+            <select class="form-control" asp-for="PlaneId" asp-items="@(new SelectList(planes, "Id", "Name"))">
+                <option selected disabled>choose Plane</option>
+            </select>
+            <span asp-validation-for="PlaneId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Departure Time</label>
+            <input asp-for="DepartureTime" class="form-control" style="width: 40%" placeholder="Enter DepartureTime">
+            <span asp-validation-for="DepartureTime" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Arrival Time</label>
+            <input asp-for="ArrivalTime" class="form-control" style="width: 40%" placeholder="Enter ArrivalTime">
+            <span asp-validation-for="ArrivalTime" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button asp-action="" class="btn btn-warning">Cancel</button>
+    </form>
+</div>

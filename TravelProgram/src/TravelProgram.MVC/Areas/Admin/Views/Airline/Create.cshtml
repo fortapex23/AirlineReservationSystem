@@ -1,0 +1,22 @@
+﻿@model AirlineCreateVM
+
+<div style="margin-left: 280px; margin-top: 50px" class="container-fluid">
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" style="width: 40%" placeholder="Enter Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Country</label>
+            <select asp-for="Country" class="form-control" asp-items="Html.GetEnumSelectList<Countries>()" style="width: 40%">
+                <option value="" selected disabled>Select Country</option>
+            </select>
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button asp-action="" class="btn btn-warning">Cancel</button>
+    </form>
+</div>

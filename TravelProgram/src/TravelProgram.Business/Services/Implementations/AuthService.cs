@@ -125,7 +125,7 @@ namespace TravelProgram.Business.Services.Implementations
 			List<Claim> claims = new List<Claim>()
 			{
 				new Claim(ClaimTypes.NameIdentifier, appUser.Id),
-				new Claim(ClaimTypes.Name, appUser.UserName),
+				new Claim(ClaimTypes.Name, appUser.FullName),
 			};
 
 			if (roles.Contains("Admin"))

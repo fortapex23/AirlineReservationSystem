@@ -1,218 +1,164 @@
 ﻿﻿﻿
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Majestic Admin</title>
-	<!-- plugins:css -->
-	<link rel="stylesheet" href="~/admin/vendors/mdi/css/materialdesignicons.min.css">
-	<link rel="stylesheet" href="~/admin/vendors/base/vendor.bundle.base.css">
-	<!-- endinject -->
-	<!-- plugin css for this page -->
-	<link rel="stylesheet" href="~/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<!-- End plugin css for this page -->
-	<!-- inject:css -->
-	<link rel="stylesheet" href="~/admin/css/style.css">
-	<!-- endinject -->
-	<link rel="shortcut icon" href="~/admin/images/favicon.png" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Travel Admin Panel</title>
+    <link rel="shortcut icon" type="image/png" href="~/admin/images/logos/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/admin/css/styles.min.css" />
 </head>
+
 <body>
-	<div class="container-scroller">
-		@* <div class="row p-0 m-0 proBanner" id="proBanner">
-		<div class="col-md-12 p-0 m-0">
-		<div class="card-body card-body-padding d-flex align-items-center justify-content-between">
-		<div class="ps-lg-1">
-		<div class="d-flex align-items-center justify-content-between">
-		<p class="mb-0 font-weight-medium me-3 buy-now-text">Free 24/7 customer support, updates, and more with this template!</p>
-		<a href="https://www.bootstrapdash.com/product/majestic-admin-pro/?utm_source=organic&utm_medium=banner&utm_campaign=buynow_demo" target="_blank" class="btn me-2 buy-now-btn border-0">Get Pro</a>
-		</div>
-		</div>
-		<div class="d-flex align-items-center justify-content-between">
-		<a href="https://www.bootstrapdash.com/product/majestic-admin-pro/"><i class="mdi mdi-home me-3 text-white"></i></a>
-		<button id="bannerClose" class="btn border-0 p-0">
-		<i class="mdi mdi-close text-white me-0"></i>
-		</button>
-		</div>
-		</div>
-		</div>
-		</div> *@
-		<!-- partial:partials/_navbar.html -->
-		<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-			<div class="navbar-brand-wrapper d-flex justify-content-center">
-				<div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
-					<a class="navbar-brand brand-logo" href="index.html"><img src="~/admin/images/logo.svg" alt="logo" /></a>
-					<a class="navbar-brand brand-logo-mini" href="index.html"><img src="~/admin/images/logo-mini.svg" alt="logo" /></a>
-					<button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-						<span class="mdi mdi-sort-variant"></span>
-					</button>
-				</div>
-			</div>
-			<div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-				<ul class="navbar-nav mr-lg-4 w-100">
-					<li class="nav-item nav-search d-none d-lg-block w-100">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="search">
-									<i class="mdi mdi-magnify"></i>
-								</span>
-							</div>
-							<input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search">
-						</div>
-					</li>
-				</ul>
-				<ul class="navbar-nav navbar-nav-right">
-					<li class="nav-item dropdown me-1">
-						<a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-bs-toggle="dropdown">
-							<i class="mdi mdi-message-text mx-0"></i>
-							<span class="count"></span>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
-							<p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-							<a class="dropdown-item">
-								<div class="item-thumbnail">
-									<img src="~/admin/images/faces/face4.jpg" alt="image" class="profile-pic">
-								</div>
-								<div class="item-content flex-grow">
-									<h6 class="ellipsis font-weight-normal">
-										David Grey
-									</h6>
-									<p class="font-weight-light small-text text-muted mb-0">
-										The meeting is cancelled
-									</p>
-								</div>
-							</a>
-							<a class="dropdown-item">
-								<div class="item-thumbnail">
-									<img src="~/admin/images/faces/face2.jpg" alt="image" class="profile-pic">
-								</div>
-								<div class="item-content flex-grow">
-									<h6 class="ellipsis font-weight-normal">
-										Tim Cook
-									</h6>
-									<p class="font-weight-light small-text text-muted mb-0">
-										New product launch
-									</p>
-								</div>
-							</a>
-							<a class="dropdown-item">
-								<div class="item-thumbnail">
-									<img src="~/admin/images/faces/face3.jpg" alt="image" class="profile-pic">
-								</div>
-								<div class="item-content flex-grow">
-									<h6 class="ellipsis font-weight-normal">
-										Johnson
-									</h6>
-									<p class="font-weight-light small-text text-muted mb-0">
-										Upcoming board meeting
-									</p>
-								</div>
-							</a>
-						</div>
-					</li>
-					<li class="nav-item dropdown me-4">
-						<a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-							<i class="mdi mdi-bell mx-0"></i>
-							<span class="count"></span>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
-							<p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-							<a class="dropdown-item">
-								<div class="item-thumbnail">
-									<div class="item-icon bg-success">
-										<i class="mdi mdi-information mx-0"></i>
-									</div>
-								</div>
-								<div class="item-content">
-									<h6 class="font-weight-normal">Application Error</h6>
-									<p class="font-weight-light small-text mb-0 text-muted">
-										Just now
-									</p>
-								</div>
-							</a>
-							<a class="dropdown-item">
-								<div class="item-thumbnail">
-									<div class="item-icon bg-warning">
-										<i class="mdi mdi-settings mx-0"></i>
-									</div>
-								</div>
-								<div class="item-content">
-									<h6 class="font-weight-normal">Settings</h6>
-									<p class="font-weight-light small-text mb-0 text-muted">
-										Private message
-									</p>
-								</div>
-							</a>
-							<a class="dropdown-item">
-								<div class="item-thumbnail">
-									<div class="item-icon bg-info">
-										<i class="mdi mdi-account-box mx-0"></i>
-									</div>
-								</div>
-								<div class="item-content">
-									<h6 class="font-weight-normal">New user registration</h6>
-									<p class="font-weight-light small-text mb-0 text-muted">
-										2 days ago
-									</p>
-								</div>
-							</a>
-						</div>
-					</li>
-					<li class="nav-item nav-profile dropdown">
-						<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-							<span class="nav-profile-name">@ViewBag.UserName</span>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-							<a class="dropdown-item">
-								<i class="mdi mdi-settings text-primary"></i>
-								Settings
-							</a>
-							<a class="dropdown-item">
-								<i class="mdi mdi-logout text-primary"></i>
-								Logout
-							</a>
-						</div>
-					</li>
-				</ul>
-				<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-					<span class="mdi mdi-menu"></span>
-				</button>
-			</div>
-		</nav>
-		<!-- partial -->
-		<div class="container-fluid page-body-wrapper">
-			<!-- partial:partials/_sidebar.html -->
-			<nav class="sidebar sidebar-offcanvas" id="sidebar">
-				<ul class="nav">
-					<li class="nav-item">
-						<a class="nav-link" asp-controller="home" asp-action="">
-							<i class="mdi mdi-home menu-icon"></i>
-							<span class="menu-title">Home</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-controller="airport" asp-action="">
-							<i class="mdi mdi-circle-outline menu-icon"></i>
-							<span class="menu-title">Airports</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-controller="airline" asp-action="">
-							<i class="mdi mdi-circle-outline menu-icon"></i>
-							<span class="menu-title">Airlines</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" asp-controller="showtime" asp-action="">
-							<i class="mdi mdi-circle-outline menu-icon"></i>
-							<span class="menu-title">Showtimes</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div>
+                <div class="brand-logo d-flex align-items-center justify-content-between">
+                    <a class="text-nowrap logo-img">
+                        <img src="~/admin/images/logos/dark-logo.svg" width="180" alt="" />
+                    </a>
+                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                        <i class="ti ti-x fs-8"></i>
+                    </div>
+                </div>
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Home</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-action="index" asp-controller="home" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-layout-dashboard"></i>
+                                </span>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">MODEL CRUDS</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-controller="flight" asp-action="" aria-expanded="false">
+                                <span>
+                                    <i class="fa-solid fa-business-time"></i>
+                                </span>
+                                <span class="hide-menu">Flights</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-controller="plane" asp-action="" aria-expanded="false">
+                                <span>
+                                    <i class="fa-solid fa-plane"></i>
+                                </span>
+                                <span class="hide-menu">Planes</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-controller="airline" asp-action="" aria-expanded="false">
+                                <span>
+                                    <i class="fa-solid fa-wind"></i>
+                                </span>
+                                <span class="hide-menu">Airlines</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-controller="airport" asp-action="" aria-expanded="false">
+                                <span>
+                                    <i class="fa-solid fa-building"></i>
+                                </span>
+                                <span class="hide-menu">Airports</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-typography"></i>
+                                </span>
+                                <span class="hide-menu">Typography</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">AUTH</span>
+                        </li>
+                        @if (ViewBag.FullName is not null)
+                        {
+                            @ViewBag.FullName
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-controller="auth" asp-action="logout" aria-expanded="false">
+                                    <span>
+                                        <i class="ti ti-login"></i>
+                                    </span>
+                                    <span class="hide-menu">Logout</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-controller="auth" asp-action="adminlogin" aria-expanded="false">
+                                    <span>
+                                        <i class="fa-solid fa-right-to-bracket"></i>
+                                    </span>
+                                    <span class="hide-menu">Login</span>
+                                </a>
+                            </li>
+                        }
+                        @* <li class="sidebar-item">
+                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-user-plus"></i>
+                                </span>
+                                <span class="hide-menu">Register</span>
+                            </a>
+                        </li> *@
+                        @* <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">EXTRA</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-mood-happy"></i>
+                                </span>
+                                <span class="hide-menu">Icons</span>
+                            </a>
+                        </li> *@
+                        @* <li class="sidebar-item">
+                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-aperture"></i>
+                                </span>
+                                <span class="hide-menu">Sample Page</span>
+                            </a>
+                        </li> *@
+                    </ul>
+                    @* <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
+                        <div class="d-flex">
+                            <div class="unlimited-access-title me-3">
+                                <h6 class="fw-semibold fs-4 mb-6 text-dark w-85">Upgrade to pro</h6>
+                                <a href="https://adminmart.com/product/modernize-bootstrap-5-admin-template/" target="_blank" class="btn btn-primary fs-2 fw-semibold lh-sm">Buy Pro</a>
+                            </div>
+                            <div class="unlimited-access-img">
+                                <img src="~/admin/images/backgrounds/rocket.png" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div> *@
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!--  Sidebar End -->
 			@RenderBody()
 		</div>
 		<!-- page-body-wrapper ends -->

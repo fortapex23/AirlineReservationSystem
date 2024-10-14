@@ -15,6 +15,7 @@ namespace TravelProgram.Business
 			services.AddScoped<IFlightService, FlightService>();
 			services.AddScoped<ISeatService, SeatService>();
 			services.AddScoped<IBookingService, BookingService>();
-		}
+			services.AddScoped<IBasketItemService, BasketItemService>();
+        }
 	}
 }

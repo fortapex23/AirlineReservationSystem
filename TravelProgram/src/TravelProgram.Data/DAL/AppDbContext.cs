@@ -16,6 +16,7 @@ namespace TravelProgram.Data.DAL
 		public DbSet<Flight> Flights { get; set; }
 		public DbSet<Plane> Planes { get; set; }
 		public DbSet<Seat> Seats { get; set; }
+		public DbSet<BasketItem> BasketItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
 		{

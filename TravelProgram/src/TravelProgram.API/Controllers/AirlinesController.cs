@@ -22,7 +22,7 @@ namespace TravelProgram.API.Controllers
 		{
 			return Ok(new ApiResponse<ICollection<AirlineGetDto>>
 			{
-				Data = await _AirlineService.GetByExpression(true, null, "Planes", "Flights"),
+				Data = await _AirlineService.GetByExpression(true, null, "Planes"),
 				ErrorMessage = null,
 				StatusCode = StatusCodes.Status200OK
 			});
@@ -55,7 +55,7 @@ namespace TravelProgram.API.Controllers
 			AirlineGetDto dto = null;
 			try
 			{
-				dto = await _AirlineService.GetSingleByExpression(true, x=>x.Id == id, "Planes", "Flights");
+				dto = await _AirlineService.GetSingleByExpression(true, x=>x.Id == id, "Planes");
 			}
 			catch (Exception ex)
 			{

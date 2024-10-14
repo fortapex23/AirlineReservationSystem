@@ -16,10 +16,6 @@ namespace TravelProgram.Data.Configurations
 				   .HasForeignKey(p => p.AirlineId)
 				   .OnDelete(DeleteBehavior.Restrict);
 
-			builder.HasMany(a => a.Flights)
-				   .WithOne(f => f.Airline)
-				   .HasForeignKey(f => f.AirlineId)
-				   .OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }

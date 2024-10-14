@@ -54,7 +54,7 @@ namespace TravelProgram.MVC.Services.Implementations
             return response.Data.Data;
         }
 
-        public async Task<T> GetByIdAsync<T>(string endpoint, int id)
+        public async Task<T> GetByIdAsync<T>(string endpoint, int? id)
         {
             if (id < 1) throw new Exception();
             var request = new RestRequest(endpoint, Method.Get);
@@ -99,5 +99,27 @@ namespace TravelProgram.MVC.Services.Implementations
                 }
             }
         }
+
+        public async Task<bool> IsExist(string endpoint, int? id)
+        {
+            if (id < 1) throw new ArgumentException("Invalid Id");
+
+            var request = new RestRequest($"{endpoint}/{id}", Method.Get);
+            var response = await _restClient.ExecuteAsync(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+            else
+            {
+                throw new Exception($"Error checking existence. Status code: {response.StatusCode}, Message: {response.Content}");
+            }
+        }
+
     }
 }

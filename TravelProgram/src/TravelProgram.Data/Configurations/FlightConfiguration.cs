@@ -22,10 +22,6 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
 			   .HasForeignKey(f => f.ArrivalAirportId)
 			   .OnDelete(DeleteBehavior.Restrict);
 
-		builder.HasOne(f => f.Airline)
-			   .WithMany(a => a.Flights)
-			   .HasForeignKey(f => f.AirlineId);
-
 		builder.HasOne(f => f.Plane)
 			   .WithMany(p => p.Flights)
 			   .HasForeignKey(f => f.PlaneId)

@@ -217,4 +217,41 @@ $(document).on('click','.minus-btn',function(e){
   }
 });
 
-})( jQuery );
+})(jQuery);
+
+
+/*my code*/
+
+// Attach event listener to the form submission
+document.getElementById('searchForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent the form from submitting the default way
+
+    var form = this;
+    var formData = new FormData(form);
+
+    // AJAX request
+    fetch(form.action, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json()) // Expect JSON from the server
+        .then(data => {
+            // Clear previous validation messages
+            var validationSummary = document.getElementById('validation-summary');
+            validationSummary.innerHTML = '';
+
+            if (data.success) {
+                // Success handling (e.g., display search results)
+                console.log('Search successful');
+            } else {
+                // Display validation errors
+                data.errors.forEach(function (error) {
+                    var errorItem = document.createElement('li');
+                    errorItem.textContent = error;
+                    validationSummary.appendChild(errorItem);
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+

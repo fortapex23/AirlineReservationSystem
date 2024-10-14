@@ -15,9 +15,6 @@ namespace TravelProgram.MVC.ViewModels.FlightVMs
         public string DepartureAirportCity { get; set; }
         public int ArrivalAirportId { get; set; }
         public string ArrivalAirportCity { get; set; }
-        public int AirlineId { get; set; }
-        public string AirlineName { get; set; }
-        public string AirlineCountry { get; set; }
         public int PlaneId { get; set; }
         public string PlaneName { get; set; }
         public DateTime DepartureTime { get; set; }
@@ -25,7 +22,6 @@ namespace TravelProgram.MVC.ViewModels.FlightVMs
 
         public AirportGetVM DepartureAirport { get; set; }
         public AirportGetVM ArrivalAirport { get; set; }
-        public AirlineGetVM Airline { get; set; }
         public PlaneGetVM Plane { get; set; }
 
         public ICollection<BookingGetVM> Bookings { get; set; }
