@@ -47,6 +47,20 @@ namespace TravelProgram.Business.Services.Implementations
             await _basketItemRepository.CommitAsync();
         }
 
+        public async Task RemoveFromBasketAsync(string appUserId, int flightId)
+        {
+            var basketItem = _basketItemRepository
+                .GetByExpression(false, b => b.AppUserId == appUserId && b.FlightId == flightId)
+                .FirstOrDefault();
+
+            if (basketItem != null)
+            {
+                _basketItemRepository.Delete(basketItem);
+                await _basketItemRepository.CommitAsync();
+            }
+        }
+
+
         public IQueryable<BasketItemDTO> GetBasketItems(string appUserId)
         {
             return _basketItemRepository

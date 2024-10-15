@@ -46,5 +46,19 @@ namespace TravelProgram.API.Controllers
 
             return Ok(basketItems);
         }
+
+        [HttpPost("remove")]
+        public async Task<IActionResult> RemoveFromBasket(string appUserId, int flightId)
+        {
+            try
+            {
+                await _basketItemService.RemoveFromBasketAsync(appUserId, flightId);
+                return Ok("Flight removed from basket successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to remove flight from the basket: {ex.Message}");
+            }
+        }
     }
 }

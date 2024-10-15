@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\wwwroot\\assets\\js\\wishlist.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\wwwroot\\assets\\js\\wishlist.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\views\\wishlist\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\views\\wishlist\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\wwwroot\\assets\\js\\wishlist.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\wwwroot\\assets\\js\\wishlist.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\controllers\\wishlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,24 +19,12 @@
       "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\viewmodels\\basketitemvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\viewmodels\\basketitemvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\viewmodels\\wishlistvms\\wishlistvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\viewmodels\\wishlistvms\\wishlistvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\views\\wishlist\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\views\\wishlist\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{993A0895-EFC7-4652-804A-0117D3199B0D}|src\\TravelProgram.API\\TravelProgram.API.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.api\\controllers\\basketitemcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -45,6 +33,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.business\\services\\implementations\\basketitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|solutionrelative:src\\travelprogram.business\\services\\implementations\\basketitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.business\\services\\interfaces\\ibasketitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|solutionrelative:src\\travelprogram.business\\services\\interfaces\\ibasketitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\viewmodels\\wishlistvms\\wishlistvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\viewmodels\\wishlistvms\\wishlistvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.mvc\\viewmodels\\basketitemvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31173EA9-ACF4-4650-AF28-8EA5A0EC9134}|src\\TravelProgram.MVC\\TravelProgram.MVC.csproj|solutionrelative:src\\travelprogram.mvc\\viewmodels\\basketitemvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{167068DD-5A01-43F5-B7B8-A66593D43CAE}|src\\TravelProgram.Core\\TravelProgram.Core.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.core\\models\\basketitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -63,10 +67,6 @@
       "RelativeMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|solutionrelative:src\\travelprogram.business\\serviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.business\\services\\interfaces\\ibasketitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|solutionrelative:src\\travelprogram.business\\services\\interfaces\\ibasketitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.business\\dtos\\basketitemdtos\\basketitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{810A06BC-91A3-4E1C-A5D4-8C23F1A3A790}|src\\TravelProgram.Business\\TravelProgram.Business.csproj|solutionrelative:src\\travelprogram.business\\dtos\\basketitemdtos\\basketitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -83,12 +83,12 @@
       "RelativeMoniker": "D:0:0:{759001B9-732D-43B2-9CA3-3DAB0E79D96D}|src\\TravelProgram.Data\\TravelProgram.Data.csproj|solutionrelative:src\\travelprogram.data\\dal\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Data\\Repositories\\BasketItemRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\TravelProgram.Data\\Repositories\\BasketItemRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{759001B9-732D-43B2-9CA3-3DAB0E79D96D}|src\\TravelProgram.Data\\TravelProgram.Data.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.data\\repositories\\basketitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{759001B9-732D-43B2-9CA3-3DAB0E79D96D}|src\\TravelProgram.Data\\TravelProgram.Data.csproj|solutionrelative:src\\travelprogram.data\\repositories\\basketitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Core\\Repositories\\IBasketItemRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\TravelProgram.Core\\Repositories\\IBasketItemRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{167068DD-5A01-43F5-B7B8-A66593D43CAE}|src\\TravelProgram.Core\\TravelProgram.Core.csproj|c:\\users\\lenovo\\desktop\\airlinereservationsystem\\travelprogram\\src\\travelprogram.core\\repositories\\ibasketitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{167068DD-5A01-43F5-B7B8-A66593D43CAE}|src\\TravelProgram.Core\\TravelProgram.Core.csproj|solutionrelative:src\\travelprogram.core\\repositories\\ibasketitemrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -98,8 +98,21 @@
       "DocumentGroups": [
         {
           "DockedHeight": 308,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "wishlist.js",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\assets\\js\\wishlist.js",
+              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\wwwroot\\assets\\js\\wishlist.js",
+              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\assets\\js\\wishlist.js",
+              "RelativeToolTip": "src\\TravelProgram.MVC\\wwwroot\\assets\\js\\wishlist.js",
+              "ViewState": "AQIAABcBAAAAAAAAAAAUwCkBAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-10-14T16:56:00.823Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -108,74 +121,9 @@
               "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Controllers\\WishListController.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Controllers\\WishListController.cs",
               "RelativeToolTip": "src\\TravelProgram.MVC\\Controllers\\WishListController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "ViewState": "AQIAACwAAAAAAAAAAAAkwDsAAABDAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-14T20:05:05.466Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BaseController.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Controllers\\BaseController.cs",
-              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Controllers\\BaseController.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Controllers\\BaseController.cs",
-              "RelativeToolTip": "src\\TravelProgram.MVC\\Controllers\\BaseController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAgwAoAAAAkAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T20:02:08.309Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\WishList\\Index.cshtml",
-              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Views\\WishList\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\WishList\\Index.cshtml",
-              "RelativeToolTip": "src\\TravelProgram.MVC\\Views\\WishList\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-14T18:04:40.933Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "wishlist.js",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\assets\\js\\wishlist.js",
-              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\wwwroot\\assets\\js\\wishlist.js",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\assets\\js\\wishlist.js",
-              "RelativeToolTip": "src\\TravelProgram.MVC\\wwwroot\\assets\\js\\wishlist.js",
-              "ViewState": "AQIAADwAAAAAAAAAAAAkwEYAAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-10-14T16:56:00.823Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "BasketItemVM.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\ViewModels\\BasketItemVM.cs",
-              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\ViewModels\\BasketItemVM.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\ViewModels\\BasketItemVM.cs",
-              "RelativeToolTip": "src\\TravelProgram.MVC\\ViewModels\\BasketItemVM.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T13:37:29.254Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "WishListVM.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\ViewModels\\WishListVMs\\WishListVM.cs",
-              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\ViewModels\\WishListVMs\\WishListVM.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\ViewModels\\WishListVMs\\WishListVM.cs",
-              "RelativeToolTip": "src\\TravelProgram.MVC\\ViewModels\\WishListVMs\\WishListVM.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T11:00:48.712Z",
               "EditorCaption": ""
             },
             {
@@ -186,20 +134,46 @@
               "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Controllers\\HomeController.cs",
               "RelativeToolTip": "src\\TravelProgram.MVC\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAABwAAAAAAAAAAAAQwCYAAABVAAAA",
+              "ViewState": "AQIAALYAAAAAAAAAAAAkwKgAAABdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-13T19:10:38.042Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "src\\TravelProgram.MVC\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAJwBAAAAynEcx6wUwKwBAABNAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-13T19:31:55.347Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\WishList\\Index.cshtml",
+              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Views\\WishList\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\WishList\\Index.cshtml",
+              "RelativeToolTip": "src\\TravelProgram.MVC\\Views\\WishList\\Index.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T18:04:40.933Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "src\\TravelProgram.MVC\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABwAAAA",
+              "ViewState": "AQIAAPoAAAAAAAAAAAAUwAEBAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-10-13T19:10:59.672Z",
               "EditorCaption": ""
@@ -207,45 +181,82 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "src\\TravelProgram.MVC\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAJkBAAAgynEcx6wUwKkBAAA7AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-13T19:31:55.347Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
               "Title": "BasketItemController.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.API\\Controllers\\BasketItemController.cs",
               "RelativeDocumentMoniker": "src\\TravelProgram.API\\Controllers\\BasketItemController.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.API\\Controllers\\BasketItemController.cs",
               "RelativeToolTip": "src\\TravelProgram.API\\Controllers\\BasketItemController.cs",
-              "ViewState": "AQIAABUAAAAAAAAAAAAYwCgAAAANAAAA",
+              "ViewState": "AQIAAB8AAAAAAAAAAAAgwDIAAABZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-13T13:53:23.167Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
               "Title": "BasketItemService.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Business\\Services\\Implementations\\BasketItemService.cs",
               "RelativeDocumentMoniker": "src\\TravelProgram.Business\\Services\\Implementations\\BasketItemService.cs",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Business\\Services\\Implementations\\BasketItemService.cs",
               "RelativeToolTip": "src\\TravelProgram.Business\\Services\\Implementations\\BasketItemService.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAYwBkAAAA5AAAA",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAkwC0AAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-13T13:38:11.112Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IBasketItemService.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Business\\Services\\Interfaces\\IBasketItemService.cs",
+              "RelativeDocumentMoniker": "src\\TravelProgram.Business\\Services\\Interfaces\\IBasketItemService.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Business\\Services\\Interfaces\\IBasketItemService.cs",
+              "RelativeToolTip": "src\\TravelProgram.Business\\Services\\Interfaces\\IBasketItemService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABDAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-13T13:37:27.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "WishListVM.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\ViewModels\\WishListVMs\\WishListVM.cs",
+              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\ViewModels\\WishListVMs\\WishListVM.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\ViewModels\\WishListVMs\\WishListVM.cs",
+              "RelativeToolTip": "src\\TravelProgram.MVC\\ViewModels\\WishListVMs\\WishListVM.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T11:00:48.712Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 11,
+              "Title": "BasketItemVM.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\ViewModels\\BasketItemVM.cs",
+              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\ViewModels\\BasketItemVM.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\ViewModels\\BasketItemVM.cs",
+              "RelativeToolTip": "src\\TravelProgram.MVC\\ViewModels\\BasketItemVM.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T13:37:29.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "src\\TravelProgram.MVC\\Controllers\\BaseController.cs",
+              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "src\\TravelProgram.MVC\\Controllers\\BaseController.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAgwAoAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T20:02:08.309Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "BasketItem.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Core\\Models\\BasketItem.cs",
               "RelativeDocumentMoniker": "src\\TravelProgram.Core\\Models\\BasketItem.cs",
@@ -253,12 +264,11 @@
               "RelativeToolTip": "src\\TravelProgram.Core\\Models\\BasketItem.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-13T12:50:08.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-13T12:50:08.266Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.API\\Program.cs",
               "RelativeDocumentMoniker": "src\\TravelProgram.API\\Program.cs",
@@ -266,12 +276,11 @@
               "RelativeToolTip": "src\\TravelProgram.API\\Program.cs",
               "ViewState": "AQIAACkAAAAAAAAAAAAkwDoAAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T09:56:34.887Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-14T09:56:34.887Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "ServiceRegistration.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Business\\ServiceRegistration.cs",
               "RelativeDocumentMoniker": "src\\TravelProgram.Business\\ServiceRegistration.cs",
@@ -283,7 +292,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "ServiceRegistration.cs",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Data\\ServiceRegistration.cs",
               "RelativeDocumentMoniker": "src\\TravelProgram.Data\\ServiceRegistration.cs",
@@ -316,18 +325,6 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-13T13:57:18.777Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "IBasketItemService.cs",
-              "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Business\\Services\\Interfaces\\IBasketItemService.cs",
-              "RelativeDocumentMoniker": "src\\TravelProgram.Business\\Services\\Interfaces\\IBasketItemService.cs",
-              "ToolTip": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.Business\\Services\\Interfaces\\IBasketItemService.cs",
-              "RelativeToolTip": "src\\TravelProgram.Business\\Services\\Interfaces\\IBasketItemService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAABDAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-13T13:37:27.2Z"
             },
             {
               "$type": "Document",

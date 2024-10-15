@@ -7,6 +7,7 @@ namespace TravelProgram.Business.Services.Interfaces
     {
         Task AddToBasketAsync(string appUserId, int flightId);
         IQueryable<BasketItemDTO> GetBasketItems(string appUserId);
+        Task RemoveFromBasketAsync(string appUserId, int flightId);
     }
 
 }
