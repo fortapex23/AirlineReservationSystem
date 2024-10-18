@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 namespace TravelProgram.Business.DTOs.FlightDTOs
 {
 	public record FlightCreateDto(int FlightNumber, int DepartureAirportId, int ArrivalAirportId, 
-							int PlaneId, decimal SeatPrice, DateTime DepartureTime, DateTime ArrivalTime);
+							int PlaneId, decimal EconomySeatPrice, decimal BusinessSeatPrice, DateTime DepartureTime, DateTime ArrivalTime);
 	public class FlightCreateDtoValidator : AbstractValidator<FlightCreateDto>
 	{
 		public FlightCreateDtoValidator()
@@ -15,10 +15,11 @@ namespace TravelProgram.Business.DTOs.FlightDTOs
 
 			RuleFor(x=>x.ArrivalAirportId).NotNull().NotEmpty();
 
+            RuleFor(x => x.EconomySeatPrice).NotNull().NotEmpty();
 
-			RuleFor(x=>x.SeatPrice).NotNull().NotEmpty();
+            RuleFor(x => x.BusinessSeatPrice).NotNull().NotEmpty();
 
-			RuleFor(x=>x.PlaneId).NotNull().NotEmpty();
+            RuleFor(x=>x.PlaneId).NotNull().NotEmpty();
 
 			RuleFor(x => x.DepartureTime).NotNull().NotEmpty()
 				.GreaterThan(DateTime.Now).WithMessage("Departure time must be greater than the current time.");

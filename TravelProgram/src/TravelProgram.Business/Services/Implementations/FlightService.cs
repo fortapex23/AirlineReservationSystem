@@ -21,47 +21,92 @@ namespace TravelProgram.Business.Services.Implementations
 			_mapper = mapper;
 			_seatRepository = seatRepository;
         }
-		public async Task<FlightGetDto> CreateAsync(FlightCreateDto dto)
-		{
-			var existingFlight = await _flightRepository
-			.GetByExpression(false, x => x.FlightNumber == dto.FlightNumber)
-			.FirstOrDefaultAsync();
 
-			if (existingFlight != null)
-				throw new Exception("A Flight with the same number already exists.");
+        public async Task<ICollection<FlightGetDto>> SearchFlightsAsync(string departureCity, string destinationCity, DateTime? departureTime)
+        {
+            var query = _flightRepository.GetByExpression(true, null, "Bookings", "Seats");
 
-			var flight = _mapper.Map<Flight>(dto);
-			flight.CreatedTime = DateTime.Now;
-			flight.UpdatedTime = DateTime.Now;
+            if (!string.IsNullOrEmpty(departureCity))
+            {
+                if (Enum.TryParse(typeof(AiportCities), departureCity, true, out var departureCityEnum))
+                {
+                    query = query.Where(f => f.DepartureAirport.City == (AiportCities)departureCityEnum);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid departure city: {departureCity}");
+                }
+            }
 
-			await _flightRepository.CreateAsync(flight);
+            if (!string.IsNullOrEmpty(destinationCity))
+            {
+                if (Enum.TryParse(typeof(AiportCities), destinationCity, true, out var destinationCityEnum))
+                {
+                    query = query.Where(f => f.ArrivalAirport.City == (AiportCities)destinationCityEnum);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid destination city: {destinationCity}");
+                }
+            }
 
-			await _flightRepository.CommitAsync();
+            if (departureTime.HasValue)
+            {
+                query = query.Where(f => f.DepartureTime.Date == departureTime.Value.Date);
+            }
 
-			var planeSeats = await _seatRepository
-				.GetByExpression(false, s => s.PlaneId == flight.PlaneId && s.FlightId == null)
-				.ToListAsync();
+            var flights = await query.ToListAsync();
+            return _mapper.Map<ICollection<FlightGetDto>>(flights);
+        }
 
-			foreach (var seat in planeSeats)
-			{
-				seat.FlightId = flight.Id;
+        public async Task<FlightGetDto> CreateAsync(FlightCreateDto dto)
+        {
+            var alreadyFlights = await _flightRepository
+                .GetByExpression(false, f => f.PlaneId == dto.PlaneId &&
+                                             (f.DepartureTime.AddDays(-1) <= dto.DepartureTime && f.ArrivalTime.AddDays(1) >= dto.DepartureTime))
+                .ToListAsync();
 
-				if (seat.ClassType == SeatClassType.Economy)
-				{
-					seat.Price = dto.SeatPrice;
-				}
-				else if (seat.ClassType == SeatClassType.Business)
-				{
-					seat.Price = dto.SeatPrice * 2;
-				}
-			}
+            if (alreadyFlights.Any())
+                throw new Exception("This plane is already assigned to another flight in that time range");
 
-			await _flightRepository.CommitAsync();
+            var existingFlight = await _flightRepository
+                .GetByExpression(false, x => x.FlightNumber == dto.FlightNumber)
+                .FirstOrDefaultAsync();
 
-			return _mapper.Map<FlightGetDto>(flight);
-		}
+            if (existingFlight != null)
+                throw new Exception("A Flight with the same number already exists.");
 
-		public async Task DeleteAsync(int id)
+            var flight = _mapper.Map<Flight>(dto);
+            flight.CreatedTime = DateTime.Now;
+            flight.UpdatedTime = DateTime.Now;
+
+            await _flightRepository.CreateAsync(flight);
+            await _flightRepository.CommitAsync();
+
+            var planeSeats = await _seatRepository
+                .GetByExpression(false, s => s.PlaneId == flight.PlaneId && s.FlightId == null)
+                .ToListAsync();
+
+            foreach (var seat in planeSeats)
+            {
+                seat.FlightId = flight.Id;
+
+                if (seat.ClassType == SeatClassType.Economy)
+                {
+                    seat.Price = dto.EconomySeatPrice;
+                }
+                else if (seat.ClassType == SeatClassType.Business)
+                {
+                    seat.Price = dto.BusinessSeatPrice;
+                }
+            }
+
+            await _flightRepository.CommitAsync();
+
+            return _mapper.Map<FlightGetDto>(flight);
+        }
+
+        public async Task DeleteAsync(int id)
 		{
 			if (id < 1) throw new Exception();
 
@@ -97,26 +142,34 @@ namespace TravelProgram.Business.Services.Implementations
 			return _mapper.Map<FlightGetDto>(flight);
 		}
 
-		public async Task UpdateAsync(int? id, FlightUpdateDto dto)
-		{
-			if (id < 1 || id is null) throw new NullReferenceException("id is invalid");
+        public async Task UpdateAsync(int? id, FlightUpdateDto dto)
+        {
+            if (id < 1 || id is null) throw new NullReferenceException("id is invalid");
 
-			var flight = await _flightRepository.GetByIdAsync((int)id);
-			if (flight == null) throw new Exception("Flight not found");
+            var flight = await _flightRepository.GetByIdAsync((int)id);
+            if (flight == null) throw new Exception("Flight not found");
 
-			var existingFlight = await _flightRepository
-			.GetByExpression(true, t => t.FlightNumber == dto.FlightNumber && t.Id != id)
-			.FirstOrDefaultAsync();
+            var alreadyFlights = await _flightRepository
+                .GetByExpression(false, f => f.PlaneId == dto.PlaneId &&
+                                             f.Id != id &&
+                                             (f.DepartureTime.AddDays(-1) <= dto.DepartureTime && f.ArrivalTime.AddDays(1) >= dto.DepartureTime))
+                .ToListAsync();
 
-			if (existingFlight != null)
-				throw new Exception("a Flight with the same number already exists");
+            if (alreadyFlights.Any())
+                throw new Exception("This plane is already assigned to another flight in that time range");
 
-			_mapper.Map(dto, flight);
+            var existingFlight = await _flightRepository
+                .GetByExpression(true, t => t.FlightNumber == dto.FlightNumber && t.Id != id)
+                .FirstOrDefaultAsync();
 
-			flight.UpdatedTime = DateTime.Now;
+            if (existingFlight != null)
+                throw new Exception("A Flight with the same number already exists.");
 
-			await _flightRepository.CommitAsync();
-		}
+            _mapper.Map(dto, flight);
+            flight.UpdatedTime = DateTime.Now;
+
+            await _flightRepository.CommitAsync();
+        }
 
         public Task<bool> IsExist(Expression<Func<Flight, bool>> expression)
         {

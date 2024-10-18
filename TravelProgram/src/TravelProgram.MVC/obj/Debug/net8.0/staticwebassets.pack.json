@@ -3373,6 +3373,10 @@
       "PackagePath": "staticwebassets\\assets\\images\\user-img.png"
     },
     {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\assets\\js\\addbasket.js",
+      "PackagePath": "staticwebassets\\assets\\js\\addbasket.js"
+    },
+    {
       "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\assets\\js\\custom.js",
       "PackagePath": "staticwebassets\\assets\\js\\custom.js"
     },

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TravelProgram.MVC.Areas.Admin.ViewModels.FlightVMs;
+using TravelProgram.MVC.Controllers;
 using TravelProgram.MVC.Services.Interfaces;
 using TravelProgram.MVC.ViewModels.AirlineVMs;
 using TravelProgram.MVC.ViewModels.AirportVMs;
@@ -9,7 +10,7 @@ using TravelProgram.MVC.ViewModels.PlaneVMs;
 namespace TravelProgram.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class FlightController : Controller
+    public class FlightController : BaseController
     {
         private readonly ICrudService _crudService;
 
@@ -20,6 +21,8 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            SetFullName();
+
             var flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/Flights");
 
             var airports = await _crudService.GetAllAsync<List<AirportGetVM>>("/airports");

@@ -74,7 +74,7 @@ namespace TravelProgram.MVC.Controllers
             var homevm = new HomeVM()
             {
                 FullName = ViewBag.FullName,
-                Flights = flights?.Take(4).ToList(),
+                Flights = flights?.Take(3).ToList(),
             };
 
             return View(homevm);
@@ -201,52 +201,7 @@ namespace TravelProgram.MVC.Controllers
             }
         }
 
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> Search(string departureCity, string destinationCity, string departureTime)
-        //{
-        //    if (string.IsNullOrWhiteSpace(departureCity) || string.IsNullOrWhiteSpace(destinationCity) || string.IsNullOrWhiteSpace(departureTime))
-        //    {
-        //        ModelState.AddModelError("", "All fields must be filled out.");
-
-        //        var homeVM = new HomeVM
-        //        {
-        //            Flights = new List<FlightGetVM>()
-        //        };
-
-        //        return View("Index", homeVM);
-        //    }
-
-        //    var allFlights = await _crudService.GetAllAsync<List<FlightGetVM>>("/Flights");
-
-        //    var filteredFlights = allFlights.Where(f =>
-        //        f.DepartureAirportCity != null && f.DepartureAirportCity.Contains(departureCity) &&
-        //        f.ArrivalAirportCity != null && f.ArrivalAirportCity.Contains(destinationCity) &&
-        //        f.DepartureTime.ToString("MM/dd/yy").Equals(departureTime)
-        //    ).ToList();
-
-        //    if (!filteredFlights.Any())
-        //    {
-        //        ModelState.AddModelError("", "No flights found for the given criteria.");
-
-        //        var homeVM = new HomeVM
-        //        {
-        //            Flights = new List<FlightGetVM>()
-        //        };
-        //        return View("Index", homeVM);
-        //    }
-
-        //    var model = new HomeVM
-        //    {
-        //        Flights = filteredFlights
-        //    };
-
-        //    return View("Index", model); 
-        //}
-
-
-
+        
 
     }
 }

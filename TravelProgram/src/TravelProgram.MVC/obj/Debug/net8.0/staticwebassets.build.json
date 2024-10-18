@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XTxIGJANt1hHixZ2h9GZe/9iZEOSyYp5tofAdoaB+ds=",
+  "Hash": "u6Py2lQ8KEd8YT1K0nckJnWYu+n3+3AqIFIv7pBXWU4=",
   "Source": "TravelProgram.MVC",
   "BasePath": "_content/TravelProgram.MVC",
   "Mode": "Default",
@@ -16051,6 +16051,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\images\\user-img.png"
+    },
+    {
+      "Identity": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\assets\\js\\addbasket.js",
+      "SourceId": "TravelProgram.MVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\",
+      "BasePath": "_content/TravelProgram.MVC",
+      "RelativePath": "assets/js/addbasket.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\js\\addbasket.js"
     },
     {
       "Identity": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\assets\\js\\custom.js",

@@ -1,0 +1,36 @@
+﻿@using TravelProgram.MVC.ViewModels
+
+@model SearchFlightVM
+
+
+<main id="content" class="site-main">
+    
+    @await Html.PartialAsync("_SearchPartialView", new SearchFlightVM())
+
+    <section class="package-section bg-light-grey">
+        <div class="container">
+            <div class="section-heading text-center">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <h5>EXPLORE GREAT CITIES</h5>
+                        <h2>ALL FLIGHTS</h2>
+                        <div class="title-icon-divider"><i class="fas fa-suitcase-rolling"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="package-inner package-inner-list">
+                <div class="row">
+                    @if (Model == null || Model.Flights == null)
+                    {
+                        <h2 style="margin-left: 310px" class="text-danger">NO FLIGHTS AVAILABLE</h2>
+                    }
+                    else
+                    {
+                        @await Html.PartialAsync("_FlightsPartial", new SearchFlightVM());
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- packages html end -->
+</main>

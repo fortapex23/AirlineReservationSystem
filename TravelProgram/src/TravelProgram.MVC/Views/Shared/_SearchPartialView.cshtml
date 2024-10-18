@@ -1,0 +1,65 @@
+﻿@using TravelProgram.MVC.ViewModels
+
+@model SearchFlightVM
+
+<!-- Home slider html start -->
+<section class="home-slider-section">
+    <div class="home-slider">
+        <div class="home-banner-items">
+            <div class="banner-inner-wrap" style="background-image: url(https://picsum.photos/1550/950);"></div>
+            <div class="banner-content-wrap">
+                <div class="container">
+                    <div class="banner-content text-center">
+                        <h2 class="banner-title">TRAVELLING AROUND THE WORLD</h2>
+                        <p>Taciti quasi, sagittis excepteur hymenaeos, id temporibus hic proident ullam, eaque donec delectus tempor consectetur nunc, purus congue? Rem volutpat sodales! Mollit. Minus exercitationem wisi.</p>
+                        <a href="#" class="button-primary">CONTINUE READING</a>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay"></div>
+        </div>
+        <div class="home-banner-items">
+            <div class="banner-inner-wrap" style="background-image: url(https://picsum.photos/1550/950);"></div>
+            <div class="banner-content-wrap">
+                <div class="container">
+                    <div class="banner-content text-center">
+                        <h2 class="banner-title">EXPERIENCE THE NATURE'S BEAUTY</h2>
+                        <p>Taciti quasi, sagittis excepteur hymenaeos, id temporibus hic proident ullam, eaque donec delectus tempor consectetur nunc, purus congue? Rem volutpat sodales! Mollit. Minus exercitationem wisi.</p>
+                        <a href="#" class="button-primary">CONTINUE READING</a>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay"></div>
+        </div>
+    </div>
+</section>
+<!-- slider html start -->
+<!-- Home search field html start -->
+<div class="trip-search-section shape-search-section">
+    <div class="slider-shape"></div>
+    <div class="container">
+        <div class="trip-search-inner white-bg d-flex">
+            <form asp-action="Search" asp-controller="Search" method="get" class="d-flex">
+                <div class="input-group">
+                    <label>Departure City*</label>
+                    <input asp-for="DepartureCity" placeholder="Enter City" />
+                    <span asp-validation-for="DepartureCity" class="text-danger"></span>
+                </div>
+                <div class="input-group">
+                    <label>City Destination*</label>
+                    <input asp-for="DestinationCity" placeholder="Enter Destination" />
+                    <span asp-validation-for="DestinationCity" class="text-danger"></span>
+                </div>
+                <div class="input-group width-col-3">
+                    <label>Departure Time*</label>
+                    <input asp-for="DepartureTime" type="date" />
+                    <span asp-validation-for="DepartureTime" class="text-danger"></span>
+                </div>
+                <div class="input-group width-col-3">
+                    <label class="screen-reader-text">Search</label>
+                    <button style="margin-left: 5px; margin-top: 34px" type="submit">SEARCH NOW</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

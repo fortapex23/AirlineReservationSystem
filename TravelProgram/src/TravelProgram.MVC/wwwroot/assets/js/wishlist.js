@@ -248,61 +248,74 @@
 
 		eachRow.innerHTML = `
             <main style="margin-top: 20px" class="ticket-system">
-                <div class="receipts-wrapper">
-                    <div class="receipts">
-                        <div class="receipt">
-                            <div style="display: flex; justify-content: space-between">
-                                <div>
-                                    <i class="fa-solid fa-plane-departure"></i>
-                                    <a style="font-family: cursive; font-size: large; margin-left: 3px">
-                                        ${plane.airlineName}
-                                    </a>
-                                </div>
-                                <div>
-                                    <a>${new Date(flight.departureTime).toLocaleDateString()}</a>
-                                </div>
-                            </div>
-                            <div class="route">
-                                <h2>${departureCityName}</h2>
-                                <svg class="plane-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 510 510">
-                                    <path fill="#3f32e5" d="M497.25 357v-51l-204-127.5V38.25C293.25 17.85 275.4 0 255 0s-38.25 17.85-38.25 38.25V178.5L12.75 306v51l204-63.75V433.5l-51 38.25V510L255 484.5l89.25 25.5v-38.25l-51-38.25V293.25l204 63.75z" />
-                                </svg>
-                                <h2>${arrivalCityName}</h2>
-                            </div>
-                            <div class="details">
-                                <div class="item">
-                                    <span>Departure</span>
-                                    <h3 style="font-family: Arial; font-size: larger">${new Date(flight.departureTime).toLocaleTimeString()}</h3>
-                                </div>
-                                <div class="item">
-                                    <span>Flight No.</span>
-                                    <h3 style="font-family: Arial; font-size: larger">${flight.flightNumber}</h3>
-                                </div>
-                                <div class="item">
-                                    <span>Arrival</span>
-                                    <h3 style="font-family: Arial; font-size: larger">${new Date(flight.arrivalTime).toLocaleTimeString()}</h3>
-                                </div>
-                                <div class="item">
-                                    <span>Plane</span>
-                                    <h3 style="font-family: Arial; font-size: large">${plane.name}</h3>
-                                </div>
-                                <div class="item">
-                                    <span>Price (Eco)</span>
-                                    <h3 style="font-family: Arial; font-size: larger">$${flight.seatPrice}</h3>
-                                </div>
-                                <div class="item">
-                                    <span>Total Seats</span>
-                                    <h3 style="font-family: Arial; font-size: larger">${flight.seats.length}</h3>
-                                </div>
-                            </div>
+    <div class="receipts-wrapper">
+        <div class="receipts">
+            <div class="receipt">
+                <div style="display: flex; justify-content: space-between">
+                    <div style="display: flex; flex-direction:column">
+                        <div>
+                            <i class="fa-solid fa-plane-departure"></i>
+                            <a style="font-family: cursive; font-size: medium; margin-left: 3px">${plane.airlineName}</a>
                         </div>
-                        <div class="receipt qr-code">
-                            <a class="btn btn-outline-primary">Book Now<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
-                            <button class="btn btn-outline-danger" style="margin-left: 30px" onclick="removeFromBasket(${flight.id})">Remove<i style="margin-left: 3px" class="fas fa-arrow-right"></i></button>
+                        <div>
+                            <i class="fa-solid fa-plane"></i>
+                            <a style="font-family: cursive; font-size: medium; margin-left: 3px">${plane.name}</a>
                         </div>
                     </div>
+                    <div>
+                        <i style="color: red; font-size: 25px; margin-top: 10px" class="fa-solid fa-xmark"></i>
+                    </div>
                 </div>
-            </main>
+                <div class="route">
+                    <h2>${departureCityName}</h2>
+                    <svg class="plane-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 510 510">
+                        <path fill="#3f32e5" d="M497.25 357v-51l-204-127.5V38.25C293.25 17.85 275.4 0 255 0s-38.25 17.85-38.25 38.25V178.5L12.75 306v51l204-63.75V433.5l-51 38.25V510L255 484.5l89.25 25.5v-38.25l-51-38.25V293.25l204 63.75z" />
+                    </svg>
+                    <h2>${arrivalCityName}</h2>
+                </div>
+                <div class="details">
+                    <div style="display: flex; align-items: center; justify-content: center">
+                        <div class="item">
+                            <span>Departure time</span>
+                            <h3 style="font-family: Arial; font-size: larger; margin-left: 15px">${new Date(flight.departureTime).toLocaleDateString()}</h3>
+                        </div>
+                        <div style="margin-left: 30px">
+                            <i style="font-size:large" class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div style="margin-left: 50px" class="item">
+                            <span>Arrival time</span>
+                            <h3 style="font-family: Arial; font-size: larger; margin-left: 8px">${new Date(flight.arrivalTime).toLocaleTimeString()}</h3>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <span>Flight No.</span>
+                        <h3 style="font-family: Arial; font-size: larger">${flight.flightNumber}</h3>
+                    </div>
+                    <div class="item">
+                        <span>Economy Seat</span>
+                        <h3 style="font-family: Arial; font-size: larger">$${flight.EconomySeatPrice}</h3>
+                    </div>
+                    <div class="item">
+                        <span>Business Seat</span>
+                        <h3 style="font-family: Arial; font-size: larger">$${flight.EconomySeatPrice}</h3>
+                    </div>
+                    <div class="item">
+                        <span>Economy Seats</span>
+                        <h3 style="font-family: Arial; font-size: larger">${flight.seats.length}</h3>
+                    </div>
+                    <div class="item">
+                        <span>Business Seats</span>
+                        <h3 style="font-family: Arial; font-size: larger">${flight.seats.length}</h3>
+                    </div>
+                </div>
+            </div>
+            <div style="display:flex;flex-direction:column" class="receipt qr-code">
+                <a class="btn btn-outline-primary">Book Economy Seat $${flight.economySeatPrice}<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
+                <a style="margin-top: 10px" class="btn btn-outline-warning">Book Business Seat $${flight.businessSeatPrice}<i style="margin-left: 6px" class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</main>
         `;
 
 		rowDiv.appendChild(eachRow);

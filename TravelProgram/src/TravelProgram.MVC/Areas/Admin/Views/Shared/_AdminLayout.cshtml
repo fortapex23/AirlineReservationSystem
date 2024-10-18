@@ -92,7 +92,9 @@
                         </li>
                         @if (ViewBag.FullName is not null)
                         {
-                            @ViewBag.FullName
+                            <a style="margin-left: 10px; font-size: 15px; font-weight: 600">
+                                <i class="fa-solid fa-user"></i><a style="margin-left: 15px">@ViewBag.FullName</a>
+                            </a>
                             <li class="sidebar-item">
                                 <a class="sidebar-link" asp-controller="auth" asp-action="logout" aria-expanded="false">
                                     <span>

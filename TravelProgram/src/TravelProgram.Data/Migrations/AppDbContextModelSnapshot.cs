@@ -383,6 +383,9 @@ namespace TravelProgram.Data.Migrations
                     b.Property<DateTime>("ArrivalTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("BusinessSeatPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime2");
 
@@ -392,6 +395,9 @@ namespace TravelProgram.Data.Migrations
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("EconomySeatPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("FlightNumber")
                         .HasColumnType("int");
 
@@ -400,9 +406,6 @@ namespace TravelProgram.Data.Migrations
 
                     b.Property<int>("PlaneId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("SeatPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedTime")
                         .HasColumnType("datetime2");
@@ -429,8 +432,14 @@ namespace TravelProgram.Data.Migrations
                     b.Property<int>("AirlineId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BusinessSeats")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("EconomySeats")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -439,9 +448,6 @@ namespace TravelProgram.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TotalSeats")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedTime")
                         .HasColumnType("datetime2");
@@ -658,7 +664,7 @@ namespace TravelProgram.Data.Migrations
                     b.HasOne("TravelProgram.Core.Models.Flight", "Flight")
                         .WithMany("Seats")
                         .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("TravelProgram.Core.Models.Plane", "Plane")
                         .WithMany("Seats")

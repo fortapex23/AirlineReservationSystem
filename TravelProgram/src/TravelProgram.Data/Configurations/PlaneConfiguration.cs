@@ -9,7 +9,8 @@ namespace TravelProgram.Data.Configurations
 		public void Configure(EntityTypeBuilder<Plane> builder)
 		{
 			builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
-			builder.Property(p => p.TotalSeats).IsRequired();
+			builder.Property(p => p.EconomySeats).IsRequired();
+			builder.Property(p => p.BusinessSeats).IsRequired();
 
 			builder.HasOne(p => p.Airline)
 				   .WithMany(a => a.Planes)

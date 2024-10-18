@@ -18,9 +18,14 @@
             <span asp-validation-for="FlightNumber" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Seat Price</label>
-            <input asp-for="SeatPrice" class="form-control" style="width: 40%" placeholder="Enter SeatPrice">
-            <span asp-validation-for="SeatPrice" class="text-danger"></span>
+            <label class="form-label">Economy Seat Price</label>
+            <input asp-for="EconomySeatPrice" class="form-control" style="width: 40%" placeholder="Enter Economy Price">
+            <span asp-validation-for="EconomySeatPrice" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Business Seat Price</label>
+            <input asp-for="BusinessSeatPrice" class="form-control" style="width: 40%" placeholder="Enter Busines Price">
+            <span asp-validation-for="BusinessSeatPrice" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label class="form-label">DepartureAirport</label>

@@ -89,7 +89,7 @@ namespace TravelProgram.Business.Services.Implementations
 				throw new NullReferenceException();
 			}
 
-			var member = await _userManager.FindByNameAsync(dto.FullName);
+			var member = await _userManager.FindByEmailAsync(dto.Email);
 
 			if (member is not null)
 			{

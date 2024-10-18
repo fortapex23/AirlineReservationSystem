@@ -5,20 +5,18 @@
 namespace TravelProgram.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class PriceToSeatClass : Migration
+    public partial class SeconSeatClassPriceAdded2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "Price",
-                table: "Seats",
-                type: "decimal(18,2)",
-                nullable: false,
-                defaultValue: 0m);
+            migrationBuilder.RenameColumn(
+                name: "SeatPrice",
+                table: "Flights",
+                newName: "EconomySeatPrice");
 
             migrationBuilder.AddColumn<decimal>(
-                name: "SeatPrice",
+                name: "BusinessSeatPrice",
                 table: "Flights",
                 type: "decimal(18,2)",
                 nullable: false,
@@ -29,12 +27,13 @@ namespace TravelProgram.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Price",
-                table: "Seats");
-
-            migrationBuilder.DropColumn(
-                name: "SeatPrice",
+                name: "BusinessSeatPrice",
                 table: "Flights");
+
+            migrationBuilder.RenameColumn(
+                name: "EconomySeatPrice",
+                table: "Flights",
+                newName: "SeatPrice");
         }
     }
 }

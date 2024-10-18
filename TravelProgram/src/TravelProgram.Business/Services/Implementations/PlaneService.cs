@@ -41,14 +41,15 @@ namespace TravelProgram.Business.Services.Implementations
 			await _planeRepository.CommitAsync();
 
 			var seats = new List<Seat>();
-			for (int i = 1; i <= plane.TotalSeats; i++)
+
+			for (int i = 1; i <= plane.EconomySeats; i++)
 			{
 				var seat = new Seat
 				{
 					PlaneId = plane.Id,
 					SeatNumber = i,
 					IsAvailable = true,
-					ClassType = i <= (plane.TotalSeats * 4) / 5 ? SeatClassType.Economy : SeatClassType.Business,
+					ClassType = SeatClassType.Economy,
 					CreatedTime = DateTime.Now,
 					UpdatedTime = DateTime.Now,
 					IsDeleted = false
@@ -56,7 +57,22 @@ namespace TravelProgram.Business.Services.Implementations
 				seats.Add(seat);
 			}
 
-			_seatRepository.Table.AddRange(seats);
+            for (int i = 1; i <= plane.BusinessSeats; i++)
+            {
+                var seat2 = new Seat
+                {
+                    PlaneId = plane.Id,
+                    SeatNumber = i,
+                    IsAvailable = true,
+                    ClassType = SeatClassType.Business,
+                    CreatedTime = DateTime.Now,
+                    UpdatedTime = DateTime.Now,
+                    IsDeleted = false
+                };
+                seats.Add(seat2);
+            }
+
+            _seatRepository.Table.AddRange(seats);
 			await _seatRepository.CommitAsync();
 
 			return _mapper.Map<PlaneGetDto>(plane);

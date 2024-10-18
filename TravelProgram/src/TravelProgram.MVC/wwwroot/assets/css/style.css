@@ -2685,7 +2685,7 @@ input[type=submit] {
 >>> Home travel search section  
 ----------------------------------------------------------------*/
 .shape-search-section {
-    padding-bottom: 100px;
+    padding-bottom: 0;
     position: relative;
 }
 
@@ -2798,7 +2798,23 @@ input[type=submit] {
     line-height: 1.6;
 }
 
-    .trip-search-section input[type=submit] {
+.trip-search-section button {
+    background-color: #F8F8F8;
+    color: #383838;
+    border: none;
+    height: 50px;
+    padding: 0 15px;
+    width: 100%;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+    line-height: 1.6;
+}
+
+    .trip-search-section button[type=submit] {
+        margin-left: 50px;
         background-color: #F56960;
         color: #ffffff;
         line-height: 1.3;
@@ -2806,11 +2822,11 @@ input[type=submit] {
         margin-bottom: auto;
     }
 
-        .trip-search-section input[type=submit]:hover, .trip-search-section input[type=submit]:focus {
+        .trip-search-section button[type=submit]:hover, .trip-search-section button[type=submit]:focus {
             background-color: #2C75BA;
             color: #ffffff;
         }
-
+        
 @media screen and (min-width: 576px) {
     .trip-search-section .input-group {
         width: 50%;
@@ -10030,7 +10046,6 @@ product checkout css
                     }
 
             .ticket-system .receipts .receipt.qr-code {
-                height: 110px;
                 min-height: unset;
                 position: relative;
                 border-radius: 20px 20px 20px 20px;

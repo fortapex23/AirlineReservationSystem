@@ -8,7 +8,8 @@ namespace TravelProgram.MVC.ViewModels.PlaneVMs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int TotalSeats { get; set; }
+        public int EconomySeats { get; set; }
+        public int BusinessSeats { get; set; }
         public int AirlineId { get; set; }
         public string AirlineName { get; set; }
 

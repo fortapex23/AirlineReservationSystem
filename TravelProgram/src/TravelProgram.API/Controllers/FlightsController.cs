@@ -43,6 +43,39 @@ namespace TravelProgram.API.Controllers
             });
         }
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Search(string departureCity, string destinationCity, DateTime? departureTime)
+        {
+            try
+            {
+                var flights = await _flightService.SearchFlightsAsync(departureCity, destinationCity, departureTime);
+
+                if (flights == null)
+                {
+                    return NotFound(new ApiResponse<string>
+                    {
+                        StatusCode = StatusCodes.Status404NotFound,
+                        ErrorMessage = "No flights found",
+                        Data = null
+                    });
+                }
+
+                return Ok(new ApiResponse<ICollection<FlightGetDto>>
+                {
+                    Data = flights,
+                    StatusCode = StatusCodes.Status200OK
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse<string>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = $"An error occurred while searching: {ex.Message}",
+                    Data = null
+                });
+            }
+        }
 
 
         [HttpGet("")]

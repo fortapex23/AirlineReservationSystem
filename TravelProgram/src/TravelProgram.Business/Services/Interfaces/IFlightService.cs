@@ -14,5 +14,6 @@ namespace TravelProgram.Business.Services.Interfaces
 		Task<ICollection<FlightGetDto>> GetByExpression(bool asnotracking = false, Expression<Func<Flight, bool>>? expression = null, params string[] includes);
 		Task<FlightGetDto> GetSingleByExpression(bool asnotracking = false, Expression<Func<Flight, bool>>? expression = null, params string[] includes);
         Task<bool> IsExist(Expression<Func<Flight, bool>> expression);
+		Task<ICollection<FlightGetDto>> SearchFlightsAsync(string departureCity, string destinationCity, DateTime? departureTime);
     }
 }

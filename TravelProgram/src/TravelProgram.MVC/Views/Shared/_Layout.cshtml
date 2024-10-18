@@ -87,7 +87,7 @@
                         <nav id="navigation" class="navigation">
                             <ul>
                                 <li class="menu-item-has-children">
-                                    <a asp-controller="home" >Home</a>
+                                    <a asp-controller="home" asp-action="index">Home</a>
                                     @* <ul>
                                         <li>
                                             <a href="index-v2.html">Home 2</a>
@@ -95,7 +95,7 @@
                                     </ul> *@
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a href="~/#">Tour</a>
+                                    <a asp-controller="flight" asp-action="index">Flights</a>
                                     @* <ul>
                                         <li>
                                             <a href="destination.html">Destination</a>
@@ -431,6 +431,6 @@
     <script src="~/assets/js/jquery.slicknav.js"></script>
     <script src="~/assets/js/custom.min.js"></script>
     <script src="~/assets/js/wishlist.js"></script>
-    
+    <script src="~/assets/js/addbasket.js"></script>
 </body>
 </html>

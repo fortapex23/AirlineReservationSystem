@@ -2,64 +2,8 @@
 @model HomeVM
 
 <main id="content" class="site-main">
-    <!-- Home banner html start -->
-    <section class="home-banner-section">
-        <div class="home-banner-items">
-            <div class="banner-inner-wrap" style="background-image: url(https://picsum.photos/1200/700);"></div>
-            <div class="banner-content-wrap">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-8">
-                            <div class="banner-content section-heading section-heading-white">
-                                <h5>EXPLORE. DISCOVER. TRAVEL</h5>
-                                <h2 class="banner-title">JOURNEY TO EXPLORE NATURE</h2>
-                                <div class="title-icon-divider"><i class="fas fa-suitcase-rolling"></i></div>
-                                <p>Taciti quasi, sagittis excepteur hymenaeos, id temporibus hic proident ullam, eaque donec delectus tempor consectetur nunc, purus congue? Rem volutpat sodales! Mollit. Minus exercitationem wisi.</p>
-                                @* <div class="slider-button">
-                                    <a href="#" class="button-primary">READ MORE</a>
-                                    <a href="#" class="button-secondary">SEE ALL OFFER</a>
-                                </div> *@
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <!-- Home search field html start -->
-                            <div class="trip-search-section">
-                                <div class="container">
-                                    <div class="trip-search-inner secondary-bg">
-                                        <form asp-action="Search" method="post">
-                                            <div class="input-group width-col-1">
-                                                <label> Departure City* </label>
-                                                <input type="text" name="departureCity" placeholder="Enter City">
-                                            </div>
-                                            <div class="input-group width-col-1">
-                                                <label> City Destination* </label>
-                                                <input type="text" name="destinationCity" placeholder="Enter Destination">
-                                            </div>
-                                            <div class="input-group width-col-1">
-                                                <label> Departure Time* </label>
-                                                <i class="far fa-calendar"></i>
-                                                <input class="input-date-picker" type="text" name="departureTime" placeholder="MM / DD / YY" autocomplete="off" readonly="readonly">
-                                            </div>
-                                            <div id="validation-summary" asp-validation-summary="ModelOnly"></div>
-                                            <div class="input-group width-col-1">
-                                                <label class="screen-reader-text"> Search </label>
-                                                <button type="submit" class="btn btn-outline-light">SEARCH NOW</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- search search field html end -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="overlay"></div>
-        </div>
-    </section>
-    <!-- banner html start -->
     
-    
+    @await Html.PartialAsync("_SearchPartialView", new SearchFlightVM())
 
     <!-- client html end -->
     <!-- Home packages section html start -->
@@ -82,70 +26,11 @@
                     }
                     else
                     {
-                        @foreach (var item in Model.Flights.Where(x => x.DepartureTime > DateTime.UtcNow.AddDays(1)))
-                        {
-                            <main style="margin-top: 20px" class="ticket-system">
-                                <div class="receipts-wrapper">
-                                    <div class="receipts">
-                                        <div class="receipt">
-                                            <div style="display: flex; justify-content: space-between">
-                                                <div>
-                                                    <i class="fa-solid fa-plane-departure"></i>
-                                                    <a style="font-family: cursive; font-size: large; margin-left: 3px">@item.Plane.AirlineName</a>
-                                                </div>
-                                                <div>
-                                                    <a>@item.DepartureTime.ToString("M")</a>
-                                                </div>
-                                            </div>
-                                            <div class="route">
-                                                <h2>@item.DepartureAirportCity</h2>
-                                                <svg class="plane-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 510 510">
-                                                    <path fill="#3f32e5" d="M497.25 357v-51l-204-127.5V38.25C293.25 17.85 275.4 0 255 0s-38.25 17.85-38.25 38.25V178.5L12.75 306v51l204-63.75V433.5l-51 38.25V510L255 484.5l89.25 25.5v-38.25l-51-38.25V293.25l204 63.75z" />
-                                                </svg>
-                                                <h2>@item.ArrivalAirportCity</h2>
-                                            </div>
-                                            <div class="details">
-                                                <div class="item">
-                                                    <span>Departure</span>
-                                                    <h3 style="font-family: Arial; font-size: larger">@item.DepartureTime.ToShortTimeString()</h3>
-                                                </div>
-                                                <div class="item">
-                                                    <span>Flight No.</span>
-                                                    <h3 style="font-family: Arial; font-size: larger">@item.FlightNumber</h3>
-                                                </div>
-                                                <div class="item">
-                                                    <span>Arrival</span>
-                                                    <h3 style="font-family: Arial; font-size: larger">@item.ArrivalTime.ToShortTimeString()</h3>
-                                                </div>
-                                                <div class="item">
-                                                    <span>Plane</span>
-                                                    <h3 style="font-family: Arial; font-size: large">@item.PlaneName</h3>
-                                                </div>
-                                                <div class="item">
-                                                    <span>Price(Eco)</span>
-                                                    <h3 style="font-family: Arial; font-size: larger">$@item.SeatPrice</h3>
-                                                </div>
-                                                <div class="item">
-                                                    <span>Total Seats</span>
-                                                    <h3 style="font-family: Arial; font-size: larger">@item.Seats.Count</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="receipt qr-code">
-                                            <a class="btn btn-outline-primary">Book Now<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
-                                            <form asp-action="AddToBasket" asp-route-flightId="@item.Id" method="post" style="display:inline;">
-                                                <button type="submit" class="btn btn-outline-success" style="margin-left: 3px">Add to Basket<i style="margin-left: 3px" class="fas fa-arrow-right"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </main>
-                        }
+                        @await Html.PartialAsync("_FlightsPartial", Model.Flights)
                     }
                 </div>
                 <div class="btn-wrap text-center">
-                    <a href="#" class="button-primary">VIEW ALL FLIGHTS</a>
+                    <a asp-controller="flight" asp-action="index" class="button-primary">VIEW ALL FLIGHTS</a>
                 </div>
             </div>
         </div>

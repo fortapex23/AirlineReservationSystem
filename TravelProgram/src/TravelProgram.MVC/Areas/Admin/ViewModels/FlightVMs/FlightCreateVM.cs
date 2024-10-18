@@ -7,9 +7,13 @@ namespace TravelProgram.MVC.Areas.Admin.ViewModels.FlightVMs
         [Required(ErrorMessage = "Flight Number is required")]
         public string FlightNumber { get; set; }
 
-        [Required(ErrorMessage = "Seat Price is required")]
+        [Required(ErrorMessage = "Economy Price is required")]
         [Range(1, double.MaxValue, ErrorMessage = "Seat Price must be greater than 0")]
-        public decimal SeatPrice { get; set; }
+        public decimal EconomySeatPrice { get; set; }
+
+        [Required(ErrorMessage = "Business Price is required")]
+        [Range(1, double.MaxValue, ErrorMessage = "Seat Price must be greater than 0")]
+        public decimal BusinessSeatPrice { get; set; }
 
         [Required(ErrorMessage = "Departure Airport is required")]
         public int DepartureAirportId { get; set; }

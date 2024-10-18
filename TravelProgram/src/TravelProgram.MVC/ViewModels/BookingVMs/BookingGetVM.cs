@@ -10,5 +10,6 @@ namespace TravelProgram.MVC.ViewModels.BookingVMs
         public string BookingNumber { get; set; }
         public int SeatId { get; set; }
         public BookStatus Status { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

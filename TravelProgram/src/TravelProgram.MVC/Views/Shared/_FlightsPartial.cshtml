@@ -1,0 +1,145 @@
+﻿@using TravelProgram.MVC.ViewModels.FlightVMs
+@model List<FlightGetVM>
+
+@foreach (var item in Model) //.Where(x => x.DepartureTime > DateTime.UtcNow.AddDays(1))
+{
+    <main style="margin-top: 20px" class="ticket-system">
+        <div class="receipts-wrapper">
+            <div class="receipts">
+                <div class="receipt">
+                    <div style="display: flex; justify-content: space-between">
+                        <div style="display: flex; flex-direction:column">
+                            <div>
+                                <i class="fa-solid fa-plane-departure"></i>
+                                <a style="font-family: cursive; font-size: medium; margin-left: 3px">@item.Plane.AirlineName</a>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-plane"></i>
+                                <a style="font-family: cursive; font-size: medium; margin-left: 3px">@item.PlaneName</a>
+                            </div>
+                        </div>
+                        <div>
+                            <form asp-action="AddToBasket" asp-controller="Home" asp-route-flightId="@item.Id" method="post">
+                                <button class="btn btn-outline-success" style="background-color: white; border: 10px; border-color: forestgreen" type="submit">
+                                    <i style="color: forestgreen; font-size: 25px; margin-top: 10px" class="fa-regular fa-heart"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="route">
+                        <h2>@item.DepartureAirportCity</h2>
+                        <svg class="plane-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 510 510">
+                            <path fill="#3f32e5" d="M497.25 357v-51l-204-127.5V38.25C293.25 17.85 275.4 0 255 0s-38.25 17.85-38.25 38.25V178.5L12.75 306v51l204-63.75V433.5l-51 38.25V510L255 484.5l89.25 25.5v-38.25l-51-38.25V293.25l204 63.75z" />
+                        </svg>
+                        <h2>@item.ArrivalAirportCity</h2>
+                    </div>
+                    <div class="details">
+                        <div style="display: flex; align-items: center; justify-content: center">
+                            <div class="item">
+                                <span>Departure time</span>
+                                <h3 style="font-family: Arial; font-size: larger; margin-left: 15px">@item.DepartureTime.ToString("MM/dd HH:mm")</h3>
+                            </div>
+                            <div style="margin-left: 30px">
+                                <i style="font-size:large" class="fa-solid fa-arrow-right"></i>
+                            </div>
+                            <div style="margin-left: 50px" class="item">
+                                <span>Arrival time</span>
+                                <h3 style="font-family: Arial; font-size: larger; margin-left: 8px">@item.ArrivalTime.ToString("MM/dd HH:mm")</h3>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <span>Flight No.</span>
+                            <h3 style="font-family: Arial; font-size: larger">@item.FlightNumber</h3>
+                        </div>
+                        @* <div class="item">
+                            <span>Plane</span>
+                            <h3 style="font-family: Arial; font-size: large">@item.PlaneName</h3>
+                        </div> *@
+                        <div class="item">
+                            <span>Economy Seat</span>
+                            <h3 style="font-family: Arial; font-size: larger">$@item.EconomySeatPrice</h3>
+                        </div>
+                        <div class="item">
+                            <span>Business Seat</span>
+                            <h3 style="font-family: Arial; font-size: larger">$@item.BusinessSeatPrice</h3>
+                        </div>
+                        <div class="item">
+                            <span>Economy Seats</span>
+                            <h3 style="font-family: Arial; font-size: larger">@item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Economy).Count()</h3>
+                        </div>
+                        <div class="item">
+                            <span>Business Seats</span>
+                            <h3 style="font-family: Arial; font-size: larger">@item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Business).Count()</h3>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column" class="receipt qr-code">
+                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-primary">Book Economy Seat $@item.EconomySeatPrice<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
+                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="margin-top: 10px" class="btn btn-outline-warning">Book Business Seat $@item.BusinessSeatPrice<i style="margin-left: 6px" class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Economy Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel">Choose an Economy Seat</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <form asp-action="BookSeats" asp-controller="Booking" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="FlightId" value="@item.Id" />
+                        <input type="hidden" name="SeatClassType" value="Economy" />
+                        <select class="form-control" name="SelectedSeats" multiple>
+                            @foreach (var ecseat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Economy && x.IsAvailable))
+                            {
+                                <option value="@ecseat.Id">@ecseat.SeatNumber</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Book</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Business Modal -->
+    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel">Choose a Business Seat</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <form asp-action="BookSeats" asp-controller="Booking" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="FlightId" value="@item.Id" />
+                        <input type="hidden" name="SeatClassType" value="Business" />
+                        <select class="form-control" name="SelectedSeats" multiple>
+                            @foreach (var bsseat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Business && x.IsAvailable))
+                            {
+                                <option value="@bsseat.Id">@bsseat.SeatNumber</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Book</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
