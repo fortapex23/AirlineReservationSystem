@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TravelProgram.API.ApiResponses;
 using TravelProgram.Business.DTOs.TokenDTOs;
 using TravelProgram.Business.DTOs.UserDTOs;
 using TravelProgram.Business.Services.Interfaces;
@@ -10,7 +8,7 @@ using TravelProgram.Core.Models;
 
 namespace TravelProgram.API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
@@ -25,7 +23,38 @@ namespace TravelProgram.API.Controllers
             _userManager = userManager;
         }
 
-		[HttpPost("[action]")]
+        [HttpGet("")]
+        public async Task<IActionResult> GetAll()
+        {
+			return Ok(new ApiResponse<ICollection<UserGetDto>>
+			{
+                Data = await _authService.GetAllUsersAsync(),
+                ErrorMessage = null,
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(string id)
+        {
+            UserGetDto dto = null;
+            try
+            {
+				dto = await _authService.GetById(id);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
+
+            return Ok(new ApiResponse<UserGetDto>
+            {
+                Data = dto,
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
+
+        [HttpPost("[action]")]
 		public async Task<IActionResult> Register(UserRegisterDto dto)
 		{
 			try

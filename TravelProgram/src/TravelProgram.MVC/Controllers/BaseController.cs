@@ -1,5 +1,6 @@
 ﻿
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -29,17 +30,30 @@ namespace TravelProgram.MVC.Controllers
                     }, out SecurityToken validatedToken);
 
                     string fullname = claimsPrincipal?.Identity?.Name;
-
                     if (!string.IsNullOrEmpty(fullname))
                     {
                         ViewBag.FullName = fullname;
                     }
+
+                    var roleClaim = claimsPrincipal?.FindFirst(ClaimTypes.Role);
+                    if (roleClaim != null)
+                    {
+                        ViewBag.Role = roleClaim.Value;
+                    }
+                    else
+                    {
+                        var customRoleClaim = claimsPrincipal?.Claims.FirstOrDefault(c => c.Type == "customRole");
+                        if (customRoleClaim != null)
+                        {
+                            ViewBag.Role = customRoleClaim.Value;
+                        }
+                    }
                 }
                 catch (SecurityTokenException)
                 {
-                    
                 }
             }
+
         }
     }
 }

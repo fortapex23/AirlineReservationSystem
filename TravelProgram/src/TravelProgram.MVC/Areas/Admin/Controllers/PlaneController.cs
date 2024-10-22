@@ -21,6 +21,11 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
         {
             SetFullName();
 
+            if (ViewBag.Role is null)
+            {
+                return RedirectToAction("AdminLogin", "Auth", new { area = "Admin" });
+            }
+
             var planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/Planes");
 
             var airlines = await _crudService.GetAllAsync<List<AirlineGetVM>>("Airlines");
@@ -37,6 +42,13 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
         
         public async Task<IActionResult> Create()
         {
+            SetFullName();
+
+            if (ViewBag.Role is null)
+            {
+                return RedirectToAction("AdminLogin", "Auth", new { area = "Admin" });
+            }
+
             ViewBag.Airlines = await _crudService.GetAllAsync<List<AirlineGetVM>>("/airlines");
 
             return View();
@@ -77,6 +89,13 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
+            SetFullName();
+
+            if (ViewBag.Role is null)
+            {
+                return RedirectToAction("AdminLogin", "Auth", new { area = "Admin" });
+            }
+
             ViewBag.Airlines = await _crudService.GetAllAsync<List<AirlineGetVM>>("/airlines");
 
             PlaneUpdateVM data = null;

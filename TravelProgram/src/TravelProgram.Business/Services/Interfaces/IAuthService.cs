@@ -11,6 +11,10 @@ namespace TravelProgram.Business.Services.Interfaces
 
 		Task<TokenResponseDto> AdminLogin(UserLoginDto dto);
 
+        Task<ICollection<UserGetDto>> GetAllUsersAsync();
+
+        Task<UserGetDto> GetById(string id);
+
         //Task<TokenResponseDto> LoginWithCode(UserLoginWithCodeDto dto);
     }
 }

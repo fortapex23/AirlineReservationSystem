@@ -12,12 +12,14 @@ namespace TravelProgram.Business.Services.Implementations
 	{
 		private readonly IBookingRepository _bookingRepository;
 		private readonly IMapper _mapper;
+        private readonly ISeatRepository _seatRepository;
 
-		public BookingService(IBookingRepository BookingRepository, IMapper mapper)
+        public BookingService(IBookingRepository BookingRepository, IMapper mapper, ISeatRepository seatRepository)
 		{
 			_bookingRepository = BookingRepository;
 			_mapper = mapper;
-		}
+            _seatRepository = seatRepository;
+        }
 		public async Task<BookingGetDto> CreateAsync(BookingCreateDto dto)
 		{
 			var existingBooking = await _bookingRepository
@@ -32,8 +34,18 @@ namespace TravelProgram.Business.Services.Implementations
 			booking.UpdatedTime = DateTime.Now;
 
 			await _bookingRepository.CreateAsync(booking);
-			await _bookingRepository.CommitAsync();
 
+			if (dto.Status == Core.Enum.BookStatus.Completed)
+			{
+                var seat = await _seatRepository.GetByIdAsync(dto.SeatId);
+                if (seat == null)
+                    throw new Exception("Seat not found.");
+
+                seat.IsAvailable = false;
+            }
+
+			await _bookingRepository.CommitAsync();
+			
 			return _mapper.Map<BookingGetDto>(booking);
 		}
 
@@ -89,7 +101,16 @@ namespace TravelProgram.Business.Services.Implementations
 
 			_mapper.Map(dto, booking);
 
-			booking.UpdatedTime = DateTime.Now;
+            if (dto.Status == Core.Enum.BookStatus.Completed)
+            {
+                var seat = await _seatRepository.GetByIdAsync(dto.SeatId);
+                if (seat == null)
+                    throw new Exception("Seat not found.");
+
+                seat.IsAvailable = false;
+            }
+
+            booking.UpdatedTime = DateTime.Now;
 
 			await _bookingRepository.CommitAsync();
 		}

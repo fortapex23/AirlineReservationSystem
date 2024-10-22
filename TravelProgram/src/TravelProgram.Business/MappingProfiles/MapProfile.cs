@@ -7,6 +7,7 @@ using TravelProgram.Business.DTOs.FlightDTOs;
 using TravelProgram.Business.DTOs.SeatDTOs;
 using TravelProgram.Business.DTOs.BookingDTOs;
 using TravelProgram.Business.DTOs.BasketItemDTOs;
+using TravelProgram.Business.DTOs.UserDTOs;
 
 namespace TravelProgram.Business.MappingProfiles
 {
@@ -39,6 +40,8 @@ namespace TravelProgram.Business.MappingProfiles
 			CreateMap<BookingGetDto, Booking>().ReverseMap();
 
 			CreateMap<BasketItemDTO, BasketItem>().ReverseMap();
+
+            CreateMap<UserGetDto, AppUser>().ReverseMap();
 
         }
     }

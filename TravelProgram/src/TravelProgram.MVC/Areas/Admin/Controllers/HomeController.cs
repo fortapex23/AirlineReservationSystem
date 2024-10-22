@@ -10,7 +10,6 @@ using TravelProgram.MVC.Controllers;
 namespace TravelProgram.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
-	[Authorize(Roles = "Admin")]
 	public class HomeController : BaseController
     {
 		private readonly HttpClient _httpClient;
@@ -20,9 +19,19 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			_httpClient = httpClient;
 		}
 
+		public IActionResult Error()
+		{
+			return View();
+		}
+
         public IActionResult Index()
         {
 			SetFullName();
+
+			if (ViewBag.Role is null)
+			{
+                return RedirectToAction("AdminLogin", "Auth", new { area = "Admin" });
+            }
 
 			var adminvm = new AdminVM()
 			{

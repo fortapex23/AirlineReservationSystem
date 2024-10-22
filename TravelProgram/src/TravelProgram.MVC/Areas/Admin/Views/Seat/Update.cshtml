@@ -1,0 +1,54 @@
+﻿@using TravelProgram.MVC.Areas.Admin.ViewModels.SeatVMs
+@using TravelProgram.MVC.ViewModels.FlightVMs
+@using TravelProgram.MVC.ViewModels.PlaneVMs
+@model SeatUpdateVM
+
+@{
+    List<FlightGetVM> flights = ViewBag.Flights;
+    List<PlaneGetVM> planes = ViewBag.Planes;
+}
+
+<div style="margin-left: 280px; margin-top: 50px" class="container-fluid">
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Plane</label>
+            <select class="form-control" asp-for="PlaneId" asp-items="@(new SelectList(planes, "Id", "Name"))">
+                <option selected disabled>choose plane</option>
+            </select>
+            <span asp-validation-for="PlaneId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Flight ?</label>
+            <select class="form-control" asp-for="FlightId" asp-items="@(new SelectList(flights, "Id", "Name"))">
+                <option selected disabled>choose flight</option>
+            </select>
+            <span asp-validation-for="FlightId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Seat Number</label>
+            <input asp-for="SeatNumber" class="form-control" style="width: 40%" placeholder="Enter SeatNumber">
+            <span asp-validation-for="SeatNumber" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input asp-for="Price" class="form-control" style="width: 40%" placeholder="Enter Price">
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">IsAvailable</label>
+            <input asp-for="IsAvailable" class="form-control" style="width: 40%">
+            <span asp-validation-for="IsAvailable" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Class</label>
+            <select asp-for="ClassType" class="form-control" asp-items="Html.GetEnumSelectList<SeatClassType>()" style="width: 40%">
+                <option value="" selected disabled>Select Class</option>
+            </select>
+            <span asp-validation-for="ClassType" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button asp-action="" class="btn btn-warning">Cancel</button>
+    </form>
+</div>

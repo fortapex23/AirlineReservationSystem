@@ -2,8 +2,10 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using TravelProgram.Business.DTOs.AirportDTOs;
 using TravelProgram.Business.DTOs.TokenDTOs;
 using TravelProgram.Business.DTOs.UserDTOs;
 using TravelProgram.Business.Services.Interfaces;
@@ -24,7 +26,46 @@ namespace TravelProgram.Business.Services.Implementations
 			_configuration = configuration;
 		}
 
-		public async Task<TokenResponseDto> Login(UserLoginDto dto)
+        public async Task<ICollection<UserGetDto>> GetAllUsersAsync()
+        {
+            var users = await _userManager.Users.ToListAsync();
+
+            var userDtos = users.Select(user => new UserGetDto(
+                user.Id,
+                user.FullName,
+                user.Email,
+                user.PassportNumber,
+                user.PhoneNumber,
+                user.BirthDate,
+                user.Gender
+            )).ToList();
+
+            return userDtos;
+        }
+
+        public async Task<UserGetDto> GetById(string id)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
+
+            if (user == null)
+            {
+                throw new NullReferenceException($"{id} not found");
+            }
+
+            var userDto = new UserGetDto(
+                user.Id,
+                user.FullName,
+                user.Email,
+                user.PassportNumber,
+                user.PhoneNumber,
+                user.BirthDate,
+                user.Gender
+            );
+
+            return userDto;
+        }
+
+        public async Task<TokenResponseDto> Login(UserLoginDto dto)
 		{
 			AppUser appUser = null;
 
@@ -154,73 +195,74 @@ namespace TravelProgram.Business.Services.Implementations
 			return new TokenResponseDto(token, expiredt);
 		}
 
-		//public async Task<TokenResponseDto> LoginWithCode(UserLoginWithCodeDto dto)
-		//{
-		//	AppUser appUser = await _userManager.FindByEmailAsync(dto.Email);
 
-		//	if (appUser == null)
-		//	{
-		//		throw new NullReferenceException("User not found");
-		//	}
+        //public async Task<TokenResponseDto> LoginWithCode(UserLoginWithCodeDto dto)
+        //{
+        //	AppUser appUser = await _userManager.FindByEmailAsync(dto.Email);
 
-		//	var storedCode = await _userManager.GetAuthenticationTokenAsync(appUser, "Default", "LoginCode");
+        //	if (appUser == null)
+        //	{
+        //		throw new NullReferenceException("User not found");
+        //	}
 
-		//	if (storedCode == null || storedCode != dto.Code)
-		//	{
-		//		throw new Exception("Invalid or expired login code");
-		//	}
+        //	var storedCode = await _userManager.GetAuthenticationTokenAsync(appUser, "Default", "LoginCode");
 
-		//	List<Claim> claims = new List<Claim>()
-		//	{
-		//		new Claim(ClaimTypes.NameIdentifier, appUser.Id),
-		//		new Claim(ClaimTypes.Name, appUser.UserName)
-		//	};
+        //	if (storedCode == null || storedCode != dto.Code)
+        //	{
+        //		throw new Exception("Invalid or expired login code");
+        //	}
 
-		//	var roles = await _userManager.GetRolesAsync(appUser);
-		//	claims.AddRange(roles.Select(x => new Claim(ClaimTypes.Role, x)));
+        //	List<Claim> claims = new List<Claim>()
+        //	{
+        //		new Claim(ClaimTypes.NameIdentifier, appUser.Id),
+        //		new Claim(ClaimTypes.Name, appUser.UserName)
+        //	};
 
-		//	var secretKey = _configuration.GetSection("JWT:secretKey").Value;
-		//	var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-		//	var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+        //	var roles = await _userManager.GetRolesAsync(appUser);
+        //	claims.AddRange(roles.Select(x => new Claim(ClaimTypes.Role, x)));
 
-		//	var jwtSecurityToken = new JwtSecurityToken(
-		//		signingCredentials: signingCredentials,
-		//		claims: claims,
-		//		audience: _configuration.GetSection("JWT:audience").Value,
-		//		issuer: _configuration.GetSection("JWT:issuer").Value,
-		//		expires: DateTime.UtcNow.AddMinutes(10),
-		//		notBefore: DateTime.UtcNow
-		//	);
+        //	var secretKey = _configuration.GetSection("JWT:secretKey").Value;
+        //	var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+        //	var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
-		//	string token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-		//	return new TokenResponseDto(token, DateTime.UtcNow.AddMinutes(10));
-		//}
+        //	var jwtSecurityToken = new JwtSecurityToken(
+        //		signingCredentials: signingCredentials,
+        //		claims: claims,
+        //		audience: _configuration.GetSection("JWT:audience").Value,
+        //		issuer: _configuration.GetSection("JWT:issuer").Value,
+        //		expires: DateTime.UtcNow.AddMinutes(10),
+        //		notBefore: DateTime.UtcNow
+        //	);
 
-		//private async Task SendLoginCodeEmail(string email, string code)
-		//{
-		//	var smtpClient = new SmtpClient(_configuration["Email:smtpServer"])
-		//	{
-		//		Port = int.Parse(_configuration["Email:smtpPort"]),
-		//		Credentials = new NetworkCredential(
-		//			_configuration["Email:gmail"],
-		//			_configuration["Email:password"]),
-		//		EnableSsl = bool.Parse(_configuration["Email:enableSsl"]),
-		//	};
+        //	string token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+        //	return new TokenResponseDto(token, DateTime.UtcNow.AddMinutes(10));
+        //}
 
-		//	var mailMessage = new MailMessage
-		//	{
-		//		From = new MailAddress(_configuration["Email:gmail"]),
-		//		Subject = "Your Login Code",
-		//		Body = $"Your login code is {code}",
-		//		IsBodyHtml = true,
-		//	};
+        //private async Task SendLoginCodeEmail(string email, string code)
+        //{
+        //	var smtpClient = new SmtpClient(_configuration["Email:smtpServer"])
+        //	{
+        //		Port = int.Parse(_configuration["Email:smtpPort"]),
+        //		Credentials = new NetworkCredential(
+        //			_configuration["Email:gmail"],
+        //			_configuration["Email:password"]),
+        //		EnableSsl = bool.Parse(_configuration["Email:enableSsl"]),
+        //	};
 
-		//	mailMessage.To.Add(email);
+        //	var mailMessage = new MailMessage
+        //	{
+        //		From = new MailAddress(_configuration["Email:gmail"]),
+        //		Subject = "Your Login Code",
+        //		Body = $"Your login code is {code}",
+        //		IsBodyHtml = true,
+        //	};
 
-		//	await smtpClient.SendMailAsync(mailMessage);
-		//}
+        //	mailMessage.To.Add(email);
+
+        //	await smtpClient.SendMailAsync(mailMessage);
+        //}
 
 
-	}
+    }
 
 }

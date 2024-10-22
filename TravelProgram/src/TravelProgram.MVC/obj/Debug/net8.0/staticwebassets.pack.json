@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\admin\\css\\styles.min.css"
     },
     {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\admin\\images\\backgrounds\\404pagetravel.jpeg",
+      "PackagePath": "staticwebassets\\admin\\images\\backgrounds\\404pagetravel.jpeg"
+    },
+    {
       "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\admin\\images\\backgrounds\\rocket.png",
       "PackagePath": "staticwebassets\\admin\\images\\backgrounds\\rocket.png"
     },
@@ -4247,6 +4251,210 @@
     {
       "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\login\\vendor\\jquery\\jquery.min.js",
       "PackagePath": "staticwebassets\\login\\vendor\\jquery\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\css\\all.min.css",
+      "PackagePath": "staticwebassets\\profile\\assets\\css\\all.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\profile\\assets\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\css\\style.css",
+      "PackagePath": "staticwebassets\\profile\\assets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\arrow.png",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\arrow.png"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\bg.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\bg.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\comment.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\comment.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\comment2.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\comment2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\comment3.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\comment3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\comment4.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\comment4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\comment5.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\comment5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\comment6.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\comment6.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\img25.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\img25.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\img26.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\img26.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\img27.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\img27.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\logo.png",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\testi-img1-150x150.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\testi-img1-150x150.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\testi-img2-150x150.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\testi-img2-150x150.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\images\\testi-img3-150x150.jpg",
+      "PackagePath": "staticwebassets\\profile\\assets\\images\\testi-img3-150x150.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\canvasjs.min.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\canvasjs.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\chart.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\chart.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\counterup.min.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\counterup.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\dashboard-custom.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\dashboard-custom.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\jpanelmenu.min.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\jpanelmenu.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\jquery-3.2.1.min.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\jquery-3.2.1.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\jquery.easing.min.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\jquery.easing.min.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\js\\jquery.slicknav.js",
+      "PackagePath": "staticwebassets\\profile\\assets\\js\\jquery.slicknav.js"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\base\\_clearings.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\base\\_clearings.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\base\\_normalize.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\base\\_normalize.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\base\\_typography.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\base\\_typography.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\components\\_buttons.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\components\\_buttons.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\components\\_form.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\components\\_form.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\helpers\\_breakpoints.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\helpers\\_breakpoints.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\helpers\\_variables.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\helpers\\_variables.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\helpers\\mixin.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\helpers\\mixin.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\sass\\style.scss",
+      "PackagePath": "staticwebassets\\profile\\assets\\sass\\style.scss"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-brands-400.eot",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-brands-400.eot"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-brands-400.svg",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-brands-400.svg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-brands-400.woff",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-brands-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-regular-400.eot",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-regular-400.eot"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-regular-400.svg",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-regular-400.svg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-regular-400.woff",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-regular-400.woff"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-solid-900.eot",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-solid-900.eot"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-solid-900.svg",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-solid-900.svg"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-solid-900.woff",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-solid-900.woff"
+    },
+    {
+      "Id": "C:\\Users\\Lenovo\\Desktop\\AirlineReservationSystem\\TravelProgram\\src\\TravelProgram.MVC\\wwwroot\\profile\\assets\\webfonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\profile\\assets\\webfonts\\fa-solid-900.woff2"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.TravelProgram.MVC.Microsoft.AspNetCore.StaticWebAssets.props",

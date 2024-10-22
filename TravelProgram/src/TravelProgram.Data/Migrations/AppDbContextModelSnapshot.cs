@@ -398,8 +398,9 @@ namespace TravelProgram.Data.Migrations
                     b.Property<decimal>("EconomySeatPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("FlightNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("FlightNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

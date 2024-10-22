@@ -23,7 +23,7 @@
             <span asp-validation-for="BusinessSeats" class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label class="form-label">Name</label>
+            <label class="form-label">Airline</label>
             <select class="form-control" asp-for="AirlineId" asp-items="@(new SelectList(airlines, "Id", "Name"))">
                 <option selected disabled>choose airline</option>
             </select>

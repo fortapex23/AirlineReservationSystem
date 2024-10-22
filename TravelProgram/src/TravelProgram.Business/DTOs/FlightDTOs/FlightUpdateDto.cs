@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace TravelProgram.Business.DTOs.FlightDTOs
 {
-	public record FlightUpdateDto(int FlightNumber, int DepartureAirportId, int ArrivalAirportId,
+	public record FlightUpdateDto(string FlightNumber, int DepartureAirportId, int ArrivalAirportId,
 							int PlaneId, decimal EconomySeatPrice, decimal BusinessSeatPrice, DateTime DepartureTime, DateTime ArrivalTime);
 	public class FlightUpdateDtoValidator : AbstractValidator<FlightUpdateDto>
 	{

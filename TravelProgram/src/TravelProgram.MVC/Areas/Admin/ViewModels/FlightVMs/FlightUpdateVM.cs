@@ -2,7 +2,7 @@
 {
     public class FlightUpdateVM
     {
-        public int FlightNumber { get; set; }
+        public string FlightNumber { get; set; }
         public decimal EconomySeatPrice { get; set; }
         public decimal BusinessSeatPrice { get; set; }
         public int DepartureAirportId { get; set; }

@@ -1701,14 +1701,6 @@ input[type=submit] {
         color: #F56960;
     }
 
-        .main-navigation ul > li:hover > a:after, .main-navigation ul > li:focus > a:after, .main-navigation ul > li:active > a:after {
-            -webkit-transform: rotate(180deg);
-            -moz-transform: rotate(180deg);
-            -ms-transform: rotate(180deg);
-            -o-transform: rotate(180deg);
-            transform: rotate(180deg);
-        }
-
     .main-navigation ul ul {
         background: #ffffff;
         border-top: 4px solid #F56960;

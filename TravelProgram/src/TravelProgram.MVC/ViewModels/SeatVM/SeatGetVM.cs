@@ -10,7 +10,7 @@ namespace TravelProgram.MVC.ViewModels.SeatVM
         public int PlaneId { get; set; }
         public string PlaneName { get; set; }
         public int? FlightId { get; set; }
-        public string? FlightName { get; set; }
+        public string? FlightNumber { get; set; }
         public int SeatNumber { get; set; }
         public decimal Price { get; set; }
         public SeatClassType ClassType { get; set; }

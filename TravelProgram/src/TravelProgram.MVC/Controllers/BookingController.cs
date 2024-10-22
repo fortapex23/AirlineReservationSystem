@@ -1,8 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using TravelProgram.MVC.ApiResponseMessages;
 using TravelProgram.MVC.Enums;
 using TravelProgram.MVC.Services.Implementations;
 using TravelProgram.MVC.Services.Interfaces;
+using TravelProgram.MVC.ViewModels;
 using TravelProgram.MVC.ViewModels.BookingVMs;
 
 namespace TravelProgram.MVC.Controllers
@@ -10,10 +16,12 @@ namespace TravelProgram.MVC.Controllers
     public class BookingController : BaseController
     {
         private readonly ICrudService _crudService;
+        private readonly IConfiguration _configuration;
 
-        public BookingController(ICrudService crudService)
+        public BookingController(ICrudService crudService, IConfiguration configuration)
         {
             _crudService = crudService;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
@@ -24,81 +32,79 @@ namespace TravelProgram.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> BookSeats(int FlightId, SeatClassType SeatClassType, List<int> SelectedSeats)
+        public async Task<IActionResult> BookSeats(int flightId, SeatClassType seatClass, List<int> SelectedSeats)
         {
             if (SelectedSeats == null || SelectedSeats.Count == 0)
             {
                 return BadRequest("No seats selected.");
             }
 
-            foreach (var seatId in SelectedSeats)
+            string token = HttpContext.Request.Cookies["token"];
+            string appUserId = null;
+            ClaimsPrincipal claimsPrincipal = null;
+
+            if (!string.IsNullOrEmpty(token))
             {
-                var bookingCreateDto = new BookingCreateVM
-                {
-                    FlightId = FlightId,
-                    SeatId = seatId,
-                    BookingNumber = GenerateBookingNumber(),
-                    CreatedTime = DateTime.Now
-                };
+                var secretKey = "sdfgdf-463dgdfsd j-fdvnji2387nTravel";
+                var key = Encoding.ASCII.GetBytes(secretKey);
+                var tokenHandler = new JwtSecurityTokenHandler();
 
                 try
                 {
-                    await _crudService.Create("/bookings", bookingCreateDto);
+                    claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters()
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key)
+                    }, out SecurityToken validatedToken);
+
+                    appUserId = claimsPrincipal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                 }
-                catch (Exception ex)
+                catch (SecurityTokenException)
                 {
-                    return BadRequest($"Failed to book seat {seatId}: {ex.Message}");
+                    return Unauthorized("Invalid token.");
                 }
             }
 
-            return RedirectToAction("Index", "Booking");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetBookingById(int id)
-        {
-            try
+            if (!string.IsNullOrEmpty(appUserId))
             {
-                var booking = await _crudService.GetByIdAsync<BookingGetVM>("/bookings", id);
-                return View(booking);
+                try
+                {
+                    foreach (var seatId in SelectedSeats)
+                    {
+                        var bookingCreateDto = new BookingCreateVM
+                        {
+                            AppUserId = appUserId,
+                            FlightId = flightId,
+                            SeatId = seatId,
+                            BookingNumber = Guid.NewGuid().ToString().Substring(0, 10),
+                            CreatedTime = DateTime.Now
+                        };
+
+                        try
+                        {
+                            await _crudService.Create("/bookings", bookingCreateDto);
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest($"Failed to book seat {seatId}: {ex.Message}");
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return BadRequest();
+                }
             }
-            catch (Exception ex)
-            {
-                return NotFound($"Booking not found: {ex.Message}");
-            }
+
+            return RedirectToAction("Index", "Home");
         }
 
-        //[HttpDelete]
-        //public async Task<IActionResult> DeleteBooking(int id)
+        //private string GenerateBookingNumber()
         //{
-        //    try
-        //    {
-        //        await _crudService.Delete<object>("/bookings", id);
-        //        return Ok();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest($"Error deleting booking: {ex.Message}");
-        //    }
+        //    return Guid.NewGuid().ToString().Substring(0, 10);
         //}
-
-        //[HttpPut]
-        //public async Task<IActionResult> UpdateBooking(int id, BookingUpdateDto dto)
-        //{
-        //    try
-        //    {
-        //        await _crudService.Update("/bookings", dto);
-        //        return NoContent();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest($"Error updating booking: {ex.Message}");
-        //    }
-        //}
-
-        private string GenerateBookingNumber()
-        {
-            return Guid.NewGuid().ToString();
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace TravelProgram.MVC.ViewModels.FlightVMs
     public class FlightGetVM
     {
         public int Id { get; set; }
-        public int FlightNumber { get; set; }
+        public string FlightNumber { get; set; }
         public decimal EconomySeatPrice { get; set; }
         public decimal BusinessSeatPrice { get; set; }
         public int DepartureAirportId { get; set; }
