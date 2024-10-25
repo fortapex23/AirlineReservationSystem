@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TravelProgram.MVC.Controllers;
+using TravelProgram.MVC.Enums;
 using TravelProgram.MVC.Services.Interfaces;
 using TravelProgram.MVC.ViewModels.AirportVMs;
 using TravelProgram.MVC.ViewModels.AuthVMs;
@@ -51,7 +52,52 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             return View(bookings);
         }
 
-        
+		public async Task<IActionResult> ApproveBooking(int id)
+		{
+			SetFullName();
 
-    }
+			if (ViewBag.Role is null)
+			{
+				return RedirectToAction("AdminLogin", "Auth", new { area = "Admin" });
+			}
+
+			var booking = await _crudService.GetByIdAsync<BookingGetVM>($"/bookings/{id}", id);
+
+			if (booking == null)
+			{
+				return NotFound();
+			}
+
+			booking.Status = BookStatus.Completed;
+
+			await _crudService.Update($"/bookings/{id}", booking);
+
+			return RedirectToAction("Index");
+		}
+
+		public async Task<IActionResult> CancelBooking(int id)
+		{
+			SetFullName();
+
+			if (ViewBag.Role is null)
+			{
+				return RedirectToAction("AdminLogin", "Auth", new { area = "Admin" });
+			}
+
+			var booking = await _crudService.GetByIdAsync<BookingGetVM>($"/bookings/{id}", id);
+
+			if (booking == null)
+			{
+				return NotFound();
+			}
+
+			booking.Status = BookStatus.Canceled;
+
+			await _crudService.Update($"/bookings/{id}", booking);
+
+			return RedirectToAction("Index");
+		}
+
+
+	}
 }

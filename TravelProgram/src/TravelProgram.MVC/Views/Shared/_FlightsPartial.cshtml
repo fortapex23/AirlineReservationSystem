@@ -11,7 +11,9 @@
                         <div style="display: flex; flex-direction:column">
                             <div>
                                 <i class="fa-solid fa-plane-departure"></i>
-                                <a style="font-family: cursive; font-size: medium; margin-left: 3px">@item.Plane.AirlineName</a>
+                                <a style="font-family: cursive; font-size: medium; margin-left: 3px">
+                                    @(item.Plane != null && !string.IsNullOrEmpty(item.Plane.AirlineName) ? item.Plane.AirlineName : "Airline Not Available")
+                                </a>
                             </div>
                             <div>
                                 <i class="fa-solid fa-plane"></i>

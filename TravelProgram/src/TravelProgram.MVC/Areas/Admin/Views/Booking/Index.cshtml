@@ -64,8 +64,8 @@
 												@airp.Status
 											</td>
 											<td>
-												<a asp-action="Update" asp-route-id="@airp.Id" class="btn btn-primary">approve</a>
-												<a asp-action="Delete" asp-route-id="@airp.Id" class="btn btn-danger">reject</a>
+												<a asp-action="ApproveBooking" asp-route-id="@airp.Id" class="btn btn-primary">approve</a>
+												<a asp-action="CancelBooking" asp-route-id="@airp.Id" class="btn btn-danger">reject</a>
 											</td>
 										</tr>
 									}

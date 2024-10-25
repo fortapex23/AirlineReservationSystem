@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Common;
@@ -10,6 +11,9 @@ using TravelProgram.MVC.Services.Implementations;
 using TravelProgram.MVC.Services.Interfaces;
 using TravelProgram.MVC.ViewModels;
 using TravelProgram.MVC.ViewModels.BookingVMs;
+using TravelProgram.MVC.ViewModels.OrderItemVMs;
+using TravelProgram.MVC.ViewModels.OrderVMs;
+using TravelProgram.MVC.ViewModels.SeatVM;
 
 namespace TravelProgram.MVC.Controllers
 {
@@ -70,41 +74,43 @@ namespace TravelProgram.MVC.Controllers
 
             if (!string.IsNullOrEmpty(appUserId))
             {
-                try
-                {
-                    foreach (var seatId in SelectedSeats)
-                    {
-                        var bookingCreateDto = new BookingCreateVM
-                        {
-                            AppUserId = appUserId,
-                            FlightId = flightId,
-                            SeatId = seatId,
-                            BookingNumber = Guid.NewGuid().ToString().Substring(0, 10),
-                            CreatedTime = DateTime.Now
-                        };
+                var orderItems = new List<OrderItemCreateVM>();
 
-                        try
-                        {
-                            await _crudService.Create("/bookings", bookingCreateDto);
-                        }
-                        catch (Exception ex)
-                        {
-                            return BadRequest($"Failed to book seat {seatId}: {ex.Message}");
-                        }
-                    }
-                }
-                catch (Exception)
+                foreach (var seatId in SelectedSeats)
                 {
-                    return BadRequest();
+                    var bookingCreateDto = new BookingCreateVM
+                    {
+                        AppUserId = appUserId,
+                        FlightId = flightId,
+                        SeatId = seatId,
+                        BookingNumber = Guid.NewGuid().ToString().Substring(0, 10),
+                        CreatedTime = DateTime.Now
+                    };
+
+                    //var bookingResponse = await _crudService.Create("/bookings", bookingCreateDto);
+
+                    //orderItems.Add(new OrderItemCreateVM
+                    //{
+                    //    BookingId = bookingResponse.I,
+                    //    Price = bookingResponse.SeatPrice
+                    //});
                 }
+
+                var orderCreateVm = new OrderCreateVM
+                {
+                    AppUserId = appUserId,
+                    TotalAmount = orderItems.Sum(x => x.Price),
+                    OrderItems = orderItems
+                };
+
+                TempData["OrderCreateVM"] = JsonSerializer.Serialize(orderCreateVm);
+
+                return RedirectToAction("CreateOrder", "Order");
             }
 
-            return RedirectToAction("Index", "Home");
+            return BadRequest("Failed to proceed with the booking.");
         }
 
-        //private string GenerateBookingNumber()
-        //{
-        //    return Guid.NewGuid().ToString().Substring(0, 10);
-        //}
+
     }
 }

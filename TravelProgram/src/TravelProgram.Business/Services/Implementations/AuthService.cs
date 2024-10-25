@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using TravelProgram.Business.DTOs.AirportDTOs;
 using TravelProgram.Business.DTOs.TokenDTOs;
 using TravelProgram.Business.DTOs.UserDTOs;
 using TravelProgram.Business.Services.Interfaces;
@@ -13,7 +12,7 @@ using TravelProgram.Core.Models;
 
 namespace TravelProgram.Business.Services.Implementations
 {
-	public class AuthService : IAuthService
+    public class AuthService : IAuthService
 	{
 		private readonly UserManager<AppUser> _userManager;
 		private readonly SignInManager<AppUser> _signInManager;
@@ -42,6 +41,31 @@ namespace TravelProgram.Business.Services.Implementations
 
             return userDtos;
         }
+
+        public async Task UpdateUserAsync(string id, UserEditDto dto)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user is null)
+            {
+                throw new NullReferenceException($"{id} not found.");
+            }
+
+            user.FullName = dto.FullName;
+            user.Email = dto.Email;
+            user.PassportNumber = dto.PassportNumber;
+            user.PhoneNumber = dto.PhoneNumber;
+            user.BirthDate = dto.BirthDate;
+            user.Gender = dto.Gender;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+			{
+                throw new Exception($"Failed to update");
+            }
+        }
+
 
         public async Task<UserGetDto> GetById(string id)
         {

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TravelProgram.API.ApiResponses;
+using TravelProgram.Business.DTOs.AirportDTOs;
 using TravelProgram.Business.DTOs.TokenDTOs;
 using TravelProgram.Business.DTOs.UserDTOs;
+using TravelProgram.Business.Services.Implementations;
 using TravelProgram.Business.Services.Interfaces;
 using TravelProgram.Core.Models;
 
@@ -52,6 +54,25 @@ namespace TravelProgram.API.Controllers
                 Data = dto,
                 StatusCode = StatusCodes.Status200OK
             });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(string id, UserEditDto dto)
+        {
+            try
+            {
+                await _authService.UpdateUserAsync(id, dto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse<UserEditDto>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = ex.Message,
+                    Data = null
+                });
+            }
+            return NoContent();
         }
 
         [HttpPost("[action]")]

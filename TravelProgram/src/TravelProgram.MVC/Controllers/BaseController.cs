@@ -35,6 +35,12 @@ namespace TravelProgram.MVC.Controllers
                         ViewBag.FullName = fullname;
                     }
 
+                    string userId = claimsPrincipal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    if (!string.IsNullOrEmpty(userId))
+                    {
+                        ViewBag.Id = userId;
+                    }
+
                     var roleClaim = claimsPrincipal?.FindFirst(ClaimTypes.Role);
                     if (roleClaim != null)
                     {

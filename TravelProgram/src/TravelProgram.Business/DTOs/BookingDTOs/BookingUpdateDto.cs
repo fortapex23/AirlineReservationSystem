@@ -8,7 +8,8 @@ using TravelProgram.Core.Enum;
 
 namespace TravelProgram.Business.DTOs.BookingDTOs
 {
-	public record BookingUpdateDto(int FlightId, string AppUserId, string BookingNumber, int SeatId, BookStatus Status);
+	public record BookingUpdateDto(int FlightId, string AppUserId, string BookingNumber, int SeatId, BookStatus Status, 
+									DateTime UpdatedTime);
 
 	public class BookingUpdateDtoValidator : AbstractValidator<BookingUpdateDto>
 	{

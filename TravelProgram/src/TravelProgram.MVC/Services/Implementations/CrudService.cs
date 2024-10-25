@@ -54,6 +54,27 @@ namespace TravelProgram.MVC.Services.Implementations
             return response.Data.Data;
         }
 
+        public async Task<T> GetByStringIdAsync<T>(string endpoint, string? id)
+        {
+            //if (id < 1) throw new Exception();
+            var request = new RestRequest(endpoint, Method.Get);
+            var response = await _restClient.ExecuteAsync<ApiResponseMessage<T>>(request);
+
+            if (!response.IsSuccessful)
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    throw new Exception(response.Data.ErrorMessage);
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new Exception(response.Data.ErrorMessage);
+                }
+            }
+
+            return response.Data.Data;
+        }
+
         public async Task<T> GetByIdAsync<T>(string endpoint, int? id)
         {
             if (id < 1) throw new Exception();

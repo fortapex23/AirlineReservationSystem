@@ -15,6 +15,8 @@ namespace TravelProgram.Business.Services.Interfaces
 
         Task<UserGetDto> GetById(string id);
 
+        Task UpdateUserAsync(string id, UserEditDto dto);
+
         //Task<TokenResponseDto> LoginWithCode(UserLoginWithCodeDto dto);
     }
 }

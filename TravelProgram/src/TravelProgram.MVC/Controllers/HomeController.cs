@@ -200,8 +200,5 @@ namespace TravelProgram.MVC.Controllers
                 return Ok(basketItemsVM);
             }
         }
-
-        
-
     }
 }

@@ -12,7 +12,7 @@ namespace TravelProgram.MVC.ViewModels
         public string DestinationCity { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime? DepartureTime { get; set; }
 
         public List<FlightGetVM>? Flights { get; set; }

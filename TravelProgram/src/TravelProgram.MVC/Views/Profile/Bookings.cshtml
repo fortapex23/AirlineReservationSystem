@@ -1,0 +1,48 @@
+﻿@using TravelProgram.MVC.ViewModels.BookingVMs
+
+@model List<BookingGetVM>
+@{
+    Layout = "_ProfileLayout";
+}
+
+<div class="db-info-wrap">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="dashboard-box table-opp-color-box">
+                <h4>Your Bookings</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Book Num</th>
+                                <th>Destination</th>
+                                <th>Seat</th>
+                                <th>Class type</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.BookingNumber</td>
+                                    <td>@item.Destination</td>
+                                    <td>@item.SeatNumber</td>
+                                    <td>@item.SeatClass</td>
+                                    <td>@item.CreatedTime.ToShortDateString()</td>
+                                    <td>@item.Status.ToString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content / End -->
+<!-- Copyrights -->
+<div class="copyrights">
+    Copyright © 2021 Travele. All rights reserveds.
+</div>

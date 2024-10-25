@@ -1,37 +1,92 @@
 ﻿using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using TravelProgram.MVC.Services.Interfaces;
 using TravelProgram.MVC.ViewModels;
+using TravelProgram.MVC.ViewModels.AirlineVMs;
+using TravelProgram.MVC.ViewModels.AirportVMs;
 using TravelProgram.MVC.ViewModels.FlightVMs;
+using TravelProgram.MVC.ViewModels.PlaneVMs;
 
 namespace TravelProgram.MVC.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : BaseController
     {
-        private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
+        private readonly ICrudService _crudService;
 
-        public SearchController(HttpClient httpClient, IConfiguration configuration)
+        public SearchController(IConfiguration configuration, ICrudService crudService)
         {
-            _httpClient = httpClient;
             _configuration = configuration;
+            _crudService = crudService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            SetFullName();
+
+            var flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/flights");
+            var airports = await _crudService.GetAllAsync<List<AirportGetVM>>("/airports");
+            var airlines = await _crudService.GetAllAsync<List<AirlineGetVM>>("/airlines");
+            var planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
+
+            foreach (var flight in flights)
+            {
+                var departureAirport = airports.FirstOrDefault(x => x.Id == flight.DepartureAirportId);
+                var arrivalAirport = airports.FirstOrDefault(x => x.Id == flight.ArrivalAirportId);
+                var plane = planes.FirstOrDefault(x => x.Id == flight.PlaneId);
+
+                if (plane != null)
+                {
+                    if (flight.Plane == null)
+                    {
+                        flight.Plane = new PlaneGetVM();
+                    }
+
+                    flight.PlaneName = plane.Name;
+
+                    var airline = airlines.FirstOrDefault(x => x.Id == plane.AirlineId);
+                    if (airline != null)
+                    {
+                        flight.Plane.AirlineName = airline.Name;
+                    }
+                    else
+                    {
+                        flight.Plane.AirlineName = "Airline Not Available";
+                    }
+                }
+
+                if (departureAirport != null)
+                {
+                    flight.DepartureAirportCity = departureAirport.City.ToString();
+                }
+
+                if (arrivalAirport != null)
+                {
+                    flight.ArrivalAirportCity = arrivalAirport.City.ToString();
+                }
+            }
+
+            var searchVM = new SearchFlightVM()
+            {
+                Flights = flights
+            };
+
+            return View(searchVM);
         }
 
         [HttpGet]
         public async Task<IActionResult> Search(SearchFlightVM searchVM)
         {
+            SetFullName();
+
             if (!ModelState.IsValid)
             {
                 foreach (var state in ModelState)
                 {
                     foreach (var error in state.Value.Errors)
                     {
-                        Console.WriteLine($"Error in {state.Key}: {error.ErrorMessage}");
+                        Console.WriteLine($"Error: {error.ErrorMessage}");
                     }
                 }
                 return View("Index", searchVM);
@@ -50,22 +105,64 @@ namespace TravelProgram.MVC.Controllers
 
             try
             {
-                var response = await _httpClient.GetStringAsync(searchUrl);
-                var searchResults = JsonConvert.DeserializeObject<List<FlightGetVM>>(response);
+                var searchResults = await _crudService.GetAllAsync<List<FlightGetVM>>(searchUrl);
 
                 if (searchResults == null || !searchResults.Any())
                 {
                     ModelState.AddModelError("", "No flights found for the given criteria.");
-                    return View("Search", searchVM);
+                    return View("Index", searchVM);
+                }
+
+                //var flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/flights");
+                var airports = await _crudService.GetAllAsync<List<AirportGetVM>>("/airports");
+                var airlines = await _crudService.GetAllAsync<List<AirlineGetVM>>("/airlines");
+                var planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
+
+                foreach (var flight in searchResults)
+                {
+                    var departureAirport = airports.FirstOrDefault(x => x.Id == flight.DepartureAirportId);
+                    var arrivalAirport = airports.FirstOrDefault(x => x.Id == flight.ArrivalAirportId);
+                    var plane = planes.FirstOrDefault(x => x.Id == flight.PlaneId);
+
+                    if (plane != null)
+                    {
+                        if (flight.Plane == null)
+                        {
+                            flight.Plane = new PlaneGetVM();
+                        }
+
+                        flight.PlaneName = plane.Name;
+
+                        var airline = airlines.FirstOrDefault(x => x.Id == plane.AirlineId);
+                        if (airline != null)
+                        {
+                            flight.Plane.AirlineName = airline.Name;
+                        }
+                        else
+                        {
+                            flight.Plane.AirlineName = "Airline Not Available";
+                        }
+                    }
+
+                    if (departureAirport != null)
+                    {
+                        flight.DepartureAirportCity = departureAirport.City.ToString();
+                    }
+
+                    if (arrivalAirport != null)
+                    {
+                        flight.ArrivalAirportCity = arrivalAirport.City.ToString();
+                    }
                 }
 
                 searchVM.Flights = searchResults;
 
-                return View("SearchResults", searchVM);
+                return View("Index", searchVM);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", $"An error occurred while searching: {ex.Message}");
+                Console.WriteLine("Error details: " + ex.ToString());
                 return View("Index", searchVM);
             }
         }

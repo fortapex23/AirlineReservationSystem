@@ -16,7 +16,9 @@ namespace TravelProgram.Data
 			services.AddScoped<IFlightRepository, FlightRepository>();
 			services.AddScoped<IPlaneRepository, PlaneRepository>();
 			services.AddScoped<ISeatRepository, SeatRepository>();
-			services.AddScoped<IBasketItemRepository, BasketItemRepository>();
+			services.AddScoped<IOrderRepository, OrderRepository>();
+			services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            services.AddScoped<IBasketItemRepository, BasketItemRepository>();
 
             services.AddDbContext<AppDbContext>(op =>
 			{
