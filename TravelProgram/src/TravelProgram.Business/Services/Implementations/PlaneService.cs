@@ -16,13 +16,11 @@ namespace TravelProgram.Business.Services.Implementations
 
 		private readonly IPlaneRepository _planeRepository;
 		private readonly IMapper _mapper;
-		private readonly ISeatRepository _seatRepository;
 
-		public PlaneService(IPlaneRepository PlaneRepository, IMapper mapper, ISeatRepository seatRepository)
+		public PlaneService(IPlaneRepository PlaneRepository, IMapper mapper)
 		{
 			_planeRepository = PlaneRepository;
 			_mapper = mapper;
-			_seatRepository = seatRepository;
 		}
 		public async Task<PlaneGetDto> CreateAsync(PlaneCreateDto dto)
 		{
@@ -40,40 +38,42 @@ namespace TravelProgram.Business.Services.Implementations
 			await _planeRepository.CreateAsync(plane);
 			await _planeRepository.CommitAsync();
 
-			var seats = new List<Seat>();
+			//var seats = new List<Seat>();
 
-			for (int i = 1; i <= plane.EconomySeats; i++)
-			{
-				var seat = new Seat
-				{
-					PlaneId = plane.Id,
-					SeatNumber = i,
-					IsAvailable = true,
-					ClassType = SeatClassType.Economy,
-					CreatedTime = DateTime.Now,
-					UpdatedTime = DateTime.Now,
-					IsDeleted = false
-				};
-				seats.Add(seat);
-			}
+			//for (int i = 1; i <= plane.EconomySeats; i++)
+			//{
+			//	var seat = new Seat
+			//	{
+			//		PlaneId = plane.Id,
+			//		SeatNumber = i,
+			//		IsAvailable = true,
+			//		ClassType = SeatClassType.Economy,
+			//		CreatedTime = DateTime.Now,
+			//		UpdatedTime = DateTime.Now,
+			//		IsDeleted = false,
+			//		FlightId = null
+			//	};
+			//	seats.Add(seat);
+			//}
 
-            for (int i = 1; i <= plane.BusinessSeats; i++)
-            {
-                var seat2 = new Seat
-                {
-                    PlaneId = plane.Id,
-                    SeatNumber = i,
-                    IsAvailable = true,
-                    ClassType = SeatClassType.Business,
-                    CreatedTime = DateTime.Now,
-                    UpdatedTime = DateTime.Now,
-                    IsDeleted = false
-                };
-                seats.Add(seat2);
-            }
+   //         for (int i = 1; i <= plane.BusinessSeats; i++)
+   //         {
+   //             var seat2 = new Seat
+   //             {
+   //                 PlaneId = plane.Id,
+   //                 SeatNumber = i,
+   //                 IsAvailable = true,
+   //                 ClassType = SeatClassType.Business,
+   //                 CreatedTime = DateTime.Now,
+   //                 UpdatedTime = DateTime.Now,
+   //                 IsDeleted = false,
+			//		FlightId = null
+   //             };
+   //             seats.Add(seat2);
+   //         }
 
-            _seatRepository.Table.AddRange(seats);
-			await _seatRepository.CommitAsync();
+   //         _seatRepository.Table.AddRange(seats);
+			//await _seatRepository.CommitAsync();
 
 			return _mapper.Map<PlaneGetDto>(plane);
 		}

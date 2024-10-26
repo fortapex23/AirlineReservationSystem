@@ -6,6 +6,7 @@ using TravelProgram.Business.Services.Interfaces;
 using TravelProgram.Core.Enum;
 using TravelProgram.Core.Models;
 using TravelProgram.Core.Repositories;
+using TravelProgram.Data.Repositories;
 
 namespace TravelProgram.Business.Services.Implementations
 {
@@ -14,12 +15,15 @@ namespace TravelProgram.Business.Services.Implementations
 		private readonly IFlightRepository _flightRepository;
 		private readonly IMapper _mapper;
 		private readonly ISeatRepository _seatRepository;
+        private readonly IPlaneRepository _planeRepository;
 
-        public FlightService(IFlightRepository FlightRepository, IMapper mapper, ISeatRepository seatRepository)
+        public FlightService(IFlightRepository FlightRepository, IMapper mapper, 
+                        ISeatRepository seatRepository, IPlaneRepository planeRepository)
 		{
 			_flightRepository = FlightRepository;
 			_mapper = mapper;
 			_seatRepository = seatRepository;
+            _planeRepository = planeRepository;
         }
 
         public async Task<ICollection<FlightGetDto>> SearchFlightsAsync(string departureCity, string destinationCity, DateTime? departureTime)
@@ -63,7 +67,7 @@ namespace TravelProgram.Business.Services.Implementations
         {
             var alreadyFlights = await _flightRepository
                 .GetByExpression(false, f => f.PlaneId == dto.PlaneId &&
-                                             (f.DepartureTime.AddDays(-1) <= dto.DepartureTime && f.ArrivalTime.AddDays(1) >= dto.DepartureTime))
+                                             (f.DepartureTime.AddHours(-5) <= dto.DepartureTime && f.ArrivalTime.AddHours(5) >= dto.DepartureTime))
                 .ToListAsync();
 
             if (alreadyFlights.Any())
@@ -83,28 +87,47 @@ namespace TravelProgram.Business.Services.Implementations
             await _flightRepository.CreateAsync(flight);
             await _flightRepository.CommitAsync();
 
-            var planeSeats = await _seatRepository
-                .GetByExpression(false, s => s.PlaneId == flight.PlaneId && s.FlightId == null)
-                .ToListAsync();
-
-            foreach (var seat in planeSeats)
+            var plane = await _planeRepository.GetByIdAsync(dto.PlaneId);
+            if (plane == null)
             {
-                seat.FlightId = flight.Id;
-
-                if (seat.ClassType == SeatClassType.Economy)
-                {
-                    seat.Price = dto.EconomySeatPrice;
-                }
-                else if (seat.ClassType == SeatClassType.Business)
-                {
-                    seat.Price = dto.BusinessSeatPrice;
-                }
+                throw new Exception("Associated plane not found.");
             }
 
-            await _flightRepository.CommitAsync();
+            var seats = new List<Seat>();
+            for (int i = 1; i <= plane.EconomySeats; i++)
+            {
+                seats.Add(new Seat
+                {
+                    FlightId = flight.Id,
+                    SeatNumber = i,
+                    ClassType = SeatClassType.Economy,
+                    Price = dto.EconomySeatPrice,
+                    IsAvailable = true,
+                    CreatedTime = DateTime.Now,
+                    UpdatedTime = DateTime.Now
+                });
+            }
+
+            for (int i = 1; i <= plane.BusinessSeats; i++)
+            {
+                seats.Add(new Seat
+                {
+                    FlightId = flight.Id,
+                    SeatNumber = plane.EconomySeats + i,
+                    ClassType = SeatClassType.Business,
+                    Price = dto.BusinessSeatPrice,
+                    IsAvailable = true,
+                    CreatedTime = DateTime.Now,
+                    UpdatedTime = DateTime.Now
+                });
+            }
+
+            await _seatRepository.Table.AddRangeAsync(seats);
+            await _seatRepository.CommitAsync();
 
             return _mapper.Map<FlightGetDto>(flight);
         }
+
 
         public async Task DeleteAsync(int id)
 		{

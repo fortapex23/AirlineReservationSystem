@@ -14,15 +14,18 @@ namespace TravelProgram.Data.Configurations
 
 			builder.HasOne(b => b.Flight)
 				   .WithMany(b => b.Bookings)
-				   .HasForeignKey(b => b.FlightId);
+				   .HasForeignKey(b => b.FlightId)
+				   .OnDelete(DeleteBehavior.Restrict);
 
-			builder.HasOne(b => b.Seat)
-				   .WithOne()
-				   .HasForeignKey<Booking>(b => b.SeatId);
+            builder.HasOne(b => b.Seat)
+				   .WithOne(b => b.Booking)
+				   .HasForeignKey<Booking>(b => b.SeatId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
-			builder.HasOne(b => b.AppUser)
+            builder.HasOne(b => b.AppUser)
 				   .WithMany(b => b.Bookings)
-				   .HasForeignKey(b => b.AppUserId);
-		}
+				   .HasForeignKey(b => b.AppUserId)
+                   .OnDelete(DeleteBehavior.Restrict);
+        }
 	}
 }

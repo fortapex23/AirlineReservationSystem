@@ -42,6 +42,7 @@ namespace TravelProgram.Business.Services.Implementations
                     throw new Exception("Seat not found.");
 
                 seat.IsAvailable = false;
+                await _seatRepository.CommitAsync();
             }
 
 			await _bookingRepository.CommitAsync();

@@ -28,8 +28,8 @@ namespace TravelProgram.API.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
-			return Ok(new ApiResponse<ICollection<UserGetDto>>
-			{
+            return Ok(new ApiResponse<ICollection<UserGetDto>>
+            {
                 Data = await _authService.GetAllUsersAsync(),
                 ErrorMessage = null,
                 StatusCode = StatusCodes.Status200OK

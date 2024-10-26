@@ -538,13 +538,16 @@ namespace TravelProgram.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ClassType")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FlightId")
+                    b.Property<int>("FlightId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsAvailable")
@@ -552,9 +555,6 @@ namespace TravelProgram.Data.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int>("PlaneId")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -568,8 +568,6 @@ namespace TravelProgram.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FlightId");
-
-                    b.HasIndex("PlaneId");
 
                     b.ToTable("Seats");
                 });
@@ -670,19 +668,19 @@ namespace TravelProgram.Data.Migrations
                     b.HasOne("TravelProgram.Core.Models.AppUser", "AppUser")
                         .WithMany("Bookings")
                         .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TravelProgram.Core.Models.Flight", "Flight")
                         .WithMany("Bookings")
                         .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TravelProgram.Core.Models.Seat", "Seat")
-                        .WithOne()
+                        .WithOne("Booking")
                         .HasForeignKey("TravelProgram.Core.Models.Booking", "SeatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("AppUser");
@@ -765,17 +763,10 @@ namespace TravelProgram.Data.Migrations
                     b.HasOne("TravelProgram.Core.Models.Flight", "Flight")
                         .WithMany("Seats")
                         .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("TravelProgram.Core.Models.Plane", "Plane")
-                        .WithMany("Seats")
-                        .HasForeignKey("PlaneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Flight");
-
-                    b.Navigation("Plane");
                 });
 
             modelBuilder.Entity("TravelProgram.Core.Models.Airline", b =>
@@ -805,8 +796,12 @@ namespace TravelProgram.Data.Migrations
             modelBuilder.Entity("TravelProgram.Core.Models.Plane", b =>
                 {
                     b.Navigation("Flights");
+                });
 
-                    b.Navigation("Seats");
+            modelBuilder.Entity("TravelProgram.Core.Models.Seat", b =>
+                {
+                    b.Navigation("Booking")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TravelProgram.Core.Models.AppUser", b =>

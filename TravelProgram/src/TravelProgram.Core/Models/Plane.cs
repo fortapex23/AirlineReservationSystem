@@ -9,6 +9,7 @@
 
         public Airline Airline { get; set; }
         public ICollection<Flight> Flights { get; set; }
-        public ICollection<Seat> Seats { get; set; }
+
+        //public ICollection<Seat> Seats { get; set; }
 	}
 }
