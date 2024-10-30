@@ -77,7 +77,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ModelState.AddModelError("", "cant be null");
+				ModelState.AddModelError("", "something went wrong");
 				return View();
 			}
 
@@ -114,10 +114,10 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			{
 				data = await _crudService.GetByIdAsync<AirlineUpdateVM>($"/Airlines/{id}", id);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				ModelState.AddModelError("", "Entity not found, changes will not be saved");
-				return View(data);
+                TempData["ErrorMessage"] = "Something went wrong";
+                return View(data);
 			}
 
 			return View(data);

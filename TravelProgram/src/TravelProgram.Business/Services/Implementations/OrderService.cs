@@ -5,6 +5,7 @@ using TravelProgram.Business.DTOs.OrderDTOs;
 using TravelProgram.Business.Services.Interfaces;
 using TravelProgram.Core.Models;
 using TravelProgram.Core.Repositories;
+using TravelProgram.Data.Repositories;
 
 namespace TravelProgram.Business.Services.Implementations
 {
@@ -12,11 +13,18 @@ namespace TravelProgram.Business.Services.Implementations
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
+        private readonly IOrderItemRepository _orderItemRepository;
 
-        public OrderService(IOrderRepository orderRepository, IMapper mapper)
+        public OrderService(IOrderRepository orderRepository, IMapper mapper, IOrderItemRepository orderItemRepository)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
+            _orderItemRepository = orderItemRepository;
+        }
+
+        public Task<bool> IsExist(Expression<Func<Order, bool>> expression)
+        {
+            return _orderRepository.Table.AnyAsync(expression);
         }
 
         public async Task<OrderGetDto> CreateAsync(OrderCreateDto dto)
@@ -28,8 +36,22 @@ namespace TravelProgram.Business.Services.Implementations
             await _orderRepository.CreateAsync(order);
             await _orderRepository.CommitAsync();
 
+            if (dto.OrderItems != null)
+            {
+                foreach (var item in dto.OrderItems)
+                {
+                    var orderItem = _mapper.Map<OrderItem>(item);
+                    orderItem.OrderId = order.Id;
+                    orderItem.CreatedTime = DateTime.Now;
+                    orderItem.UpdatedTime = DateTime.Now;
+					await _orderItemRepository.CreateAsync(orderItem);
+                }
+                await _orderItemRepository.CommitAsync();
+            }
+
             return _mapper.Map<OrderGetDto>(order);
         }
+
 
         public async Task DeleteAsync(int id)
         {

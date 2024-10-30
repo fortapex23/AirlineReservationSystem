@@ -1,4 +1,4 @@
 ﻿namespace TravelProgram.Business.DTOs.OrderItemDTOs
 {
-    public record OrderItemCreateDto(int OrderId, int BookingId, decimal Price);
+    public record OrderItemCreateDto(int BookingId, decimal Price);
 }

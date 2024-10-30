@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TravelProgram.API.ApiResponses;
 using TravelProgram.Business.DTOs.AirlineDTOs;
 using TravelProgram.Business.DTOs.AirportDTOs;
+using TravelProgram.Business.Services.Implementations;
 using TravelProgram.Business.Services.Interfaces;
 
 namespace TravelProgram.API.Controllers
@@ -18,7 +19,32 @@ namespace TravelProgram.API.Controllers
 			_airportService = AirportService;
 		}
 
-		[HttpGet("")]
+        [HttpGet("isexist/{id}")]
+        public async Task<IActionResult> IsExist(int id)
+        {
+            bool exists = false;
+            try
+            {
+                exists = await _airportService.IsExist(f => f.Id == id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = ex.Message,
+                    Data = null
+                });
+            }
+
+            return Ok(new ApiResponse<bool>
+            {
+                Data = exists,
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
+
+        [HttpGet("")]
 		public async Task<IActionResult> GetAll()
 		{
 			return Ok(new ApiResponse<ICollection<AirportGetDto>>

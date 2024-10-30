@@ -20,3 +20,18 @@
         <button asp-action="" class="btn btn-warning">Cancel</button>
     </form>
 </div>
+
+@* @if (TempData["ErrorMessage"] != null)
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "@TempData["ErrorMessage"]",
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
+        });
+    </script>
+} *@

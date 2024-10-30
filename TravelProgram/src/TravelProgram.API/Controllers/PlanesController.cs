@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TravelProgram.API.ApiResponses;
 using TravelProgram.Business.DTOs.AirlineDTOs;
 using TravelProgram.Business.DTOs.PlaneDTOs;
+using TravelProgram.Business.Services.Implementations;
 using TravelProgram.Business.Services.Interfaces;
 
 namespace TravelProgram.API.Controllers
@@ -18,12 +19,37 @@ namespace TravelProgram.API.Controllers
 			_planeService = PlaneService;
 		}
 
-		[HttpGet("")]
+        [HttpGet("isexist/{id}")]
+        public async Task<IActionResult> IsExist(int id)
+        {
+            bool exists = false;
+            try
+            {
+                exists = await _planeService.IsExist(f => f.Id == id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = ex.Message,
+                    Data = null
+                });
+            }
+
+            return Ok(new ApiResponse<bool>
+            {
+                Data = exists,
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
+
+        [HttpGet("")]
 		public async Task<IActionResult> GetAll()
 		{
 			return Ok(new ApiResponse<ICollection<PlaneGetDto>>
 			{
-				Data = await _planeService.GetByExpression(true, null, "Flights", "Seats"),
+				Data = await _planeService.GetByExpression(true, null, "Flights"),
 				ErrorMessage = null,
 				StatusCode = StatusCodes.Status200OK
 			});
@@ -56,7 +82,7 @@ namespace TravelProgram.API.Controllers
 			PlaneGetDto dto = null;
 			try
 			{
-				dto = await _planeService.GetSingleByExpression(true, x=>x.Id == id, "Flights", "Seats");
+				dto = await _planeService.GetSingleByExpression(true, x=>x.Id == id, "Flights");
 			}
 			catch (Exception ex)
 			{

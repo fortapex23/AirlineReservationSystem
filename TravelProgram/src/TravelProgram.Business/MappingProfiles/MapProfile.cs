@@ -43,11 +43,11 @@ namespace TravelProgram.Business.MappingProfiles
 
 			CreateMap<BasketItemDTO, BasketItem>().ReverseMap();
 
-			CreateMap<OrderGetDto, Order>().ReverseMap();
 			CreateMap<OrderCreateDto, Order>().ReverseMap();
+			CreateMap<OrderGetDto, Order>().ReverseMap();
 
-            CreateMap<OrderItemGetDto, OrderItem>().ReverseMap();
             CreateMap<OrderItemCreateDto, OrderItem>().ReverseMap();
+            CreateMap<OrderItemGetDto, OrderItem>().ReverseMap();
 
             CreateMap<UserGetDto, AppUser>().ReverseMap();
 

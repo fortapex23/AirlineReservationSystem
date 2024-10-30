@@ -6,6 +6,7 @@ namespace TravelProgram.Business.Services.Interfaces
 {
 	public interface IBookingService
 	{
+		Task<bool> IsExist(Expression<Func<Booking, bool>> expression);
 		Task<BookingGetDto> CreateAsync(BookingCreateDto dto);
 		Task UpdateAsync(int? id, BookingUpdateDto dto);
 		Task DeleteAsync(int id);

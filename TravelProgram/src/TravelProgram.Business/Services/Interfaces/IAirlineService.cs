@@ -6,7 +6,8 @@ namespace TravelProgram.Business.Services.Interfaces
 {
 	public interface IAirlineService
 	{
-		Task<AirlineGetDto> CreateAsync(AirlineCreateDto dto);
+        Task<bool> IsExist(Expression<Func<Airline, bool>> expression);
+        Task<AirlineGetDto> CreateAsync(AirlineCreateDto dto);
 		Task UpdateAsync(int? id, AirlineUpdateDto dto);
 		Task DeleteAsync(int id);
 		Task SoftDeleteAsync(int id);

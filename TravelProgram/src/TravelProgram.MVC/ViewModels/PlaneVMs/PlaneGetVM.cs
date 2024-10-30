@@ -15,6 +15,6 @@ namespace TravelProgram.MVC.ViewModels.PlaneVMs
 
         public AirlineGetVM Airline { get; set; }
         public ICollection<FlightGetVM> Flights { get; set; }
-        public ICollection<SeatGetVM> Seats { get; set; }
+        //public ICollection<SeatGetVM> Seats { get; set; }
     }
 }

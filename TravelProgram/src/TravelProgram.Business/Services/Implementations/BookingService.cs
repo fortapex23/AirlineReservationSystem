@@ -5,6 +5,7 @@ using TravelProgram.Business.DTOs.BookingDTOs;
 using TravelProgram.Business.Services.Interfaces;
 using TravelProgram.Core.Models;
 using TravelProgram.Core.Repositories;
+using TravelProgram.Data.Repositories;
 
 namespace TravelProgram.Business.Services.Implementations
 {
@@ -20,7 +21,13 @@ namespace TravelProgram.Business.Services.Implementations
 			_mapper = mapper;
             _seatRepository = seatRepository;
         }
-		public async Task<BookingGetDto> CreateAsync(BookingCreateDto dto)
+
+        public Task<bool> IsExist(Expression<Func<Booking, bool>> expression)
+        {
+            return _bookingRepository.Table.AnyAsync(expression);
+        }
+
+        public async Task<BookingGetDto> CreateAsync(BookingCreateDto dto)
 		{
 			var existingBooking = await _bookingRepository
 			.GetByExpression(false, x => x.BookingNumber == dto.BookingNumber)

@@ -7,6 +7,7 @@ using TravelProgram.Business.Services.Interfaces;
 using TravelProgram.Core.Enum;
 using TravelProgram.Core.Models;
 using TravelProgram.Core.Repositories;
+using TravelProgram.Data.Repositories;
 using Plane = TravelProgram.Core.Models.Plane;
 
 namespace TravelProgram.Business.Services.Implementations
@@ -22,7 +23,13 @@ namespace TravelProgram.Business.Services.Implementations
 			_planeRepository = PlaneRepository;
 			_mapper = mapper;
 		}
-		public async Task<PlaneGetDto> CreateAsync(PlaneCreateDto dto)
+
+        public Task<bool> IsExist(Expression<Func<Plane, bool>> expression)
+        {
+            return _planeRepository.Table.AnyAsync(expression);
+        }
+
+        public async Task<PlaneGetDto> CreateAsync(PlaneCreateDto dto)
 		{
 			var existingPlane = await _planeRepository
 			.GetByExpression(false, t => t.Name == dto.Name)
@@ -91,9 +98,9 @@ namespace TravelProgram.Business.Services.Implementations
 
 		public async Task<ICollection<PlaneGetDto>> GetByExpression(bool asnotracking = false, Expression<Func<Plane, bool>>? expression = null, params string[] includes)
 		{
-			var Planes = await _planeRepository.GetByExpression(asnotracking, expression, includes).ToListAsync();
+			var planes = await _planeRepository.GetByExpression(asnotracking, expression, includes).ToListAsync();
 
-			return _mapper.Map<ICollection<PlaneGetDto>>(Planes);
+			return _mapper.Map<ICollection<PlaneGetDto>>(planes);
 		}
 
 		public async Task<PlaneGetDto> GetById(int id)
@@ -108,10 +115,10 @@ namespace TravelProgram.Business.Services.Implementations
 
 		public async Task<PlaneGetDto> GetSingleByExpression(bool asnotracking = false, Expression<Func<Plane, bool>>? expression = null, params string[] includes)
 		{
-			var Plane = await _planeRepository.GetByExpression(asnotracking, expression, includes).FirstOrDefaultAsync();
-			if (Plane == null) throw new Exception("Plane not found");
+			var plane = await _planeRepository.GetByExpression(asnotracking, expression, includes).FirstOrDefaultAsync();
+			if (plane == null) throw new Exception("Plane not found");
 
-			return _mapper.Map<PlaneGetDto>(Plane);
+			return _mapper.Map<PlaneGetDto>(plane);
 		}
 
 		public async Task UpdateAsync(int? id, PlaneUpdateDto dto)

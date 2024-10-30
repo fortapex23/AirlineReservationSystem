@@ -5,6 +5,7 @@ using TravelProgram.Business.DTOs.AirlineDTOs;
 using TravelProgram.Business.Services.Interfaces;
 using TravelProgram.Core.Models;
 using TravelProgram.Core.Repositories;
+using TravelProgram.Data.Repositories;
 
 namespace TravelProgram.Business.Services.Implementations
 {
@@ -18,7 +19,13 @@ namespace TravelProgram.Business.Services.Implementations
 			_airlineRepository = AirlineRepository;
 			_mapper = mapper;
 		}
-		public async Task<AirlineGetDto> CreateAsync(AirlineCreateDto dto)
+
+        public Task<bool> IsExist(Expression<Func<Airline, bool>> expression)
+        {
+            return _airlineRepository.Table.AnyAsync(expression);
+        }
+
+        public async Task<AirlineGetDto> CreateAsync(AirlineCreateDto dto)
 		{
 			var existingAirline = await _airlineRepository
 			.GetByExpression(false, t => t.Name == dto.Name)

@@ -37,7 +37,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 
             foreach (var seat in seats)
             {
-                var planename = planes.FirstOrDefault(x => x.Id == seat.PlaneId);
+                var planename = planes.FirstOrDefault(x => x.Id == seat.Flight.PlaneId);
                 var flightnum = flights.FirstOrDefault(x => x.Id == seat.FlightId);
 
                 seat.PlaneName = planename.Name;

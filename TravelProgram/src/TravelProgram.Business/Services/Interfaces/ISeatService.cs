@@ -6,7 +6,8 @@ namespace TravelProgram.Business.Services.Interfaces
 {
 	public interface ISeatService
 	{
-		Task<SeatGetDto> CreateAsync(SeatCreateDto dto);
+        Task<bool> IsExist(Expression<Func<Seat, bool>> expression);
+        Task<SeatGetDto> CreateAsync(SeatCreateDto dto);
 		Task UpdateAsync(int? id, SeatUpdateDto dto);
 		Task DeleteAsync(int id);
 		Task<SeatGetDto> GetById(int id);
