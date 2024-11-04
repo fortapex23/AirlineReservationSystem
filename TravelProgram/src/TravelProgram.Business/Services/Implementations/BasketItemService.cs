@@ -10,24 +10,24 @@ namespace TravelProgram.Business.Services.Implementations
     public class BasketItemService : IBasketItemService
     {
         private readonly IBasketItemRepository _basketItemRepository;
-        private readonly IFlightRepository _flightRepository;
+        private readonly ISeatRepository _seatRepository;
 
-        public BasketItemService(IBasketItemRepository basketItemRepository, IFlightRepository flightRepository)
+        public BasketItemService(IBasketItemRepository basketItemRepository, ISeatRepository seatRepository)
         {
             _basketItemRepository = basketItemRepository;
-            _flightRepository = flightRepository;
+            _seatRepository = seatRepository;
         }
 
-        public async Task AddToBasketAsync(string appUserId, int flightId)
+        public async Task AddToBasketAsync(string appUserId, int seatId)
         {
-            var flight = await _flightRepository.GetByIdAsync(flightId);
-            if (flight == null)
+            var seat = await _seatRepository.GetByIdAsync(seatId);
+            if (seat == null)
             {
-                throw new Exception("Flight not found.");
+                throw new Exception("Seat not found.");
             }
 
             var existingBasketItem = _basketItemRepository
-                .GetByExpression(false, b => b.AppUserId == appUserId && b.FlightId == flightId)
+                .GetByExpression(false, b => b.AppUserId == appUserId && b.SeatId == seatId)
                 .FirstOrDefault();
 
             if (existingBasketItem != null)
@@ -38,7 +38,7 @@ namespace TravelProgram.Business.Services.Implementations
             var basketItem = new BasketItem
             {
                 AppUserId = appUserId,
-                FlightId = flightId,
+                SeatId = seatId,
                 CreatedTime = DateTime.UtcNow,
                 UpdatedTime = DateTime.UtcNow
             };
@@ -47,10 +47,10 @@ namespace TravelProgram.Business.Services.Implementations
             await _basketItemRepository.CommitAsync();
         }
 
-        public async Task RemoveFromBasketAsync(string appUserId, int flightId)
+        public async Task RemoveFromBasketAsync(string appUserId, int seatId)
         {
             var basketItem = _basketItemRepository
-                .GetByExpression(false, b => b.AppUserId == appUserId && b.FlightId == flightId)
+                .GetByExpression(false, b => b.AppUserId == appUserId && b.SeatId == seatId)
                 .FirstOrDefault();
 
             if (basketItem != null)
@@ -64,8 +64,8 @@ namespace TravelProgram.Business.Services.Implementations
         public IQueryable<BasketItemDTO> GetBasketItems(string appUserId)
         {
             return _basketItemRepository
-                .GetByExpression(false, b => b.AppUserId == appUserId, "Flight")
-                .Select(b => new BasketItemDTO(b.FlightId, b.AppUserId));
+                .GetByExpression(false, b => b.AppUserId == appUserId, "Seat")
+                .Select(b => new BasketItemDTO(b.SeatId, b.AppUserId));
         }
     }
 }

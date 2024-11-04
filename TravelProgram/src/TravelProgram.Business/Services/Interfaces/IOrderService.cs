@@ -11,6 +11,6 @@ namespace TravelProgram.Business.Services.Interfaces
         Task DeleteAsync(int id);
         Task<ICollection<OrderGetDto>> GetByExpression(bool asNoTracking = false, Expression<Func<Order, bool>>? expression = null, params string[] includes);
         Task<OrderGetDto> GetById(int id);
-        //Task UpdateAsync(int id, OrderUpdateDto dto);
+        Task UpdateAsync(int id, OrderUpdateDto dto);
     }
 }

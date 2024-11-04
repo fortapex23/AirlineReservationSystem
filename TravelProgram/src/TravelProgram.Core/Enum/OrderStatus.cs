@@ -1,6 +1,6 @@
 ﻿namespace TravelProgram.Core.Enum
 {
-	public enum BookStatus
+	public enum OrderStatus
 	{
 		Canceled = 1,
 		Pending = 0,

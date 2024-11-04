@@ -3,9 +3,9 @@
     public class BasketItem : BaseEntity
     {
         public string AppUserId { get; set; }
-        public int? FlightId { get; set; }
+        public int? SeatId { get; set; }
 
-        public Flight Flight { get; set; }
+        public Seat Seat { get; set; }
         public AppUser AppUser { get; set; }
     }
 }

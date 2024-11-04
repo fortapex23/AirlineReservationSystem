@@ -1,0 +1,199 @@
+﻿@using TravelProgram.MVC.ViewModels.OrderVMs
+@model OrderGetVM
+
+<main id="content" class="site-main">
+	<!-- Inner Banner html start-->
+	<section class="inner-banner-wrap">
+		<div class="inner-baner-container" style="background-image: url(https://picsum.photos/1920/800);">
+			<div class="container">
+				<div class="inner-banner-content">
+					<h1 class="inner-title">Package Cart</h1>
+				</div>
+			</div>
+		</div>
+		<div class="inner-shape"></div>
+	</section>
+	<!-- Inner Banner html end-->
+	<div class="step-section cart-section">
+		<div class="container">
+			<div class="step-link-wrap">
+				<div class="step-item active">
+					Your cart
+					<a href="#" class="step-icon"></a>
+				</div>
+				<div class="step-item">
+					Your Details
+					<a href="#" class="step-icon"></a>
+				</div>
+				<div class="step-item">
+					Finish
+					<a href="#" class="step-icon"></a>
+				</div>
+			</div>
+			<!-- step one form html start -->
+			<div class="cart-list-inner">
+				<form asp-action="Checkout" asp-controller="Order" method="post">
+					<div class="table-responsive">
+						<table class="table" id="basketTable">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Flight</th>
+									<th>From</th>
+									<th>To</th>
+									@* <th>Class</th> *@
+									<th>Seat</th>
+									@* <th>Count</th> *@
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								@* <tr>
+								<td class="">
+								<a class="btn btn-outline-danger">x</a>
+								</td>
+								<td data-column="Flight">From --> To</td>
+								<td data-column="Class">Seat Class</td>
+								<td data-column="Price">$ 1100.00</td>
+								<td data-column="Seats">1</td>
+								<td data-column="Sub Total">$ 1100.00 * 1</td>
+								</tr> *@
+							</tbody>
+
+
+						</table>
+					</div>
+					<div class="updateArea">
+						@* <div class="input-group">
+						<input type="text" class="form-control" placeholder="I have a discount coupon">
+						<a href="#" class="outline-primary">apply coupon</a>
+						</div>
+						<a href="#" class="outline-primary update-btn">update cart</a> *@
+
+						<div style="float: right" class="input-group">
+							<input asp-for="CardNumber" type="text" class="form-control" placeholder="Enter Your Card">
+						</div>
+					</div>
+					<div class="totalAmountArea">
+						<ul class="list-unstyled">
+							<li><strong>Sub Total</strong><span></span></li>
+							@* <li><strong>Vat</strong> <span>$ 18.00</span></li>
+							<li><strong>Grand Total</strong> <span class="grandTotal">$ 4012.00</span></li> *@
+						</ul>
+					</div>
+					<div class="checkBtnArea text-right">
+						<button type="submit" class="button-primary">checkout</button>
+					</div>
+				</form>
+			</div>
+			<!-- step one form html end -->
+		</div>
+	</div>
+</main>
+
+
+<script>
+	const AirportCities = {
+		0: "New York City",
+		1: "Los Angeles",
+		2: "London",
+		3: "Paris",
+		4: "Tokyo",
+		5: "Dubai",
+		6: "Sydney",
+		7: "Singapore",
+		8: "Beijing",
+		9: "Hong Kong",
+		10: "Madrid",
+		11: "Rome",
+		12: "Moscow",
+		13: "Istanbul",
+		// Add remaining mappings here
+	};
+
+	document.addEventListener("DOMContentLoaded", function () {
+		fetchBasketItems();
+	});
+
+	const basketURL = "/Home/GetBasketItems";
+	const flightURL = "https://localhost:7046/api/flights/";
+	const seatURL = "https://localhost:7046/api/seats/";
+	const airportURL = "https://localhost:7046/api/airports/";
+
+	let subtotal = 0;
+
+	function fetchBasketItems() {
+		fetch(basketURL)
+			.then(response => response.json())
+			.then(basketItems => {
+				const tableBody = document.querySelector('#basketTable tbody');
+				tableBody.innerHTML = '';
+				subtotal = 0;
+
+				basketItems.forEach(item => {
+					fetchSeatDetails(item.seatId)
+						.then(seatData => {
+							return fetchFlightDetails(seatData.flightId).then(flightData => {
+								return Promise.all([
+									fetchAirportDetails(flightData.departureAirportId),
+									fetchAirportDetails(flightData.arrivalAirportId)
+								]).then(([departureCity, arrivalCity]) => {
+									displayBasketItem(tableBody, seatData, flightData, departureCity, arrivalCity);
+									updateSubtotal(seatData.price);
+								});
+							});
+						})
+						.catch(error => console.error('Error fetching seat or flight details:', error));
+				});
+			})
+			.catch(error => console.error('Error fetching basket items:', error));
+	}
+
+	function fetchSeatDetails(seatId) {
+		return fetch(`${seatURL}${seatId}`)
+			.then(response => response.json())
+			.then(data => data.data)
+			.catch(error => {
+				console.error('Error fetching seat details:', error);
+				throw error;
+			});
+	}
+
+	function fetchFlightDetails(flightId) {
+		return fetch(`${flightURL}${flightId}`)
+			.then(response => response.json())
+			.then(data => data.data)
+			.catch(error => {
+				console.error('Error fetching flight details:', error);
+				throw error;
+			});
+	}
+
+	function fetchAirportDetails(airportId) {
+		return fetch(`${airportURL}${airportId}`)
+			.then(response => response.json())
+			.then(data => data.data.city)
+			.catch(error => {
+				console.error('Error fetching airport details:', error);
+				throw error;
+			});
+	}
+
+	function displayBasketItem(tableBody, seat, flight, departureCity, arrivalCity) {
+		const row = document.createElement('tr');
+		row.innerHTML = `
+					<td><a class="btn btn-outline-danger">x</a></td>
+					<td>${flight.flightNumber}</td>
+					<td>${departureCity}</td>
+					<td>${arrivalCity}</td>
+					<td>${seat.seatNumber}</td>
+					<td>$${seat.price}</td>
+				`;
+		tableBody.appendChild(row);
+	}
+
+	function updateSubtotal(price) {
+		subtotal += price;
+		document.querySelector('.totalAmountArea span').textContent = `$ ${subtotal}`;
+	}
+</script>

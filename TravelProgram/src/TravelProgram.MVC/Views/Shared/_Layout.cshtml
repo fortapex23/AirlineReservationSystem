@@ -123,8 +123,8 @@
                                     @ViewBag.FullName
                                 </button>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="order" asp-action="checkout">Order</a></li>
                                     <li><a class="dropdown-item" asp-controller="profile" asp-action="index">Profile</a></li>
-                                    <li><a class="dropdown-item" asp-controller="wishlist">WishList</a></li>
                                 </ul>
                             </div>
                             <a asp-action="logout" asp-controller="auth" class="button-primary" style="margin-left: 20px">Logout</a>
@@ -296,7 +296,10 @@
     <script src="~/assets/vendors/slick/slick.min.js"></script>
     <script src="~/assets/js/jquery.slicknav.js"></script>
     <script src="~/assets/js/custom.min.js"></script>
-    @* <script src="~/assets/js/wishlist.js"></script> *@
+    <script src="~/assets/js/wishlist.js"></script>
     <script src="~/assets/js/addbasket.js"></script>
+
+    @* @RenderSection("OrderScr") *@
+
 </body>
 </html>

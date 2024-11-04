@@ -10,9 +10,10 @@ namespace TravelProgram.Data.Configurations
         {
             builder.Property(x => x.AppUserId).IsRequired();
             builder.Property(x => x.CardNumber).IsRequired();
+			builder.Property(b => b.Status).IsRequired();
             builder.Property(x => x.TotalAmount).IsRequired();
 
-            builder.HasOne(x => x.AppUser)
+			builder.HasOne(x => x.AppUser)
                 .WithMany(x => x.Orders)
                 .HasForeignKey(x => x.AppUserId)
                 .OnDelete(DeleteBehavior.Cascade);

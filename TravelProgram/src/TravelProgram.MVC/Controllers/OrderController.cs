@@ -1,7 +1,16 @@
-﻿using System.Text.Json;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using TravelProgram.MVC.ApiResponseMessages;
+using TravelProgram.MVC.Enums;
 using TravelProgram.MVC.Services.Interfaces;
+using TravelProgram.MVC.ViewModels;
+using TravelProgram.MVC.ViewModels.OrderItemVMs;
 using TravelProgram.MVC.ViewModels.OrderVMs;
+using TravelProgram.MVC.ViewModels.SeatVM;
 
 namespace TravelProgram.MVC.Controllers
 {
@@ -13,30 +22,105 @@ namespace TravelProgram.MVC.Controllers
         {
             _crudService = crudService;
         }
-        [HttpGet]
-        public IActionResult CreateOrder()
+
+        public IActionResult Index()
         {
-            var orderData = TempData["OrderCreateVM"] as string;
-            if (orderData == null) return RedirectToAction("Index", "Home");
 
-            var orderCreateVM = JsonSerializer.Deserialize<OrderCreateVM>(orderData);
-            return View(orderCreateVM);
-        }
-
-
-        [HttpPost]
-        public async Task<IActionResult> ConfirmOrder(OrderCreateVM orderCreateVm)
-        {
-            if (!ModelState.IsValid) return View("CreateOrder", orderCreateVm);
-
-            await _crudService.Create("/orders", orderCreateVm);
-            return RedirectToAction("OrderConfirmation");
-        }
-
-
-        public IActionResult OrderConfirmation()
-        {
             return View();
         }
+
+        public IActionResult Checkout()
+        {
+            SetFullName();
+
+            if (ViewBag.FullName is null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Checkout(int cardNumber)
+        {
+            string token = HttpContext.Request.Cookies["token"];
+            string appUserId = null;
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                var secretKey = "sdfgdf-463dgdfsd j-fdvnji2387nTravel";
+                var key = Encoding.ASCII.GetBytes(secretKey);
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                try
+                {
+                    var claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key)
+                    }, out SecurityToken validatedToken);
+
+                    appUserId = claimsPrincipal?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    if (string.IsNullOrEmpty(appUserId))
+                    {
+                        return Unauthorized("User identity not found in the token.");
+                    }
+                }
+                catch (SecurityTokenException)
+                {
+                    return Unauthorized("Invalid token.");
+                }
+            }
+            else
+            {
+                return Unauthorized("Token is required.");
+            }
+
+            var basketItems = await _crudService.GetAllAsync<List<BasketItemVM>>($"basketitem?appUserId={appUserId}");
+
+            if (basketItems == null || !basketItems.Any())
+            {
+                ModelState.AddModelError("", "Your basket is empty.");
+                return View("Order");
+            }
+
+            var orderItems = new List<OrderItemCreateVM>();
+
+            foreach (var item in basketItems)
+            {
+                var seatDetails = await _crudService.GetByIdAsync<SeatGetVM>($"seats/{item.SeatId}", item.SeatId);
+
+                if (seatDetails == null)
+                {
+                    ModelState.AddModelError("", $"Seat with ID {item.SeatId} not found.");
+                    return View("Order");
+                }
+
+                orderItems.Add(new OrderItemCreateVM
+                {
+                    SeatId = item.SeatId,
+                    Price = seatDetails.Price
+                });
+            }
+
+            var orderCreateVm = new OrderCreateVM
+            {
+                AppUserId = appUserId,
+                CardNumber = cardNumber,
+                OrderItems = orderItems
+            };
+
+            await _crudService.Create("orders", orderCreateVm);
+
+            return RedirectToAction("Confirmation");
+        }
+
+
+
     }
 }

@@ -3,7 +3,7 @@ using TravelProgram.Core.Enum;
 
 namespace TravelProgram.Business.DTOs.BookingDTOs
 {
-	public record BookingCreateDto(int FlightId, string AppUserId, string BookingNumber, int SeatId, BookStatus Status, 
+	public record BookingCreateDto(int FlightId, string AppUserId, string BookingNumber, int SeatId, 
                             DateTime CreatedTime, DateTime UpdatedTime);
 
 	public class BookingCreateDtoValidator : AbstractValidator<BookingCreateDto>
@@ -18,7 +18,7 @@ namespace TravelProgram.Business.DTOs.BookingDTOs
 
             RuleFor(x=>x.SeatId).NotNull().NotEmpty();
 
-            RuleFor(x=>x.Status).NotNull();
+            //RuleFor(x=>x.Status).NotNull();
 		}
 	}
 }

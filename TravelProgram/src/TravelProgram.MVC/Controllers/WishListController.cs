@@ -31,7 +31,7 @@ namespace TravelProgram.MVC.Controllers
         {
             SetFullName();
 
-            string appUserId = GetAppUserIdFromToken();
+            string appUserId = ViewBag.Id();
             if (string.IsNullOrEmpty(appUserId))
             {
                 return Unauthorized("You must be logged in to view the wishlist.");
@@ -163,36 +163,36 @@ namespace TravelProgram.MVC.Controllers
             }
         }
 
-        private string GetAppUserIdFromToken()
-        {
-            string token = HttpContext.Request.Cookies["token"];
-            if (string.IsNullOrEmpty(token))
-            {
-                return null;
-            }
+        //private string GetAppUserIdFromToken()
+        //{
+        //    string token = HttpContext.Request.Cookies["token"];
+        //    if (string.IsNullOrEmpty(token))
+        //    {
+        //        return null;
+        //    }
 
-            var secretKey = "sdfgdf-463dgdfsd j-fdvnji2387nTravel";
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(secretKey);
+        //    var secretKey = "sdfgdf-463dgdfsd j-fdvnji2387nTravel";
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes(secretKey);
 
-            try
-            {
-                var claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters()
-                {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
-                }, out SecurityToken validatedToken);
+        //    try
+        //    {
+        //        var claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters()
+        //        {
+        //            ValidateIssuer = false,
+        //            ValidateAudience = false,
+        //            ValidateLifetime = true,
+        //            ValidateIssuerSigningKey = true,
+        //            IssuerSigningKey = new SymmetricSecurityKey(key)
+        //        }, out SecurityToken validatedToken);
 
-                return claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            }
-            catch (SecurityTokenException)
-            {
-                return null;
-            }
-        }
+        //        return claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    }
+        //    catch (SecurityTokenException)
+        //    {
+        //        return null;
+        //    }
+        //}
 
     }
 }

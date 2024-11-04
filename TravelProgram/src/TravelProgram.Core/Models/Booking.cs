@@ -8,10 +8,11 @@ namespace TravelProgram.Core.Models
         public int SeatId { get; set; }
         public string AppUserId { get; set; }
         public string BookingNumber { get; set; }
-		public BookStatus Status { get; set; }
 
 		public Flight Flight { get; set; }
 		public Seat Seat { get; set; }
 		public AppUser AppUser { get; set; }
+
+        //public ICollection<OrderItem> OrderItems { get; set; }
     }
 }

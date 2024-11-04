@@ -25,7 +25,7 @@ namespace TravelProgram.Business.MappingProfiles
 			CreateMap<AirportUpdateDto, Airport>().ReverseMap();
 			CreateMap<AirportGetDto, Airport>().ReverseMap();
 
-			CreateMap<PlaneCreateDto, Plane>().ReverseMap();
+            CreateMap<PlaneCreateDto, Plane>().ReverseMap();
 			CreateMap<PlaneUpdateDto, Plane>().ReverseMap();
 			CreateMap<PlaneGetDto, Plane>().ReverseMap();
 
@@ -44,6 +44,7 @@ namespace TravelProgram.Business.MappingProfiles
 			CreateMap<BasketItemDTO, BasketItem>().ReverseMap();
 
 			CreateMap<OrderCreateDto, Order>().ReverseMap();
+			CreateMap<OrderUpdateDto, Order>().ReverseMap();
 			CreateMap<OrderGetDto, Order>().ReverseMap();
 
             CreateMap<OrderItemCreateDto, OrderItem>().ReverseMap();

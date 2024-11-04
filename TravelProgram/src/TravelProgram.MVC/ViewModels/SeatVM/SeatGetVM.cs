@@ -8,7 +8,7 @@ namespace TravelProgram.MVC.ViewModels.SeatVM
     {
         public int Id { get; set; }
         //public int PlaneId { get; set; }
-        public string PlaneName { get; set; }
+        //public string PlaneName { get; set; }
         public int? FlightId { get; set; }
         public string? FlightNumber { get; set; }
         public int SeatNumber { get; set; }

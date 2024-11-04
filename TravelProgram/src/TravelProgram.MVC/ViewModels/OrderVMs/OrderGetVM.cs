@@ -6,9 +6,8 @@ namespace TravelProgram.MVC.ViewModels.OrderVMs
     {
         public int Id { get; set; }
         public string AppUserId { get; set; }
+        public int FlightId { get; set; }
+        public List<int> SelectedSeatIds { get; set; }
         public int CardNumber { get; set; }
-        public decimal TotalAmount { get; set; }
-
-        public List<OrderItemGetVM> OrderItems { get; set; }
     }
 }

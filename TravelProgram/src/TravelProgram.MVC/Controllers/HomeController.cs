@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using TravelProgram.MVC.ApiResponseMessages;
 using TravelProgram.MVC.Services.Interfaces;
 using TravelProgram.MVC.ViewModels;
 using TravelProgram.MVC.ViewModels.AirlineVMs;
@@ -81,11 +82,11 @@ namespace TravelProgram.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToBasket(int? flightId)
+        public async Task<IActionResult> AddToBasket(int[] SelectedSeats)
         {
-            if (flightId is null || flightId < 1)
+            if (SelectedSeats == null || !SelectedSeats.Any())
             {
-                return NotFound("Invalid flight ID.");
+                return BadRequest("No seats selected.");
             }
 
             string token = HttpContext.Request.Cookies["token"];
@@ -95,14 +96,13 @@ namespace TravelProgram.MVC.Controllers
             }
 
             string appUserId = null;
-            ClaimsPrincipal claimsPrincipal = null;
             var secretKey = "sdfgdf-463dgdfsd j-fdvnji2387nTravel";
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secretKey);
 
             try
             {
-                claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters()
+                ClaimsPrincipal claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuer = false,
                     ValidateAudience = false,
@@ -125,15 +125,17 @@ namespace TravelProgram.MVC.Controllers
 
             try
             {
-                var apiUrl = $"{_configuration.GetSection("Api:URL").Value}/basketitem?appUserId={appUserId}&flightId={flightId}";
-                var response = await _httpClient.PostAsync(apiUrl, null);
-
-                if (response.IsSuccessStatusCode)
+                foreach (var seatId in SelectedSeats)
                 {
-                    return RedirectToAction("Index");
-                }
+                    var apiUrl = $"{_configuration.GetSection("Api:URL").Value}/basketitem?appUserId={appUserId}&seatId={seatId}";
+                    var response = await _httpClient.PostAsync(apiUrl, null);
 
-                return RedirectToAction("Index");
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index", new { message = "Error adding seat to basket." });
+                    }
+                }
+                return RedirectToAction("GetBasketItems");
             }
             catch (Exception ex)
             {
@@ -147,7 +149,6 @@ namespace TravelProgram.MVC.Controllers
             string token = HttpContext.Request.Cookies["token"];
             string appUserId = null;
             ClaimsPrincipal claimsPrincipal = null;
-            List<BasketItemVM> basketItemsVM = new List<BasketItemVM>();
 
             if (!string.IsNullOrEmpty(token))
             {
@@ -180,9 +181,17 @@ namespace TravelProgram.MVC.Controllers
                 {
                     var apiUrl = $"{_configuration.GetSection("Api:URL").Value}/basketitem?appUserId={appUserId}";
                     var response = await _httpClient.GetStringAsync(apiUrl);
-                    var basketItems = JsonConvert.DeserializeObject<List<BasketItemVM>>(response);
 
-                    return Ok(basketItems);
+                    var apiResponse = JsonConvert.DeserializeObject<ApiResponseMessage<List<BasketItemVM>>>(response);
+
+                    if (apiResponse != null && apiResponse.StatusCode == 200)
+                    {
+                        return Ok(apiResponse.Data);
+                    }
+                    else
+                    {
+                        return BadRequest(apiResponse.ErrorMessage);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -191,6 +200,7 @@ namespace TravelProgram.MVC.Controllers
             }
             else
             {
+                List<BasketItemVM> basketItemsVM = new List<BasketItemVM>();
                 string basketStr = HttpContext.Request.Cookies["wishlist"];
                 if (!string.IsNullOrEmpty(basketStr))
                 {
@@ -200,5 +210,6 @@ namespace TravelProgram.MVC.Controllers
                 return Ok(basketItemsVM);
             }
         }
+
     }
 }

@@ -1,5 +1,9 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using TravelProgram.API.ApiResponses;
+using TravelProgram.Business.DTOs.AirportDTOs;
+using TravelProgram.Business.DTOs.BasketItemDTOs;
+using TravelProgram.Business.Services.Implementations;
 using TravelProgram.Business.Services.Interfaces;
 
 namespace TravelProgram.API.Controllers
@@ -16,7 +20,7 @@ namespace TravelProgram.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToBasket(string appUserId, int flightId)
+        public async Task<IActionResult> AddToBasket(string appUserId, int seatId)
         {
             if (string.IsNullOrEmpty(appUserId))
             {
@@ -25,7 +29,7 @@ namespace TravelProgram.API.Controllers
 
             try
             {
-                await _basketItemService.AddToBasketAsync(appUserId, flightId);
+                await _basketItemService.AddToBasketAsync(appUserId, seatId);
                 return Ok("successfully added to basket");
             }
             catch (Exception ex)
@@ -42,22 +46,25 @@ namespace TravelProgram.API.Controllers
                 return BadRequest("AppUserId is required.");
             }
 
-            var basketItems = _basketItemService.GetBasketItems(appUserId);
-
-            return Ok(basketItems);
+            return Ok(new ApiResponse<IQueryable<BasketItemDTO>>
+            {
+                Data = _basketItemService.GetBasketItems(appUserId),
+                ErrorMessage = null,
+                StatusCode = StatusCodes.Status200OK
+            });
         }
 
         [HttpPost("remove")]
-        public async Task<IActionResult> RemoveFromBasket(string appUserId, int flightId)
+        public async Task<IActionResult> RemoveFromBasket(string appUserId, int seatId)
         {
             try
             {
-                await _basketItemService.RemoveFromBasketAsync(appUserId, flightId);
-                return Ok("Flight removed from basket successfully.");
+                await _basketItemService.RemoveFromBasketAsync(appUserId, seatId);
+                return Ok("Seat removed successfully");
             }
             catch (Exception ex)
             {
-                return BadRequest($"Failed to remove flight from the basket: {ex.Message}");
+                return BadRequest($"Failed-{ex.Message}");
             }
         }
     }

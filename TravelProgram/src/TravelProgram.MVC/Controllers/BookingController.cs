@@ -96,14 +96,14 @@ namespace TravelProgram.MVC.Controllers
                     //});
                 }
 
-                var orderCreateVm = new OrderCreateVM
-                {
-                    AppUserId = appUserId,
-                    TotalAmount = orderItems.Sum(x => x.Price),
-                    OrderItems = orderItems
-                };
+                //var orderCreateVm = new OrderCreateVM
+                //{
+                //    AppUserId = appUserId,
+                //    TotalAmount = orderItems.Sum(x => x.Price),
+                //    OrderItems = orderItems
+                //};
 
-                TempData["OrderCreateVM"] = JsonSerializer.Serialize(orderCreateVm);
+                //TempData["OrderCreateVM"] = JsonSerializer.Serialize(orderCreateVm);
 
                 return RedirectToAction("CreateOrder", "Order");
             }

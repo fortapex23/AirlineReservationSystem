@@ -33,15 +33,15 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 
             var flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/Flights");
 
-            var planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
+            //var planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
 
             foreach (var seat in seats)
             {
-                var planename = planes.FirstOrDefault(x => x.Id == seat.Flight.PlaneId);
+                //var planename = planes.FirstOrDefault(x => x.Id == seat.Flight.PlaneId);
                 var flightnum = flights.FirstOrDefault(x => x.Id == seat.FlightId);
 
-                seat.PlaneName = planename.Name;
-                seat.FlightNumber = flightnum?.FlightNumber ?? "X";
+                //seat.PlaneName = planename.Name;
+                seat.FlightNumber = flightnum?.FlightNumber;
             }
 
             int pageSize = 5;
@@ -60,7 +60,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             }
 
             ViewBag.Flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/flights");
-            ViewBag.Planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
+            //ViewBag.Planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
 
             return View();
         }
@@ -69,7 +69,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> Create(SeatCreateVM vm)
         {
 			ViewBag.Flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/flights");
-			ViewBag.Planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
+			//ViewBag.Planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
 
             try
             {
@@ -109,7 +109,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             }
 
             ViewBag.Flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/flights");
-            ViewBag.Planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
+            //ViewBag.Planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
 
             SeatUpdateVM data = null;
 
@@ -130,7 +130,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> Update(int id, SeatUpdateVM vm)
         {
             ViewBag.Flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/flights");
-            ViewBag.Planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
+            //ViewBag.Planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
 
             try
             {

@@ -5,23 +5,22 @@
 
 @{
     List<FlightGetVM> flights = ViewBag.Flights;
-    List<PlaneGetVM> planes = ViewBag.Planes;
+    // List<PlaneGetVM> planes = ViewBag.Planes;
 }
 
 <div style="margin-left: 280px; margin-top: 50px" class="container-fluid">
     <form method="post">
-        <div class="mb-3">
+        @* <div class="mb-3">
             <label class="form-label">Plane</label>
             <select class="form-control" asp-for="PlaneId" asp-items="@(new SelectList(planes, "Id", "Name"))">
                 <option selected disabled>choose plane</option>
             </select>
             <span asp-validation-for="PlaneId" class="text-danger"></span>
-        </div>
+        </div> *@
         <div class="mb-3">
             <label class="form-label">Flight ?</label>
-            <select class="form-control" asp-for="FlightId" asp-items="@(new SelectList(flights, "Id", "Name"))">
+            <select class="form-control" asp-for="FlightId" asp-items="@(new SelectList(flights, "Id", "FlightNumber"))">
                 <option selected disabled>choose flight</option>
-                <option value="">No flight</option>
             </select>
             <span asp-validation-for="FlightId" class="text-danger"></span>
         </div>
@@ -37,7 +36,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">IsAvailable</label>
-            <input asp-for="IsAvailable" class="form-control" style="width: 40%">
+            <input asp-for="IsAvailable" style="width: 40%">
             <span asp-validation-for="IsAvailable" class="text-danger"></span>
         </div>
         <div class="mb-3">

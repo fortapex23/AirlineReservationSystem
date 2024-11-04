@@ -15,10 +15,10 @@ namespace TravelProgram.Data.Configurations
                    .HasForeignKey(x => x.OrderId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(oi => oi.Booking)
-                   .WithOne()
-                   .HasForeignKey<OrderItem>(oi => oi.BookingId)
-                   .OnDelete(DeleteBehavior.Restrict);
-        }
+			builder.HasOne(oi => oi.Seat)
+				   .WithOne()
+				   .HasForeignKey<OrderItem>(oi => oi.SeatId)
+				   .OnDelete(DeleteBehavior.Restrict);
+		}
     }
 }

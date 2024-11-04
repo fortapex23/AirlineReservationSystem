@@ -12,16 +12,23 @@ namespace TravelProgram.Business.Services.Implementations
     {
         private readonly IOrderItemRepository _orderItemRepository;
         private readonly IMapper _mapper;
+		private readonly ISeatRepository _seatRepository;
 
-        public OrderItemService(IOrderItemRepository orderItemRepository, IMapper mapper)
+		public OrderItemService(IOrderItemRepository orderItemRepository, IMapper mapper, ISeatRepository seatRepository)
         {
             _orderItemRepository = orderItemRepository;
             _mapper = mapper;
-        }
+			_seatRepository = seatRepository;
+		}
 
         public async Task<OrderItemGetDto> CreateAsync(OrderItemCreateDto dto)
         {
-            var orderItem = _mapper.Map<OrderItem>(dto);
+			var seat = await _seatRepository.GetByIdAsync(dto.SeatId);
+			if (seat == null || !seat.IsAvailable)
+				throw new Exception("Seat not found or is not available.");
+
+			var orderItem = _mapper.Map<OrderItem>(dto);
+            orderItem.Price = seat.Price;
             orderItem.CreatedTime = DateTime.Now;
             orderItem.UpdatedTime = DateTime.Now;
 

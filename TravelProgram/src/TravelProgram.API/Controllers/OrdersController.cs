@@ -82,7 +82,7 @@ namespace TravelProgram.API.Controllers
         {
             try
             {
-                var order = await _orderService.GetById(id);
+                var order = await _orderService.GetByExpression(true, x => x.Id == id, "OrderItems");
             }
             catch (Exception ex)
             {
@@ -95,23 +95,23 @@ namespace TravelProgram.API.Controllers
             return Ok();
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Update(int id, OrderUpdateDto dto)
-        //{
-        //    try
-        //    {
-        //        await _orderService.UpdateAsync(id, dto);
-        //        return NoContent();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new ApiResponse<object>
-        //        {
-        //            StatusCode = StatusCodes.Status400BadRequest,
-        //            ErrorMessage = ex.Message
-        //        });
-        //    }
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, OrderUpdateDto dto)
+        {
+            try
+            {
+                await _orderService.UpdateAsync(id, dto);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = ex.Message
+                });
+            }
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

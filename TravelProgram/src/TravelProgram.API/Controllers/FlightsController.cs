@@ -90,13 +90,11 @@ namespace TravelProgram.API.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create(FlightCreateDto dto) //, IFormFile? imageFile
+		public async Task<IActionResult> Create(FlightCreateDto dto)
         {
 			FlightGetDto flight = null;
 			try
 			{
-                //string rootPath = _env.WebRootPath;
-
                 flight = await _flightService.CreateAsync(dto);
             }
 			catch (Exception ex)

@@ -15,17 +15,20 @@
                                     @(item.Plane != null && !string.IsNullOrEmpty(item.Plane.AirlineName) ? item.Plane.AirlineName : "Airline Not Available")
                                 </a>
                             </div>
-                            <div>
+                            @* <div>
                                 <i class="fa-solid fa-plane"></i>
                                 <a style="font-family: cursive; font-size: medium; margin-left: 3px">@item.PlaneName</a>
-                            </div>
+                            </div> *@
                         </div>
                         <div>
-                            <form asp-action="AddToBasket" asp-controller="Home" asp-route-flightId="@item.Id" method="post">
+                            @* <form asp-action="AddToBasket" asp-controller="Home" asp-route-flightId="@item.Id" method="post">
                                 <button class="btn btn-outline-success" style="background-color: white; border: 10px; border-color: forestgreen" type="submit">
                                     <i style="color: forestgreen; font-size: 25px; margin-top: 10px" class="fa-regular fa-heart"></i>
                                 </button>
-                            </form>
+                            </form> *@
+
+                            <i class="fa-solid fa-plane"></i>
+                            <a style="font-family: cursive; font-size: medium; margin-left: 3px">@item.PlaneName</a>
                         </div>
                     </div>
                     <div class="route">
@@ -76,8 +79,10 @@
                     </div>
                 </div>
                 <div style="display:flex;flex-direction:column" class="receipt qr-code">
-                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-primary">Book Economy Seat $@item.EconomySeatPrice<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
-                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="margin-top: 10px" class="btn btn-outline-warning">Book Business Seat $@item.BusinessSeatPrice<i style="margin-left: 6px" class="fas fa-arrow-right"></i></a>
+                    @* <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chooseclass">Choose Class</a> *@
+
+                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-primary">Select Economy Seat<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
+                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="margin-top: 10px" class="btn btn-outline-warning">Select Business Seat<i style="margin-left: 6px" class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -91,9 +96,8 @@
                     <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel">Choose an Economy Seat</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
                 </div>
-                <form asp-action="BookSeats" asp-controller="Booking" method="post">
+                <form asp-action="AddToBasket" asp-controller="Home" method="post">
                     <div class="modal-body">
-                        <input type="hidden" name="FlightId" value="@item.Id" />
                         <input type="hidden" name="SeatClassType" value="Economy" />
                         <select class="form-control" name="SelectedSeats" multiple>
                             @foreach (var ecseat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Economy && x.IsAvailable))
@@ -104,14 +108,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Book</button>
+                        <button type="submit" class="btn btn-primary">Select</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
 
     <!-- Business Modal -->
     <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -121,9 +123,8 @@
                     <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel">Choose a Business Seat</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
                 </div>
-                <form asp-action="BookSeats" asp-controller="Booking" method="post">
+                <form asp-action="AddToBasket" asp-controller="Home" method="post">
                     <div class="modal-body">
-                        <input type="hidden" name="FlightId" value="@item.Id" />
                         <input type="hidden" name="SeatClassType" value="Business" />
                         <select class="form-control" name="SelectedSeats" multiple>
                             @foreach (var bsseat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Business && x.IsAvailable))
@@ -134,14 +135,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Book</button>
+                        <button type="submit" class="btn btn-primary">Select</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+
 }
-
-
 

@@ -29,7 +29,12 @@ namespace TravelProgram.MVC.Services.Implementations
             request.AddJsonBody(entity);
 
             var response = await _restClient.ExecuteAsync<ApiResponseMessage<T>>(request);
-            if (!response.IsSuccessful) throw new Exception();
+
+            if (!response.IsSuccessful)
+            {
+                var errorMessage = $"Error: {response.StatusCode} Content: {response.Content}";
+                throw new Exception(errorMessage);
+            }
         }
 
         public async Task Delete<T>(string endpoint, int id)
@@ -138,7 +143,7 @@ namespace TravelProgram.MVC.Services.Implementations
             }
             else
             {
-                throw new Exception($"Error checking existence. Status code: {response.StatusCode}, Message: {response.Content}");
+                throw new Exception($"Error Status code: {response.StatusCode} Message: {response.Content}");
             }
         }
 

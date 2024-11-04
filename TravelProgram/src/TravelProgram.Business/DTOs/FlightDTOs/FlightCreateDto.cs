@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Http;
 namespace TravelProgram.Business.DTOs.FlightDTOs
 {
 	public record FlightCreateDto(string FlightNumber, int DepartureAirportId, int ArrivalAirportId, 
-							int PlaneId, decimal EconomySeatPrice, decimal BusinessSeatPrice, DateTime DepartureTime, DateTime ArrivalTime);
+							int PlaneId, decimal EconomySeatPrice, decimal BusinessSeatPrice, 
+							DateTime DepartureTime, DateTime ArrivalTime);
 	public class FlightCreateDtoValidator : AbstractValidator<FlightCreateDto>
 	{
 		public FlightCreateDtoValidator()

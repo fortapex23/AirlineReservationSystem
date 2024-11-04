@@ -42,15 +42,12 @@ namespace TravelProgram.Business.Services.Implementations
 
 			await _bookingRepository.CreateAsync(booking);
 
-			if (dto.Status == Core.Enum.BookStatus.Completed)
-			{
-                var seat = await _seatRepository.GetByIdAsync(dto.SeatId);
-                if (seat == null)
-                    throw new Exception("Seat not found.");
+			var seat = await _seatRepository.GetByIdAsync(dto.SeatId);
+			if (seat == null)
+			throw new Exception("Seat not found.");
 
-                seat.IsAvailable = false;
-                await _seatRepository.CommitAsync();
-            }
+			seat.IsAvailable = false;
+			await _seatRepository.CommitAsync();
 
 			await _bookingRepository.CommitAsync();
 			
@@ -109,16 +106,16 @@ namespace TravelProgram.Business.Services.Implementations
 
 			_mapper.Map(dto, booking);
 
-            if (dto.Status == Core.Enum.BookStatus.Completed)
-            {
-                var seat = await _seatRepository.GetByIdAsync(dto.SeatId);
-                if (seat == null)
-                    throw new Exception("Seat not found.");
+			var seat = await _seatRepository.GetByIdAsync(dto.SeatId);
+			if (seat == null)
+				throw new Exception("Seat not found.");
 
-                seat.IsAvailable = false;
-            }
+			seat.IsAvailable = false;
+			await _seatRepository.CommitAsync();
 
-            booking.UpdatedTime = DateTime.Now;
+			//await _bookingRepository.CommitAsync();
+
+			booking.UpdatedTime = DateTime.Now;
 
 			await _bookingRepository.CommitAsync();
 		}

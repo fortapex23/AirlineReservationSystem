@@ -1,4 +1,6 @@
-﻿namespace TravelProgram.MVC.Services.Interfaces
+﻿using TravelProgram.MVC.ApiResponseMessages;
+
+namespace TravelProgram.MVC.Services.Interfaces
 {
     public interface ICrudService
     {
