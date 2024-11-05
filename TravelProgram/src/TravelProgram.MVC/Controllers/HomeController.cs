@@ -135,7 +135,7 @@ namespace TravelProgram.MVC.Controllers
                         return RedirectToAction("Index", new { message = "Error adding seat to basket." });
                     }
                 }
-                return RedirectToAction("GetBasketItems");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

@@ -8,5 +8,6 @@ namespace TravelProgram.MVC.ViewModels.OrderVMs
         public string AppUserId { get; set; }
         public List<OrderItemCreateVM> OrderItems { get; set; }
         public int CardNumber { get; set; }
+        public decimal TotalAmount { get; set; }
     }
 }

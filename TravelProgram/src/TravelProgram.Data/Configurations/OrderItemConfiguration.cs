@@ -16,8 +16,8 @@ namespace TravelProgram.Data.Configurations
                    .OnDelete(DeleteBehavior.Restrict);
 
 			builder.HasOne(oi => oi.Seat)
-				   .WithOne()
-				   .HasForeignKey<OrderItem>(oi => oi.SeatId)
+				   .WithMany(oi => oi.OrderItems)
+				   .HasForeignKey(oi => oi.SeatId)
 				   .OnDelete(DeleteBehavior.Restrict);
 		}
     }

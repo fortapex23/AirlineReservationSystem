@@ -54,7 +54,7 @@ namespace TravelProgram.API.Controllers
             });
         }
 
-        [HttpPost("remove")]
+        [HttpDelete("remove")]
         public async Task<IActionResult> RemoveFromBasket(string appUserId, int seatId)
         {
             try

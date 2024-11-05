@@ -19,7 +19,7 @@
                                 <th>Seat</th>
                                 <th>Class type</th>
                                 <th>Date</th>
-                                <th>Status</th>
+                                @* <th>Status</th> *@
                             </tr>
                         </thead>
                         <tbody>
@@ -31,7 +31,7 @@
                                     <td>@item.SeatNumber</td>
                                     <td>@item.SeatClass</td>
                                     <td>@item.CreatedTime.ToShortDateString()</td>
-                                    <td>@item.Status.ToString()</td>
+                                    @* <td>@item.Status.ToString()</td> *@
                                 </tr>
                             }
                         </tbody>

@@ -8,7 +8,7 @@ namespace TravelProgram.MVC.ViewModels.BookingVMs
         public string AppUserId { get; set; }
         public string BookingNumber { get; set; }
         public int SeatId { get; set; }
-        public BookStatus Status { get; set; }
+        //public OrderStatus Status { get; set; }
         public DateTime CreatedTime { get; set; }
     }
 }

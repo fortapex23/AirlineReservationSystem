@@ -42,8 +42,26 @@ namespace TravelProgram.MVC.Services.Implementations
             var request = new RestRequest(endpoint, Method.Delete);
 
             var response = await _restClient.ExecuteAsync<ApiResponseMessage<T>>(request);
-            if (!response.IsSuccessful) throw new Exception();
+
+            if (!response.IsSuccessful)
+            {
+                var errorMessage = $"Error: {response.StatusCode}. Content: {response.Content}";
+                throw new Exception(errorMessage);
+            }
         }
+
+        public async Task DeleteItem<T>(string endpoint)
+        {
+            var request = new RestRequest(endpoint, Method.Delete);
+
+            var response = await _restClient.ExecuteAsync<ApiResponseMessage<T>>(request);
+            if (!response.IsSuccessful)
+            {
+                var errorMessage = $"Error: {response.StatusCode}. Content: {response.Content}";
+                throw new Exception(errorMessage);
+            }
+        }
+
 
         public async Task<T> GetAllAsync<T>(string endpoint)
         {

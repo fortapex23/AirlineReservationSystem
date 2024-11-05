@@ -1,0 +1,80 @@
+﻿@using TravelProgram.MVC.ViewModels.OrderVMs
+@model List<OrderGetVM>
+
+@{
+	int count = 0;
+}
+
+<div style="margin-left: 280px" class="main-panel">
+	<div class="content-wrapper">
+		<div class="row">
+			<div class="col-lg-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Orders Table</h4>
+						<div asp-validation-summary="ModelOnly" style="text-danger"></div>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>
+											No
+										</th>
+										<th>
+											User
+										</th>
+										<th>
+											Card
+										</th>
+										<th>
+											Items
+										</th>
+										@* <th>
+											Seat
+										</th> *@
+										<th>
+											Status
+										</th>
+										<th>
+											Actions
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var airp in Model)
+									{
+										count++;
+										<tr>
+											<td>
+												@count
+											</td>
+											<td>
+												@airp.AppUserName
+											</td>
+											<td>
+												@airp.CardNumber
+											</td>
+											<td>
+												@airp.OrderItems.Count
+											</td>
+											@* <td>
+												@airp.SeatNumber
+											</td> *@
+											<td>
+												@airp.Status
+											</td>
+											<td>
+												<a asp-action="ApproveOrder" asp-route-id="@airp.Id" class="btn btn-primary">approve</a>
+												<a asp-action="CancelOrder" asp-route-id="@airp.Id" class="btn btn-danger">reject</a>
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

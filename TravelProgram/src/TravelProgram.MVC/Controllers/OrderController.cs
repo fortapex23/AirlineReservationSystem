@@ -108,14 +108,21 @@ namespace TravelProgram.MVC.Controllers
                 });
             }
 
+            var totalAmount = orderItems.Sum(item => item.Price);
             var orderCreateVm = new OrderCreateVM
             {
                 AppUserId = appUserId,
                 CardNumber = cardNumber,
-                OrderItems = orderItems
+                OrderItems = orderItems,
+                TotalAmount = totalAmount,
             };
 
             await _crudService.Create("orders", orderCreateVm);
+
+            foreach (var item in basketItems)
+            {
+                await _crudService.DeleteItem<object>($"BasketItem/remove?appUserId={appUserId}&seatId={item.SeatId}");
+            }
 
             return RedirectToAction("Confirmation");
         }

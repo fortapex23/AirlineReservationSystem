@@ -486,8 +486,7 @@ namespace TravelProgram.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("SeatId")
-                        .IsUnique();
+                    b.HasIndex("SeatId");
 
                     b.ToTable("OrderItems");
                 });
@@ -734,8 +733,8 @@ namespace TravelProgram.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("TravelProgram.Core.Models.Seat", "Seat")
-                        .WithOne()
-                        .HasForeignKey("TravelProgram.Core.Models.OrderItem", "SeatId")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -799,6 +798,8 @@ namespace TravelProgram.Data.Migrations
                 {
                     b.Navigation("Booking")
                         .IsRequired();
+
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("TravelProgram.Core.Models.AppUser", b =>

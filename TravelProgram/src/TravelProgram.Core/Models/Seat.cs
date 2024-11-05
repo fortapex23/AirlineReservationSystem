@@ -13,6 +13,7 @@ namespace TravelProgram.Core.Models
         public bool IsAvailable { get; set; }
 
         //public Plane Plane { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
         public Flight Flight { get; set; }
         public Booking Booking { get; set; }
     }
