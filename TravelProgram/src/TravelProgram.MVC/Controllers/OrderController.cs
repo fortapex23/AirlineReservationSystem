@@ -89,45 +89,64 @@ namespace TravelProgram.MVC.Controllers
                 return View("Order");
             }
 
-            var orderItems = new List<OrderItemCreateVM>();
+            //var orderItems = new List<OrderItemCreateVM>();
 
-            foreach (var item in basketItems)
-            {
-                var seatDetails = await _crudService.GetByIdAsync<SeatGetVM>($"seats/{item.SeatId}", item.SeatId);
+            //foreach (var item in basketItems)
+            //{
+            //    var seatDetails = await _crudService.GetByIdAsync<SeatGetVM>($"seats/{item.SeatId}", item.SeatId);
 
-                if (seatDetails == null)
-                {
-                    ModelState.AddModelError("", $"Seat with ID {item.SeatId} not found.");
-                    return View("Order");
-                }
+            //    if (seatDetails == null)
+            //    {
+            //        ModelState.AddModelError("", $"Seat with ID {item.SeatId} not found.");
+            //        return View("Order");
+            //    }
 
-                orderItems.Add(new OrderItemCreateVM
-                {
-                    SeatId = item.SeatId,
-                    Price = seatDetails.Price
-                });
-            }
+            //    orderItems.Add(new OrderItemCreateVM
+            //    {
+            //        SeatId = item.SeatId,
+            //        Price = seatDetails.Price
+            //    });
+            //}
 
-            var totalAmount = orderItems.Sum(item => item.Price);
-            var orderCreateVm = new OrderCreateVM
-            {
-                AppUserId = appUserId,
-                CardNumber = cardNumber,
-                OrderItems = orderItems,
-                TotalAmount = totalAmount,
-            };
+            //var totalAmount = orderItems.Sum(item => item.Price);
+            //var orderCreateVm = new OrderCreateVM
+            //{
+            //    AppUserId = appUserId,
+            //    CardNumber = cardNumber,
+            //    OrderItems = orderItems,
+            //    TotalAmount = totalAmount,
+            //};
+
+            //var seatIds = basketItems.Select(item => item.SeatId).ToList();
+
+            //var orderCreateVm = new OrderCreateVM
+            //{
+            //    AppUserId = appUserId,
+            //    CardNumber = cardNumber,
+            //    SeatIds = seatIds
+            //};
 
             await _crudService.Create("orders", orderCreateVm);
 
-            foreach (var item in basketItems)
-            {
-                await _crudService.DeleteItem<object>($"BasketItem/remove?appUserId={appUserId}&seatId={item.SeatId}");
-            }
+			foreach (var item in basketItems)
+			{
+				try
+				{
+					await _crudService.DeleteItem<object>($"BasketItem/remove?appUserId={appUserId}&seatId={item.SeatId}");
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine($"Failed to delete BasketItem for SeatId {item.SeatId}: {ex.Message}");
+				}
+			}
 
-            return RedirectToAction("Confirmation");
+			return RedirectToAction("Confirmation");
         }
 
-
+        public IActionResult Confirmation()
+        {
+            return View();
+        }
 
     }
 }

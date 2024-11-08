@@ -36,7 +36,32 @@ namespace TravelProgram.API.Controllers
             });
         }
 
-        [HttpGet("{id}")]
+		[HttpPost("[action]")]
+		public async Task<IActionResult> ForgotPassword(ForgotPasswordDto dto)
+		{
+			try
+			{
+				await _authService.ForgotPassword(dto);
+
+				return Ok(new ApiResponse<string>
+				{
+					Data = "Password reset successfully",
+					ErrorMessage = null,
+					StatusCode = StatusCodes.Status200OK
+				});
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new ApiResponse<string>
+				{
+					Data = null,
+					ErrorMessage = ex.Message,
+					StatusCode = StatusCodes.Status400BadRequest
+				});
+			}
+		}
+
+		[HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
             UserGetDto dto = null;

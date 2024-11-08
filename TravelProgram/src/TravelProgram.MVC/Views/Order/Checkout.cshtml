@@ -114,40 +114,38 @@
 	document.addEventListener("DOMContentLoaded", function () {
 		fetchBasketItems();
 	});
-
+	
 	const basketURL = "/Home/GetBasketItems";
 	const flightURL = "https://localhost:7046/api/flights/";
 	const seatURL = "https://localhost:7046/api/seats/";
 	const airportURL = "https://localhost:7046/api/airports/";
+	const removeItemURL = "https://localhost:7046/api/basketitem/remove?";
 
 	let subtotal = 0;
 
 	function fetchBasketItems() {
 		fetch(basketURL)
-			.then(response => response.json())
-			.then(basketItems => {
-				const tableBody = document.querySelector('#basketTable tbody');
-				tableBody.innerHTML = '';
-				subtotal = 0;
+        .then(response => response.json())
+        .then(basketItems => {
+            const tableBody = document.querySelector('#basketTable tbody');
+            tableBody.innerHTML = '';
+            subtotal = 0;
 
-				basketItems.forEach(item => {
-					fetchSeatDetails(item.seatId)
-						.then(seatData => {
-							return fetchFlightDetails(seatData.flightId).then(flightData => {
-								return Promise.all([
-									fetchAirportDetails(flightData.departureAirportId),
-									fetchAirportDetails(flightData.arrivalAirportId)
-								]).then(([departureCity, arrivalCity]) => {
-									displayBasketItem(tableBody, seatData, flightData, departureCity, arrivalCity);
-									updateSubtotal(seatData.price);
-								});
-							});
-						})
-						.catch(error => console.error('Error fetching seat or flight details:', error));
-				});
-			})
-			.catch(error => console.error('Error fetching basket items:', error));
+            basketItems.forEach(item => {
+                fetchSeatDetails(item.seatId)
+                    .then(seatData => {
+                        return fetchFlightDetails(seatData.flightId).then(flightData => {
+                            displayBasketItem(tableBody, seatData, flightData, flightData.departureAirportId, flightData.arrivalAirportId);
+                            updateSubtotal(seatData.price);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching seat or flight details:', error));
+            });
+        })
+        .catch(error => console.error('Error fetching basket items:', error));
 	}
+
+
 
 	function fetchSeatDetails(seatId) {
 		return fetch(`${seatURL}${seatId}`)
@@ -179,18 +177,42 @@
 			});
 	}
 
-	function displayBasketItem(tableBody, seat, flight, departureCity, arrivalCity) {
+	function displayBasketItem(tableBody, seat, flight) { //, departureCityCode, arrivalCityCode
+		// const departureCity = AirportCities[departureCityCode] || "Unknown";
+		// const arrivalCity = AirportCities[arrivalCityCode] || "Unknown";
+
 		const row = document.createElement('tr');
 		row.innerHTML = `
-					<td><a class="btn btn-outline-danger">x</a></td>
-					<td>${flight.flightNumber}</td>
-					<td>${departureCity}</td>
-					<td>${arrivalCity}</td>
-					<td>${seat.seatNumber}</td>
-					<td>$${seat.price}</td>
-				`;
+        <td><a class="btn btn-outline-danger remove-item" data-seat-id="${seat.id}">x</a></td>
+        <td>${flight.flightNumber}</td>
+        <td>from</td>
+        <td>to</td>
+        <td>${seat.seatNumber}</td>
+	    <td>$${seat.price}</td>
+		`;
 		tableBody.appendChild(row);
+
+		// row.querySelector('.remove-item').addEventListener('click', function (event) {
+		// 	const seatId = event.target.getAttribute('data-seat-id');
+		// 	removeBasketItem(seatId, row);
+		// });
 	}
+
+	// function removeBasketItem(seatId, rowElement) {
+	// 	fetch(`${removeItemURL}?appUserId=${}?seatId=${seatId}`, {
+	// 		method: 'DELETE',
+	// 	})
+	// 		.then(response => {
+	// 			if (response.ok) {
+	// 				rowElement.remove();
+	// 				const price = parseFloat(rowElement.querySelector('td:last-child').textContent.replace('$', ''));
+	// 				updateSubtotal(-price);
+	// 			} else {
+	// 				console.error('Failed to remove item from basket');
+	// 			}
+	// 		})
+	// 		.catch(error => console.error('Error removing item:', error));
+	// }
 
 	function updateSubtotal(price) {
 		subtotal += price;

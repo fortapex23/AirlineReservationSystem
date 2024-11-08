@@ -29,6 +29,17 @@ namespace TravelProgram.API.Controllers
             });
         }
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetByOrderId(int orderid)
+        {
+            var orderItem = await _orderItemService.GetByExpression(true, x => x.OrderId == orderid);
+            return Ok(new ApiResponse<ICollection<OrderItemGetDto>>
+            {
+                Data = orderItem,
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(OrderItemCreateDto dto)
         {

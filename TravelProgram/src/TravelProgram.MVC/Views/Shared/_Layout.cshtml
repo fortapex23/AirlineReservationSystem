@@ -97,7 +97,13 @@
                                 <li class="menu-item-has-children">
                                     <a asp-controller="flight" asp-action="index">Flights</a>
                                 </li>
-                                <li class="menu-item-has-children">
+                                @if (ViewBag.Role is not null)
+                                {
+                                    <li class="menu-item-has-children">
+                                        <a asp-controller="Profile" asp-action="index">Profile</a>
+                                    </li>
+                                }
+                                @* <li class="menu-item-has-children">
                                     <a href="#">Pages</a>
                                 </li>
                                 <li class="menu-item-has-children">
@@ -105,11 +111,11 @@
                                 </li>
                                 <li class="menu-item-has-children">
                                     <a href="~/#">Blog</a>
-                                </li>
+                                </li> *@
                                 @if (ViewBag.Role == "Admin")
                                 {
                                     <li class="menu-item-has-children">
-                                        <a asp-area="admin">Admin Panel</a>
+                                        <a asp-area="admin" asp-controller="home" asp-action="index">Admin Panel</a>
                                     </li>
                                 }
                             </ul>
@@ -123,7 +129,7 @@
                                     @ViewBag.FullName
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="order" asp-action="checkout">Order</a></li>
+                                    <li><a class="dropdown-item" asp-controller="order" asp-action="checkout">Checkout</a></li>
                                     <li><a class="dropdown-item" asp-controller="profile" asp-action="index">Profile</a></li>
                                 </ul>
                             </div>

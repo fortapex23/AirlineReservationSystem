@@ -3,6 +3,6 @@ using TravelProgram.Core.Enum;
 
 namespace TravelProgram.Business.DTOs.OrderDTOs
 {
-    public record OrderGetDto(int Id, string AppUserId, decimal TotalAmount, DateTime CreatedTime, OrderStatus Status,
-								ICollection<OrderItemGetDto> OrderItems);
+    public record OrderGetDto(int Id, string AppUserId, decimal TotalAmount, DateTime CreatedTime, int CardNumber, 
+                            OrderStatus Status, ICollection<OrderItemGetDto> OrderItems);
 }

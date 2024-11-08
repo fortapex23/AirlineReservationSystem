@@ -25,7 +25,36 @@ namespace TravelProgram.Business.Services.Implementations
 			_configuration = configuration;
 		}
 
-        public async Task<ICollection<UserGetDto>> GetAllUsersAsync()
+		public async Task ForgotPassword(ForgotPasswordDto dto)
+		{
+			if (dto.Password != dto.ConfirmPassword)
+			{
+				throw new Exception("New password and confirpassword do not match");
+			}
+
+			var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
+
+			if (user == null)
+			{
+				throw new NullReferenceException("User email does not exist");
+			}
+
+			if (!string.Equals(user.FullName.ToLower().Trim(), dto.FullName.ToLower().Trim()))
+			{
+				throw new Exception("No suchh a fullname");
+			}
+
+			var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+			var result = await _userManager.ResetPasswordAsync(user, resetToken, dto.Password);
+
+			if (!result.Succeeded)
+			{
+				throw new Exception("Failed to reset password");
+			}
+		}
+
+		public async Task<ICollection<UserGetDto>> GetAllUsersAsync()
         {
             var users = await _userManager.Users.ToListAsync();
 
@@ -218,73 +247,6 @@ namespace TravelProgram.Business.Services.Implementations
 
 			return new TokenResponseDto(token, expiredt);
 		}
-
-
-        //public async Task<TokenResponseDto> LoginWithCode(UserLoginWithCodeDto dto)
-        //{
-        //	AppUser appUser = await _userManager.FindByEmailAsync(dto.Email);
-
-        //	if (appUser == null)
-        //	{
-        //		throw new NullReferenceException("User not found");
-        //	}
-
-        //	var storedCode = await _userManager.GetAuthenticationTokenAsync(appUser, "Default", "LoginCode");
-
-        //	if (storedCode == null || storedCode != dto.Code)
-        //	{
-        //		throw new Exception("Invalid or expired login code");
-        //	}
-
-        //	List<Claim> claims = new List<Claim>()
-        //	{
-        //		new Claim(ClaimTypes.NameIdentifier, appUser.Id),
-        //		new Claim(ClaimTypes.Name, appUser.UserName)
-        //	};
-
-        //	var roles = await _userManager.GetRolesAsync(appUser);
-        //	claims.AddRange(roles.Select(x => new Claim(ClaimTypes.Role, x)));
-
-        //	var secretKey = _configuration.GetSection("JWT:secretKey").Value;
-        //	var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-        //	var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-
-        //	var jwtSecurityToken = new JwtSecurityToken(
-        //		signingCredentials: signingCredentials,
-        //		claims: claims,
-        //		audience: _configuration.GetSection("JWT:audience").Value,
-        //		issuer: _configuration.GetSection("JWT:issuer").Value,
-        //		expires: DateTime.UtcNow.AddMinutes(10),
-        //		notBefore: DateTime.UtcNow
-        //	);
-
-        //	string token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-        //	return new TokenResponseDto(token, DateTime.UtcNow.AddMinutes(10));
-        //}
-
-        //private async Task SendLoginCodeEmail(string email, string code)
-        //{
-        //	var smtpClient = new SmtpClient(_configuration["Email:smtpServer"])
-        //	{
-        //		Port = int.Parse(_configuration["Email:smtpPort"]),
-        //		Credentials = new NetworkCredential(
-        //			_configuration["Email:gmail"],
-        //			_configuration["Email:password"]),
-        //		EnableSsl = bool.Parse(_configuration["Email:enableSsl"]),
-        //	};
-
-        //	var mailMessage = new MailMessage
-        //	{
-        //		From = new MailAddress(_configuration["Email:gmail"]),
-        //		Subject = "Your Login Code",
-        //		Body = $"Your login code is {code}",
-        //		IsBodyHtml = true,
-        //	};
-
-        //	mailMessage.To.Add(email);
-
-        //	await smtpClient.SendMailAsync(mailMessage);
-        //}
 
 
     }

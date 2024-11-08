@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using TravelProgram.MVC.ApiResponseMessages;
 using TravelProgram.MVC.Services.Interfaces;
 using TravelProgram.MVC.ViewModels.AuthVMs;
 
@@ -47,22 +48,22 @@ namespace TravelProgram.MVC.Services.Implementations
             return response.Data;
         }
 
-        //public async Task<LoginResponseVM> AdminLogin(UserLoginVM vm)
-        //{
-        //    var request = new RestRequest("/Auth/AdminLogin", Method.Post);
-        //    request.AddJsonBody(vm);
+		public async Task<string> ForgotPassword(ForgotPasswordVM vm)
+		{
+			var request = new RestRequest("/Auth/ForgotPassword", Method.Post);
+			request.AddJsonBody(vm);
 
-        //    var response = await _restClient.ExecuteAsync<LoginResponseVM>(request);
+			var response = await _restClient.ExecuteAsync<ApiResponseMessage<string>>(request);
 
-        //    if (!response.IsSuccessful)
-        //    {
-        //        throw new Exception("couldnt login admin");
-        //    }
+			if (!response.IsSuccessful || response.Data?.Data == null)
+			{
+				throw new Exception(response.Data?.ErrorMessage ?? "Failed to reset password");
+			}
 
-        //    return response.Data;
-        //}
+			return response.Data.Data;
+		}
 
-        public void Logout()
+		public void Logout()
         {
             _httpContextAccessor.HttpContext.Response.Cookies.Delete("token");
         }

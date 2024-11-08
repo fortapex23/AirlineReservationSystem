@@ -73,7 +73,37 @@ namespace TravelProgram.MVC.Controllers
             }
         }
 
-        public IActionResult Logout()
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+		public async Task<IActionResult> ForgotPassword(ForgotPasswordVM vm)
+        {
+			if (!ModelState.IsValid) return View();
+
+			try
+			{
+				var data = await _authService.ForgotPassword(vm);
+
+				TempData["Message"] = data;
+				return RedirectToAction("Login");
+
+				//else
+				//{
+				//	ModelState.AddModelError("", "couldnt register 2");
+				//	return View();
+				//}
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", ex.Message);
+				return View();
+			}
+		}
+
+		public IActionResult Logout()
         {
             _authService.Logout();
 

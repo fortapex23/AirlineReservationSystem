@@ -12,5 +12,6 @@ namespace TravelProgram.MVC.ViewModels.OrderVMs
         public int CardNumber { get; set; }
         public List<OrderItemGetVM> OrderItems { get; set; }
         public OrderStatus Status { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

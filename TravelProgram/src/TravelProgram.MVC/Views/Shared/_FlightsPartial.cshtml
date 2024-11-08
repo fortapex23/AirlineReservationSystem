@@ -81,30 +81,51 @@
                 <div style="display:flex;flex-direction:column" class="receipt qr-code">
                     @* <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chooseclass">Choose Class</a> *@
 
-                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-primary">Select Economy Seat<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
-                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="margin-top: 10px" class="btn btn-outline-warning">Select Business Seat<i style="margin-left: 6px" class="fas fa-arrow-right"></i></a>
+                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-primary">Select Seats<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
+                    @* <a data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="margin-top: 10px" class="btn btn-outline-warning">Select Business Seat<i style="margin-left: 6px" class="fas fa-arrow-right"></i></a> *@
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Economy Modal -->
+
+    <!-- Seat Selection Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel">Choose an Economy Seat</h1>
+                    <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel">Choose a Seat</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
                 </div>
                 <form asp-action="AddToBasket" asp-controller="Home" method="post">
                     <div class="modal-body">
-                        <input type="hidden" name="SeatClassType" value="Economy" />
-                        <select class="form-control" name="SelectedSeats" multiple>
-                            @foreach (var ecseat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Economy && x.IsAvailable))
+                        <div id="selectedSeatsContainer"></div>
+
+                        <h5>Business Seats</h5>
+                        <div class="seat-layout business-seats">
+                            @foreach (var seat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Business))
                             {
-                                <option value="@ecseat.Id">@ecseat.SeatNumber</option>
+                                <button type="button" class="seat @((seat.IsAvailable ? "available" : "unavailable"))"
+                                        data-seat-id="@seat.Id"
+                                        onclick="selectSeat(this, @seat.Id)"
+                                @(seat.IsAvailable ? "" : "disabled")>
+                                    @seat.SeatNumber
+                                </button>
                             }
-                        </select>
+                        </div>
+
+                        <h5>Economy Seats</h5>
+                        <div class="seat-layout economy-seats">
+                            @foreach (var seat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Economy))
+                            {
+                                <button type="button" class="seat @((seat.IsAvailable ? "available" : "unavailable"))"
+                                        data-seat-id="@seat.Id"
+                                        onclick="selectSeat(this, @seat.Id)"
+                                @(seat.IsAvailable ? "" : "disabled")>
+                                    @seat.SeatNumber
+                                </button>
+                            }
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -115,32 +136,79 @@
         </div>
     </div>
 
-    <!-- Business Modal -->
-    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel">Choose a Business Seat</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
-                </div>
-                <form asp-action="AddToBasket" asp-controller="Home" method="post">
-                    <div class="modal-body">
-                        <input type="hidden" name="SeatClassType" value="Business" />
-                        <select class="form-control" name="SelectedSeats" multiple>
-                            @foreach (var bsseat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Business && x.IsAvailable))
-                            {
-                                <option value="@bsseat.Id">@bsseat.SeatNumber</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Select</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- CSS for Seat Layout -->
+    <style>
+        .seat-layout {
+            display: grid;
+            gap: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .business-seats {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .economy-seats {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .seat {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+            .seat.available {
+                background-color: #28a745;
+                color: #fff;
+            }
+
+            .seat.unavailable {
+                background-color: #dc3545;
+                color: #fff;
+                cursor: not-allowed;
+            }
+
+            .seat.selected {
+                background-color: #007bff;
+                color: #fff;
+            }
+    </style>
+
+
+    <script>
+        const selectedSeats = new Set();
+
+        function selectSeat(button, seatId) {
+            const selectedSeatsContainer = document.getElementById('selectedSeatsContainer');
+
+            if (button.classList.contains('selected')) {
+                button.classList.remove('selected');
+                selectedSeats.delete(seatId);
+            } else {
+                button.classList.add('selected');
+                selectedSeats.add(seatId);
+            }
+
+            selectedSeatsContainer.innerHTML = '';
+
+            selectedSeats.forEach(id => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'SelectedSeats';
+                input.value = id;
+                selectedSeatsContainer.appendChild(input);
+            });
+
+            // console.log("Selected seats:", Array.from(selectedSeats));
+        }
+    </script>
+
 
 
 }

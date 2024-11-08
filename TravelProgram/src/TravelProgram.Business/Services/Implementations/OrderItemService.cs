@@ -61,6 +61,14 @@ namespace TravelProgram.Business.Services.Implementations
             return _mapper.Map<OrderItemGetDto>(orderItem);
         }
 
+        //public async Task<OrderItemGetDto> GetByOrderId(int orderid)
+        //{
+        //    var orderItem = _orderItemRepository.GetByExpression(false, x => x.OrderId == orderid);
+        //    if (orderItem == null) throw new Exception("Order item not found");
+
+        //    return _mapper.Map<OrderItemGetDto>(orderItem);
+        //}
+
         //public async Task UpdateAsync(int id, OrderItemUpdateDto dto)
         //{
         //    var orderItem = await _orderItemRepository.GetByIdAsync(id);

@@ -29,9 +29,9 @@
 										<th>
 											Items
 										</th>
-										@* <th>
-											Seat
-										</th> *@
+										<th>
+											Date
+										</th>
 										<th>
 											Status
 										</th>
@@ -41,7 +41,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach (var airp in Model)
+									@foreach (var ord in Model)
 									{
 										count++;
 										<tr>
@@ -49,23 +49,24 @@
 												@count
 											</td>
 											<td>
-												@airp.AppUserName
+												@ord.AppUserName
 											</td>
 											<td>
-												@airp.CardNumber
+												@ord.CardNumber
 											</td>
 											<td>
-												@airp.OrderItems.Count
-											</td>
-											@* <td>
-												@airp.SeatNumber
-											</td> *@
-											<td>
-												@airp.Status
+												@ord.OrderItems.Count
 											</td>
 											<td>
-												<a asp-action="ApproveOrder" asp-route-id="@airp.Id" class="btn btn-primary">approve</a>
-												<a asp-action="CancelOrder" asp-route-id="@airp.Id" class="btn btn-danger">reject</a>
+												@ord.CreatedTime.ToShortDateString()
+											</td>
+											<td>
+												@ord.Status
+											</td>
+											<td>
+												<a asp-controller="orderitem" asp-route-orderId="@ord.Id" class="btn btn-warning">items</a>
+												<a asp-action="ApproveOrder" asp-route-id="@ord.Id" class="btn btn-primary">approve</a>
+												<a asp-action="CancelOrder" asp-route-id="@ord.Id" class="btn btn-danger">reject</a>
 											</td>
 										</tr>
 									}

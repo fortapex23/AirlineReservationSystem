@@ -8,5 +8,7 @@ namespace TravelProgram.MVC.Services.Interfaces
         Task<LoginResponseVM> AdminLogin(UserLoginVM vm);
         void Logout();
         Task<bool> Register(UserRegisterVM vm);
-    }
+        Task<string> ForgotPassword(ForgotPasswordVM vm);
+
+	}
 }

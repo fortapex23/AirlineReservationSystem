@@ -33,14 +33,14 @@ namespace TravelProgram.Business.Services.Implementations
             return _orderRepository.Table.AnyAsync(expression);
         }
 
-        public async Task<OrderGetDto> CreateAsync(OrderCreateDto dto)
-        {
-            var order = _mapper.Map<Order>(dto);
-            order.CreatedTime = DateTime.Now;
-            order.UpdatedTime = DateTime.Now;
+		public async Task<OrderGetDto> CreateAsync(OrderCreateDto dto)
+		{
+			var order = _mapper.Map<Order>(dto);
+			order.CreatedTime = DateTime.Now;
+			order.UpdatedTime = DateTime.Now;
 
-            await _orderRepository.CreateAsync(order);
-            await _orderRepository.CommitAsync();
+			await _orderRepository.CreateAsync(order);
+			//await _orderRepository.CommitAsync();
 
 			decimal totalAmount = 0;
 
@@ -52,34 +52,49 @@ namespace TravelProgram.Business.Services.Implementations
 					if (seat == null || !seat.IsAvailable)
 						throw new Exception("Seat not available or not found");
 
-					var orderItem = _mapper.Map<OrderItem>(item);
-					orderItem.OrderId = order.Id;
-					orderItem.Price = seat.Price;
-					orderItem.CreatedTime = DateTime.Now;
-					orderItem.UpdatedTime = DateTime.Now;
+					var orderItem = new OrderItem
+					{
+						OrderId = order.Id,
+						SeatId = item.SeatId,
+						Price = seat.Price,
+						CreatedTime = DateTime.Now,
+						UpdatedTime = DateTime.Now
+					};
 
 					await _orderItemRepository.CreateAsync(orderItem);
-
 					totalAmount += orderItem.Price;
 				}
 				await _orderItemRepository.CommitAsync();
 			}
 
 			order.TotalAmount = totalAmount;
-
 			await _orderRepository.CommitAsync();
-			return _mapper.Map<OrderGetDto>(order);
-        }
 
+			return _mapper.Map<OrderGetDto>(order);
+		}
 
         public async Task DeleteAsync(int id)
         {
-            var order = await _orderRepository.GetByIdAsync(id);
-            if (order == null) throw new Exception("Order not found");
+            var order = await _orderRepository.Table
+                .Include(o => o.OrderItems)
+                .FirstOrDefaultAsync(o => o.Id == id);
+
+            if (order == null)
+                throw new Exception("Order not found");
+
+            if (order.OrderItems != null && order.OrderItems.Any())
+            {
+                foreach (var orderItem in order.OrderItems.ToList())
+                {
+                    _orderItemRepository.Delete(orderItem);
+                }
+                await _orderItemRepository.CommitAsync();
+            }
 
             _orderRepository.Delete(order);
             await _orderRepository.CommitAsync();
         }
+
 
         public async Task<ICollection<OrderGetDto>> GetByExpression(bool asNoTracking = false, Expression<Func<Order, bool>>? expression = null, params string[] includes)
         {

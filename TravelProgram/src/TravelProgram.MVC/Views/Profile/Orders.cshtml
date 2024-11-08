@@ -1,0 +1,53 @@
+﻿@using TravelProgram.MVC.ViewModels.OrderVMs
+
+@model List<OrderGetVM>
+@{
+    int count = 0;
+
+    Layout = "_ProfileLayout";
+}
+
+<div class="db-info-wrap">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="dashboard-box table-opp-color-box">
+                <h4>Your Orders</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Count</th>
+                                <th>Card</th>
+                                <th>Items</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                @* <th>Status</th> *@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@item.CardNumber</td>
+                                    <td>@item.OrderItems.Count</td>
+                                    <td>@item.CreatedTime.ToShortDateString()</td>
+                                    <td>@item.Status.ToString()</td>
+                                    <td><a asp-action="orderitems" style="color: white" class="btn btn-primary">see -></a></td>
+                                    @* <td>@item.Status.ToString()</td> *@
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content / End -->
+<!-- Copyrights -->
+<div class="copyrights">
+    Copyright © 2021 Travele. All rights reserveds.
+</div>

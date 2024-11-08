@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="~/profile/assets/css/style.css">
-    <title>Travele | Travel & Tour HTML5 template </title>
+    <title>Profile</title>
 </head>
 <body>
 
@@ -154,7 +154,7 @@
                 <div id="navigation" class="navigation-container">
                     <li><a asp-controller="home" asp-action="index"><i class="far fa-heart"></i>Home Page</a></li>
                     <ul>
-                        <li class="active-menu">
+                        @* <li class="active-menu">
                             <a><i class="fas fa-user"></i>Settings</a>
                             <ul>
                                 <li>
@@ -164,8 +164,10 @@
                                     <a asp-action="bookings">Your Bookings</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li><a asp-controller="wishlist" asp-action="index"><i class="far fa-heart"></i>Wishlist</a></li>
+                        </li> *@
+                        <li><a asp-action="index"><i class="far fa-heart"></i>Your Profile</a></li>
+                        <li><a asp-action="orders"><i class="far fa-heart"></i>Orders</a></li>
+                        <li><a asp-action="bookings"><i class="far fa-heart"></i>Your Bookings</a></li>
                         <li><a asp-action="logout" asp-controller="auth"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                 </div>

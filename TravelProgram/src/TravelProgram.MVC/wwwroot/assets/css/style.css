@@ -1670,9 +1670,9 @@ input[type=submit] {
     padding: 0;
 }
 
-    .main-navigation ul > li.menu-item-has-children > a:after {
+    /*.main-navigation ul > li.menu-item-has-children > a:after {
         content: "\f0d7";
-    }
+    }*/
 
     .main-navigation ul > li:last-child {
         border-bottom: none;

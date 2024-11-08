@@ -4,6 +4,7 @@ using TravelProgram.MVC.ViewModels.AirportVMs;
 using TravelProgram.MVC.ViewModels.AuthVMs;
 using TravelProgram.MVC.ViewModels.BookingVMs;
 using TravelProgram.MVC.ViewModels.FlightVMs;
+using TravelProgram.MVC.ViewModels.OrderVMs;
 using TravelProgram.MVC.ViewModels.SeatVM;
 
 namespace TravelProgram.MVC.Controllers
@@ -68,6 +69,23 @@ namespace TravelProgram.MVC.Controllers
             }
 
             return View(userBookings);
+        }
+
+        public async Task<IActionResult> Orders()
+        {
+            SetFullName();
+
+            if (ViewBag.FullName is null)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+            var id = ViewBag.Id;
+
+            var orders = await _crudService.GetAllAsync<List<OrderGetVM>>("/orders");
+
+            var userOrders = orders.Where(b => b.AppUserId == id).ToList();
+
+            return View(userOrders);
         }
 
         public async Task<IActionResult> EditProfile()
