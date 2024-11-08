@@ -152,7 +152,7 @@
                 <!-- Responsive Navigation Trigger -->
                 <div id="dashboard-Navigation" class="slick-nav"></div>
                 <div id="navigation" class="navigation-container">
-                    <li><a asp-controller="home" asp-action="index"><i class="far fa-heart"></i>Home Page</a></li>
+                    @* <li><a asp-controller="home" asp-action="index"><i class="far fa-heart"></i>Home Page</a></li> *@
                     <ul>
                         @* <li class="active-menu">
                             <a><i class="fas fa-user"></i>Settings</a>
@@ -167,8 +167,8 @@
                         </li> *@
                         <li><a asp-action="index"><i class="far fa-heart"></i>Your Profile</a></li>
                         <li><a asp-action="orders"><i class="far fa-heart"></i>Orders</a></li>
-                        <li><a asp-action="bookings"><i class="far fa-heart"></i>Your Bookings</a></li>
-                        <li><a asp-action="logout" asp-controller="auth"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        <li><a asp-action="bookings"><i class="far fa-heart"></i>Bookings</a></li>
+                        @* <li><a asp-action="logout" asp-controller="auth"><i class="fas fa-sign-out-alt"></i> Logout</a></li> *@
                     </ul>
                 </div>
             </div>

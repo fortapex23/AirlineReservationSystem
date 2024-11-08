@@ -40,35 +40,35 @@ namespace TravelProgram.Business.Services.Implementations
 			order.UpdatedTime = DateTime.Now;
 
 			await _orderRepository.CreateAsync(order);
-			//await _orderRepository.CommitAsync();
-
-			decimal totalAmount = 0;
-
-			if (dto.OrderItems != null)
-			{
-				foreach (var item in dto.OrderItems)
-				{
-					var seat = await _seatRepository.GetByIdAsync(item.SeatId);
-					if (seat == null || !seat.IsAvailable)
-						throw new Exception("Seat not available or not found");
-
-					var orderItem = new OrderItem
-					{
-						OrderId = order.Id,
-						SeatId = item.SeatId,
-						Price = seat.Price,
-						CreatedTime = DateTime.Now,
-						UpdatedTime = DateTime.Now
-					};
-
-					await _orderItemRepository.CreateAsync(orderItem);
-					totalAmount += orderItem.Price;
-				}
-				await _orderItemRepository.CommitAsync();
-			}
-
-			order.TotalAmount = totalAmount;
 			await _orderRepository.CommitAsync();
+
+			//decimal totalAmount = 0;
+
+			//if (dto.OrderItems != null)
+			//{
+			//	foreach (var item in dto.OrderItems)
+			//	{
+			//		var seat = await _seatRepository.GetByIdAsync(item.SeatId);
+			//		if (seat == null || !seat.IsAvailable)
+			//			throw new Exception("Seat not available or not found");
+
+			//		var orderItem = new OrderItem
+			//		{
+			//			OrderId = order.Id,
+			//			SeatId = item.SeatId,
+			//			Price = seat.Price,
+			//			CreatedTime = DateTime.Now,
+			//			UpdatedTime = DateTime.Now
+			//		};
+
+			//		await _orderItemRepository.CreateAsync(orderItem);
+			//		totalAmount += orderItem.Price;
+			//	}
+			//	await _orderItemRepository.CommitAsync();
+			//}
+
+			//order.TotalAmount = totalAmount;
+			//await _orderRepository.CommitAsync();
 
 			return _mapper.Map<OrderGetDto>(order);
 		}

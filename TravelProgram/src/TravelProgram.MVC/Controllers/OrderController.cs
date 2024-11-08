@@ -89,42 +89,35 @@ namespace TravelProgram.MVC.Controllers
                 return View("Order");
             }
 
-            //var orderItems = new List<OrderItemCreateVM>();
+            var orderItems = new List<OrderItemCreateVM>();
 
-            //foreach (var item in basketItems)
-            //{
-            //    var seatDetails = await _crudService.GetByIdAsync<SeatGetVM>($"seats/{item.SeatId}", item.SeatId);
+            foreach (var item in basketItems)
+            {
+                var seatDetails = await _crudService.GetByIdAsync<SeatGetVM>($"seats/{item.SeatId}", item.SeatId);
 
-            //    if (seatDetails == null)
-            //    {
-            //        ModelState.AddModelError("", $"Seat with ID {item.SeatId} not found.");
-            //        return View("Order");
-            //    }
+                if (seatDetails == null)
+                {
+                    ModelState.AddModelError("", $"Seat with ID {item.SeatId} not found.");
+                    return View("Order");
+                }
 
-            //    orderItems.Add(new OrderItemCreateVM
-            //    {
-            //        SeatId = item.SeatId,
-            //        Price = seatDetails.Price
-            //    });
-            //}
+                orderItems.Add(new OrderItemCreateVM
+                {
+                    SeatId = item.SeatId,
+                    Price = seatDetails.Price,
+                    CreatedTime = DateTime.UtcNow,
+                    UpdatedTime = DateTime.UtcNow,
+                });
+            }
 
-            //var totalAmount = orderItems.Sum(item => item.Price);
-            //var orderCreateVm = new OrderCreateVM
-            //{
-            //    AppUserId = appUserId,
-            //    CardNumber = cardNumber,
-            //    OrderItems = orderItems,
-            //    TotalAmount = totalAmount,
-            //};
-
-            //var seatIds = basketItems.Select(item => item.SeatId).ToList();
-
-            //var orderCreateVm = new OrderCreateVM
-            //{
-            //    AppUserId = appUserId,
-            //    CardNumber = cardNumber,
-            //    SeatIds = seatIds
-            //};
+            var totalAmount = orderItems.Sum(item => item.Price);
+            var orderCreateVm = new OrderCreateVM
+            {
+                AppUserId = appUserId,
+                CardNumber = cardNumber,
+                OrderItems = orderItems,
+                TotalAmount = totalAmount,
+            };
 
             await _crudService.Create("orders", orderCreateVm);
 
@@ -140,7 +133,7 @@ namespace TravelProgram.MVC.Controllers
 				}
 			}
 
-			return RedirectToAction("Confirmation");
+			return RedirectToAction("Checkout", "Order");
         }
 
         public IActionResult Confirmation()
