@@ -13,12 +13,17 @@ namespace TravelProgram.Business.Services.Implementations
 	{
 		private readonly ISeatRepository _seatRepository;
 		private readonly IMapper _mapper;
+        private readonly IBookingRepository _bookingRepository;
+        private readonly IOrderItemRepository _orderItemRepository;
 
-		public SeatService(ISeatRepository SeatRepository, IMapper mapper)
+        public SeatService(ISeatRepository SeatRepository, IMapper mapper, IBookingRepository bookingRepository,
+								IOrderItemRepository orderItemRepository)
 		{
 			_seatRepository = SeatRepository;
 			_mapper = mapper;
-		}
+            _bookingRepository = bookingRepository;
+            _orderItemRepository = orderItemRepository;
+        }
 
         public Task<bool> IsExist(Expression<Func<Seat, bool>> expression)
         {
@@ -48,10 +53,24 @@ namespace TravelProgram.Business.Services.Implementations
 		{
 			if (id < 1) throw new Exception();
 
-			var Seat = await _seatRepository.GetByIdAsync(id);
-			if (Seat == null) throw new Exception("Seat not found.");
+			var seat = await _seatRepository.GetByIdAsync(id);
+			if (seat == null) throw new Exception("Seat not found.");
 
-			_seatRepository.Delete(Seat);
+			var booking = _bookingRepository.GetByExpression(false, x => x.SeatId == id);
+
+			if (booking is not null)
+				throw new InvalidOperationException("this seat has been booked");
+
+            if (seat.OrderItems != null && seat.OrderItems.Any())
+            {
+                foreach (var orderItem in seat.OrderItems.ToList())
+                {
+                    _orderItemRepository.Delete(orderItem);
+                }
+                await _orderItemRepository.CommitAsync();
+            }
+
+            _seatRepository.Delete(seat);
 			await _seatRepository.CommitAsync();
 		}
 
@@ -84,8 +103,8 @@ namespace TravelProgram.Business.Services.Implementations
 		{
 			if (id < 1 || id is null) throw new NullReferenceException("id is invalid");
 
-			var airport = await _seatRepository.GetByIdAsync((int)id);
-			if (airport == null) throw new Exception("Seat not found");
+			var seat = await _seatRepository.GetByIdAsync((int)id);
+			if (seat == null) throw new Exception("Seat not found");
 
 			var existingSeat = await _seatRepository
 			.GetByExpression(true, t => t.SeatNumber == dto.SeatNumber && t.Id != id)
@@ -94,9 +113,9 @@ namespace TravelProgram.Business.Services.Implementations
 			if (existingSeat != null)
 				throw new Exception("a Seat with the same number already exists");
 
-			_mapper.Map(dto, airport);
+			_mapper.Map(dto, seat);
 
-			airport.UpdatedTime = DateTime.Now;
+            seat.UpdatedTime = DateTime.Now;
 
 			await _seatRepository.CommitAsync();
 		}

@@ -123,7 +123,16 @@ namespace TravelProgram.API.Controllers
 			{
 				await _airportService.DeleteAsync(id);
 			}
-			catch (Exception ex)
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new ApiResponse<object>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    ErrorMessage = ex.Message,
+                    Data = null
+                });
+            }
+            catch (Exception ex)
 			{
 				return BadRequest(new ApiResponse<object>
 				{

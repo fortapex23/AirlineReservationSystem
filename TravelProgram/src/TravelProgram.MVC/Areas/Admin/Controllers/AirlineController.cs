@@ -93,7 +93,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			catch (Exception ex)
 			{
 				TempData["Err"] = "not found";
-				return View("Error");
+				return RedirectToAction("Error");
 			}
 
 			return RedirectToAction(nameof(Index));

@@ -11,23 +11,23 @@ namespace TravelProgram.Business.Services.Implementations
 {
 	public class AirportService : IAirportService
 	{
-		private readonly IAirportRepository _AirportRepository;
+		private readonly IAirportRepository _airportRepository;
 		private readonly IMapper _mapper;
 
 		public AirportService(IAirportRepository AirportRepository, IMapper mapper)
 		{
-			_AirportRepository = AirportRepository;
+			_airportRepository = AirportRepository;
 			_mapper = mapper;
 		}
 
         public Task<bool> IsExist(Expression<Func<Airport, bool>> expression)
         {
-            return _AirportRepository.Table.AnyAsync(expression);
+            return _airportRepository.Table.AnyAsync(expression);
         }
 
         public async Task<AirportGetDto> CreateAsync(AirportCreateDto dto)
 		{
-			var existingAirport = await _AirportRepository
+			var existingAirport = await _airportRepository
 			.GetByExpression(false, t => t.Name == dto.Name)
 			.FirstOrDefaultAsync();
 
@@ -38,8 +38,8 @@ namespace TravelProgram.Business.Services.Implementations
 			Airport.CreatedTime = DateTime.Now;
 			Airport.UpdatedTime = DateTime.Now;
 
-			await _AirportRepository.CreateAsync(Airport);
-			await _AirportRepository.CommitAsync();
+			await _airportRepository.CreateAsync(Airport);
+			await _airportRepository.CommitAsync();
 
 			return _mapper.Map<AirportGetDto>(Airport);
 		}
@@ -48,16 +48,22 @@ namespace TravelProgram.Business.Services.Implementations
 		{
 			if (id < 1) throw new Exception();
 
-			var airport = await _AirportRepository.GetByIdAsync(id);
+			var airport = await _airportRepository.GetByIdAsync(id);
 			if (airport == null) throw new Exception("Airport not found.");
 
-			_AirportRepository.Delete(airport);
-			await _AirportRepository.CommitAsync();
+			var flights = await _airportRepository.Table.AnyAsync(x => x.Id == id && 
+										x.DepartingFlights.Any() || x.ArrivingFlights.Any());
+
+			if (flights)
+				throw new InvalidOperationException("Airport has flights to departure and arrive");
+
+			_airportRepository.Delete(airport);
+			await _airportRepository.CommitAsync();
 		}
 
 		public async Task<ICollection<AirportGetDto>> GetByExpression(bool asnotracking = false, Expression<Func<Airport, bool>>? expression = null, params string[] includes)
 		{
-			var Airports = await _AirportRepository.GetByExpression(asnotracking, expression, includes).ToListAsync();
+			var Airports = await _airportRepository.GetByExpression(asnotracking, expression, includes).ToListAsync();
 
 			return _mapper.Map<ICollection<AirportGetDto>>(Airports);
 		}
@@ -66,7 +72,7 @@ namespace TravelProgram.Business.Services.Implementations
 		{
 			if (id < 1) throw new Exception();
 
-			var Airport = await _AirportRepository.GetByIdAsync(id);
+			var Airport = await _airportRepository.GetByIdAsync(id);
 			if (Airport == null) throw new Exception("Airport not found");
 
 			return _mapper.Map<AirportGetDto>(Airport);
@@ -74,7 +80,7 @@ namespace TravelProgram.Business.Services.Implementations
 
 		public async Task<AirportGetDto> GetSingleByExpression(bool asnotracking = false, Expression<Func<Airport, bool>>? expression = null, params string[] includes)
 		{
-			var Airport = await _AirportRepository.GetByExpression(asnotracking, expression, includes).FirstOrDefaultAsync();
+			var Airport = await _airportRepository.GetByExpression(asnotracking, expression, includes).FirstOrDefaultAsync();
 			if (Airport == null) throw new Exception("Airport not found");
 
 			return _mapper.Map<AirportGetDto>(Airport);
@@ -84,10 +90,10 @@ namespace TravelProgram.Business.Services.Implementations
 		{
 			if (id < 1 || id is null) throw new NullReferenceException("id is invalid");
 
-			var airport = await _AirportRepository.GetByIdAsync((int)id);
+			var airport = await _airportRepository.GetByIdAsync((int)id);
 			if (airport == null) throw new Exception("Airport not found");
 
-			var existingAirport = await _AirportRepository
+			var existingAirport = await _airportRepository
 			.GetByExpression(true, t => t.Name == dto.Name && t.Id != id)
 			.FirstOrDefaultAsync();
 
@@ -98,7 +104,7 @@ namespace TravelProgram.Business.Services.Implementations
 
 			airport.UpdatedTime = DateTime.Now;
 
-			await _AirportRepository.CommitAsync();
+			await _airportRepository.CommitAsync();
 		}
 	}
 }

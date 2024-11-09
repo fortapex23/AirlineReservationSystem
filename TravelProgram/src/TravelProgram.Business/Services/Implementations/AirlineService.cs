@@ -44,18 +44,25 @@ namespace TravelProgram.Business.Services.Implementations
 			return _mapper.Map<AirlineGetDto>(Airline);
 		}
 
-		public async Task DeleteAsync(int id)
-		{
-			if (id < 1) throw new Exception();
+        public async Task DeleteAsync(int id)
+        {
+            if (id < 1) throw new ArgumentException("Invalid ID");
 
-			var Airline = await _airlineRepository.GetByIdAsync(id);
-			if (Airline == null) throw new Exception("Airline not found.");
+            var airline = await _airlineRepository.GetByIdAsync(id);
+            if (airline == null) throw new Exception("Airline not found.");
 
-			_airlineRepository.Delete(Airline);
-			await _airlineRepository.CommitAsync();
-		}
+            var planes = await _airlineRepository.Table
+                .AnyAsync(x => x.Id == id && x.Planes.Any());
 
-		public async Task<ICollection<AirlineGetDto>> GetByExpression(bool asnotracking = false, Expression<Func<Airline, bool>>? expression = null, params string[] includes)
+            if (planes)
+                throw new InvalidOperationException("Cant delete airline beacuse it has planes");
+
+            _airlineRepository.Delete(airline);
+            await _airlineRepository.CommitAsync();
+        }
+
+
+        public async Task<ICollection<AirlineGetDto>> GetByExpression(bool asnotracking = false, Expression<Func<Airline, bool>>? expression = null, params string[] includes)
 		{
 			var Airlines = await _airlineRepository.GetByExpression(asnotracking, expression, includes).ToListAsync();
 
