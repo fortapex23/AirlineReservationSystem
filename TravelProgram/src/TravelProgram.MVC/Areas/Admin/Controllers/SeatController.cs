@@ -75,10 +75,18 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Create("/seats", vm);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "something went wrong");
-                return View();
+                if (ex.Message.Contains("same number"))
+                {
+                    ModelState.AddModelError("SeatNumber", "seat with same number already exists");
+                    return View(vm);
+                }
+                else
+                {
+                    TempData["Err"] = ex.Message;
+                    return View("Error");
+                }
             }
 
             return RedirectToAction(nameof(Index));
@@ -90,10 +98,18 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Delete<object>($"/seats/{id}", id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["Err"] = "not found";
-                return View("Error");
+                if (ex.Message.Contains("booked"))
+                {
+                    TempData["Err"] = "this seat has been booked. You cant delete it";
+                }
+                else
+                {
+                    TempData["Err"] = "Seat not found";
+                }
+
+                return RedirectToAction("Index");
             }
 
             return RedirectToAction(nameof(Index));
@@ -119,8 +135,8 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "Entity not found, changes will not be saved");
-                return View(data);
+                TempData["Err"] = "Seat not found";
+                return RedirectToAction("Index");
             }
 
             return View(data);
@@ -136,25 +152,18 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Update($"/seats/{id}", vm);
             }
-            //catch (ModelStateException ex)
-            //{
-            //	ModelState.AddModelError(ex.PropertyName, ex.Message);
-            //	return View();
-            //}
-            //catch (BadrequestException ex)
-            //{
-            //	TempData["Err"] = ex.Message;
-            //	return View("Error");
-            //}
-            //catch (ModelNotFoundException ex)
-            //{
-            //	TempData["Err"] = ex.Message;
-            //	return View("Error");
-            //}
             catch (Exception ex)
             {
-                TempData["Err"] = ex.Message;
-                return View("Error");
+                if (ex.Message.Contains("same number"))
+                {
+                    ModelState.AddModelError("SeatNumber", "seat with same number already exists");
+                    return View(vm);
+                }
+                else
+                {
+                    TempData["Err"] = ex.Message;
+                    return View("Error");
+                }
             }
 
             return RedirectToAction("Index");

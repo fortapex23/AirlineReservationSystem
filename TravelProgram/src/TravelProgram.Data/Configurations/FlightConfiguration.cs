@@ -8,7 +8,7 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
 {
 	public void Configure(EntityTypeBuilder<Flight> builder)
 	{
-		builder.Property(f => f.FlightNumber).IsRequired();
+		builder.Property(f => f.FlightNumber).IsRequired().HasMaxLength(50);
 		builder.Property(f => f.DepartureTime).IsRequired();
 		builder.Property(f => f.ArrivalTime).IsRequired();
 

@@ -73,10 +73,48 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Create("/Flights", vm);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "something went wrong");
-                return View();
+                if (ex.Message.Contains("same number"))
+                {
+                    ModelState.AddModelError("", "Flight with same number already exists");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("prices"))
+                {
+                    ModelState.AddModelError("BusinessSeatPrice", "Invalid seat price");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("plane"))
+                {
+                    ModelState.AddModelError("PlaneId", "Plane does not exist");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("departure airport"))
+                {
+                    ModelState.AddModelError("DepartureAirportId", "airport does not exist");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("arrival airport"))
+                {
+                    ModelState.AddModelError("ArrivalAirportId", "airport does not exist");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("Departure time"))
+                {
+                    ModelState.AddModelError("DepartureTime", "Invalid Departure time");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("Arrival time"))
+                {
+                    ModelState.AddModelError("ArrivalTime", "Arrival time must be > departure time");
+                    return View(vm);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong");
+                    return View();
+                }
             }
 
             return RedirectToAction(nameof(Index));
@@ -88,10 +126,18 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Delete<object>($"/Flights/{id}", id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["Err"] = "not found";
-                return View("Error");
+                if (ex.Message.Contains("book"))
+                {
+                    TempData["Err"] = "this flight has been booked. You cant delete it";
+                }
+                else
+                {
+                    TempData["Err"] = "Flight not found";
+                }
+
+                return RedirectToAction("Index");
             }
 
             return RedirectToAction(nameof(Index));
@@ -117,8 +163,8 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "Entity not found, changes will not be saved");
-                return View(data);
+                TempData["Err"] = "Flight not found";
+                return RedirectToAction("Index");
             }
 
             return View(data);
@@ -134,25 +180,48 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Update($"/Flights/{id}", vm);
             }
-            //catch (ModelStateException ex)
-            //{
-            //	ModelState.AddModelError(ex.PropertyName, ex.Message);
-            //	return View();
-            //}
-            //catch (BadrequestException ex)
-            //{
-            //	TempData["Err"] = ex.Message;
-            //	return View("Error");
-            //}
-            //catch (ModelNotFoundException ex)
-            //{
-            //	TempData["Err"] = ex.Message;
-            //	return View("Error");
-            //}
             catch (Exception ex)
             {
-                TempData["Err"] = ex.Message;
-                return View("Error");
+                if (ex.Message.Contains("same number"))
+                {
+                    ModelState.AddModelError("", "Flight with same number already exists");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("prices"))
+                {
+                    ModelState.AddModelError("BusinessSeatPrice", "Invalid seat price");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("plane"))
+                {
+                    ModelState.AddModelError("PlaneId", "Plane does not exist");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("departure airport"))
+                {
+                    ModelState.AddModelError("DepartureAirportId", "airport does not exist");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("arrival airport"))
+                {
+                    ModelState.AddModelError("ArrivalAirportId", "airport does not exist");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("Departure time"))
+                {
+                    ModelState.AddModelError("DepartureTime", "Invalid Departure time");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("Arrival time"))
+                {
+                    ModelState.AddModelError("ArrivalTime", "Arrival time must be > departure time");
+                    return View(vm);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong");
+                    return View();
+                }
             }
 
             return RedirectToAction("Index");

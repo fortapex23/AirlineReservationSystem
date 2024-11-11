@@ -15,14 +15,16 @@ namespace TravelProgram.Business.Services.Implementations
 		private readonly IMapper _mapper;
         private readonly IBookingRepository _bookingRepository;
         private readonly IOrderItemRepository _orderItemRepository;
+        private readonly IFlightRepository _flightRepository;
 
         public SeatService(ISeatRepository SeatRepository, IMapper mapper, IBookingRepository bookingRepository,
-								IOrderItemRepository orderItemRepository)
+								IOrderItemRepository orderItemRepository, IFlightRepository flightRepository)
 		{
 			_seatRepository = SeatRepository;
 			_mapper = mapper;
             _bookingRepository = bookingRepository;
             _orderItemRepository = orderItemRepository;
+            _flightRepository = flightRepository;
         }
 
         public Task<bool> IsExist(Expression<Func<Seat, bool>> expression)
@@ -39,14 +41,18 @@ namespace TravelProgram.Business.Services.Implementations
 			if (existingSeat != null)
 				throw new Exception("A Seat with the same number already exists.");
 
-			var Seat = _mapper.Map<Seat>(dto);
-			Seat.CreatedTime = DateTime.Now;
-			Seat.UpdatedTime = DateTime.Now;
+			var flight = _flightRepository.GetByExpression(false, x => x.Id == dto.FlightId);
+			if (flight is null)
+				throw new Exception("No flight with this id");
 
-			await _seatRepository.CreateAsync(Seat);
+			var seat = _mapper.Map<Seat>(dto);
+			seat.CreatedTime = DateTime.Now;
+			seat.UpdatedTime = DateTime.Now;
+
+			await _seatRepository.CreateAsync(seat);
 			await _seatRepository.CommitAsync();
 
-			return _mapper.Map<SeatGetDto>(Seat);
+			return _mapper.Map<SeatGetDto>(seat);
 		}
 
 		public async Task DeleteAsync(int id)
@@ -106,14 +112,21 @@ namespace TravelProgram.Business.Services.Implementations
 			var seat = await _seatRepository.GetByIdAsync((int)id);
 			if (seat == null) throw new Exception("Seat not found");
 
-			var existingSeat = await _seatRepository
+			if (dto.IsAvailable == false)
+				throw new Exception("Seat is not available for update");
+
+            var existingSeat = await _seatRepository
 			.GetByExpression(true, t => t.SeatNumber == dto.SeatNumber && t.Id != id)
 			.FirstOrDefaultAsync();
 
 			if (existingSeat != null)
 				throw new Exception("a Seat with the same number already exists");
 
-			_mapper.Map(dto, seat);
+            var flight = _flightRepository.GetByExpression(false, x => x.Id == dto.FlightId);
+            if (flight is null)
+                throw new Exception("No flight with this id");
+
+            _mapper.Map(dto, seat);
 
             seat.UpdatedTime = DateTime.Now;
 

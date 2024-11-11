@@ -9,7 +9,7 @@ namespace TravelProgram.Business.DTOs.FlightDTOs
 	{
 		public FlightUpdateDtoValidator()
 		{
-			RuleFor(x => x.FlightNumber).NotNull().NotEmpty();
+			RuleFor(x => x.FlightNumber).NotNull().NotEmpty().MaximumLength(50);
 
 			RuleFor(x => x.DepartureAirportId).NotNull().NotEmpty();
 

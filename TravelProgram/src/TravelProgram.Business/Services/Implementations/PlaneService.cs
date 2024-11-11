@@ -17,12 +17,14 @@ namespace TravelProgram.Business.Services.Implementations
 
 		private readonly IPlaneRepository _planeRepository;
 		private readonly IMapper _mapper;
+        private readonly IAirlineRepository _airlineRepository;
 
-		public PlaneService(IPlaneRepository PlaneRepository, IMapper mapper)
+        public PlaneService(IPlaneRepository PlaneRepository, IMapper mapper, IAirlineRepository airlineRepository)
 		{
 			_planeRepository = PlaneRepository;
 			_mapper = mapper;
-		}
+            _airlineRepository = airlineRepository;
+        }
 
         public Task<bool> IsExist(Expression<Func<Plane, bool>> expression)
         {
@@ -41,7 +43,10 @@ namespace TravelProgram.Business.Services.Implementations
 			if (existingPlane != null)
 				throw new Exception("A Plane with the same name already exists.");
 
-			//var airline = await 
+			var airline = await _airlineRepository.GetByIdAsync(dto.AirlineId);
+
+			if (airline is null)
+				throw new Exception("No airline with this id");
 
 			var plane = _mapper.Map<Plane>(dto);
 			plane.CreatedTime = DateTime.Now;
@@ -98,8 +103,8 @@ namespace TravelProgram.Business.Services.Implementations
 		{
 			if (id < 1 || id is null) throw new NullReferenceException("id is invalid");
 
-			var airport = await _planeRepository.GetByIdAsync((int)id);
-			if (airport == null) throw new Exception("Plane not found");
+			var plane = await _planeRepository.GetByIdAsync((int)id);
+			if (plane == null) throw new Exception("Plane not found");
 
 			var existingPlane = await _planeRepository
 			.GetByExpression(true, t => t.Name == dto.Name && t.Id != id)
@@ -108,9 +113,14 @@ namespace TravelProgram.Business.Services.Implementations
 			if (existingPlane != null)
 				throw new Exception("a Plane with the same name already exists");
 
-			_mapper.Map(dto, airport);
+            var airline = await _airlineRepository.GetByIdAsync(dto.AirlineId);
 
-			airport.UpdatedTime = DateTime.Now;
+            if (airline is null)
+                throw new Exception("No airline with this id");
+
+            _mapper.Map(dto, plane);
+
+            plane.UpdatedTime = DateTime.Now;
 
 			await _planeRepository.CommitAsync();
 		}

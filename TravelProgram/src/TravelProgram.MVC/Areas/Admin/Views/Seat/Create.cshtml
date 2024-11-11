@@ -18,7 +18,7 @@
             <span asp-validation-for="PlaneId" class="text-danger"></span>
         </div> *@
         <div class="mb-3">
-            <label class="form-label">Flight ?</label>
+            <label class="form-label">Flight</label>
             <select class="form-control" asp-for="FlightId" asp-items="@(new SelectList(flights, "Id", "FlightNumber"))">
                 <option selected disabled>choose flight</option>
             </select>

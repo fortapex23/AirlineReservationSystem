@@ -77,7 +77,12 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
                 }
                 if (ex.Message.Contains("count"))
                 {
-                    ModelState.AddModelError("", "Invalid plane seat count");
+                    ModelState.AddModelError("BusinessSeats", "Invalid plane seat count");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("airline"))
+                {
+                    ModelState.AddModelError("AirlineId", "Invalid AirlineId");
                     return View(vm);
                 }
                 else
@@ -162,7 +167,12 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
                 }
                 if (ex.Message.Contains("count"))
                 {
-                    ModelState.AddModelError("", "Invalid plane seat count");
+                    ModelState.AddModelError("BusinessSeats", "Invalid plane seat count");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("airline"))
+                {
+                    ModelState.AddModelError("AirlineId", "Invalid AirlineId");
                     return View(vm);
                 }
                 else
