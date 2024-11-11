@@ -59,7 +59,7 @@ namespace TravelProgram.Business.Services.Implementations
 			var booking = _bookingRepository.GetByExpression(false, x => x.SeatId == id);
 
 			if (booking is not null)
-				throw new InvalidOperationException("this seat has been booked");
+				throw new InvalidOperationException("this seat has been booked and cant be deleted");
 
             if (seat.OrderItems != null && seat.OrderItems.Any())
             {

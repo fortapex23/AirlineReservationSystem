@@ -30,32 +30,6 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			return View(datas);
 		}
 
-		//public async Task<IActionResult> Detail(int id)
-		//{
-		//	AirportGetVM data = null;
-		//	try
-		//	{
-		//		data = await _crudService.GetByIdAsync<AirportGetVM>($"/Airports/{id}", id);
-		//	}
-		//	//catch (BadrequestException ex)
-		//	//{
-		//	//	TempData["Err"] = ex.Message;
-		//	//	return View("Error");
-		//	//}
-		//	//catch (ModelNotFoundException ex)
-		//	//{
-		//	//	TempData["Err"] = ex.Message;
-		//	//	return View("Error");
-		//	//}
-		//	catch (Exception ex)
-		//	{
-		//		TempData["Err"] = ex.Message;
-		//		return View("Error");
-		//	}
-
-		//	return View(data);
-		//}
-
 		public IActionResult Create()
 		{
             SetFullName();
@@ -77,8 +51,21 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ModelState.AddModelError("", "cant be null");
-				return View();
+				if (ex.Message.Contains("same name"))
+				{
+					ModelState.AddModelError("", "Airport with same name already exists");
+					return View(vm);
+				}
+				if (ex.Message.Contains("length"))
+				{
+					ModelState.AddModelError("", "Airport name length must be < 100");
+					return View(vm);
+				}
+				else
+				{
+					ModelState.AddModelError("", "Something went wrong");
+					return View();
+				}
 			}
 
 			return RedirectToAction(nameof(Index));
@@ -92,63 +79,75 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				TempData["Err"] = "not found";
-				return View("Error");
+				if (ex.Message.Contains("flights"))
+				{
+					TempData["Err"] = "Airport has flights to departure and arrive. You cant delete it";
+				}
+				else
+				{
+					TempData["Err"] = "Airport not found";
+				}
+
+				return RedirectToAction("Index");
 			}
 
 			return RedirectToAction(nameof(Index));
 		}
 
-		public async Task<IActionResult> Update(int id)
-		{
+        public async Task<IActionResult> Update(int id)
+        {
             SetFullName();
 
             if (ViewBag.Role is null)
             {
-                return RedirectToAction("AdminLogin", "Auth", new { area = "Admin" });
+				return RedirectToAction("AdminLogin", "Auth", new { area = "Admin" });
             }
 
             AirportUpdateVM data = null;
 
-			try
-			{
-				data = await _crudService.GetByIdAsync<AirportUpdateVM>($"/Airports/{id}", id);
-			}
-			catch (Exception ex)
-			{
-				ModelState.AddModelError("", "Entity not found, changes will not be saved");
-				return View(data);
-			}
+            try
+            {
+                data = await _crudService.GetByIdAsync<AirportUpdateVM>($"/Airports/{id}", id);
+                //if (data == null)
+                //{
+                //    TempData["Err"] = "Airport not found";
+                //    return RedirectToAction("Index");
+                //}
+            }
+            catch (Exception)
+            {
+                TempData["Err"] = "Airport not found";
+                return RedirectToAction("Index");
+            }
 
-			return View(data);
-		}
+            return View(data);
+        }
 
-		[HttpPost]
+
+        [HttpPost]
 		public async Task<IActionResult> Update(int id, AirportUpdateVM vm)
 		{
 			try
 			{
 				await _crudService.Update($"/Airports/{id}", vm);
 			}
-			//catch (ModelStateException ex)
-			//{
-			//	ModelState.AddModelError(ex.PropertyName, ex.Message);
-			//	return View();
-			//}
-			//catch (BadrequestException ex)
-			//{
-			//	TempData["Err"] = ex.Message;
-			//	return View("Error");
-			//}
-			//catch (ModelNotFoundException ex)
-			//{
-			//	TempData["Err"] = ex.Message;
-			//	return View("Error");
-			//}
 			catch (Exception ex)
 			{
-				TempData["Err"] = ex.Message;
-				return View("Error");
+				if (ex.Message.Contains("same name"))
+				{
+					ModelState.AddModelError("", "Aiport with same name already exists");
+					return View(vm);
+				}
+                if (ex.Message.Contains("length"))
+                {
+                    ModelState.AddModelError("", "Airport name length must be < 100");
+                    return View(vm);
+                }
+                else
+				{
+					TempData["Err"] = ex.Message;
+					return View("Error");
+				}
 			}
 
 			return RedirectToAction("Index");

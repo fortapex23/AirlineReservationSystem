@@ -136,9 +136,9 @@ namespace TravelProgram.Business.Services.Implementations
 			var flight = await _flightRepository.GetByIdAsync(id);
 			if (flight == null) throw new Exception("Flight not found.");
 
-            var seats = await _flightRepository.Table.AnyAsync(x => x.Id == id && x.Bookings.Any());
+            var books = await _flightRepository.Table.AnyAsync(x => x.Id == id && x.Bookings.Any());
 
-            if (seats)
+            if (books)
                 throw new InvalidOperationException("Cant delete flight because seats have already been booked");
 
             if (flight.Seats != null && flight.Seats.Any())

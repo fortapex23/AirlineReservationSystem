@@ -46,13 +46,13 @@ namespace TravelProgram.Business.Services.Implementations
 
 		public async Task DeleteAsync(int id)
 		{
-			if (id < 1) throw new Exception();
+			if (id < 1) throw new Exception("Invalid Id");
 
 			var airport = await _airportRepository.GetByIdAsync(id);
 			if (airport == null) throw new Exception("Airport not found.");
 
-			var flights = await _airportRepository.Table.AnyAsync(x => x.Id == id && 
-										x.DepartingFlights.Any() || x.ArrivingFlights.Any());
+			var flights = await _airportRepository.Table.AnyAsync(x => x.Id == id &&
+										x.DepartingFlights.Count + x.ArrivingFlights.Count != 0); // || x.ArrivingFlights.Count != 0
 
 			if (flights)
 				throw new InvalidOperationException("Airport has flights to departure and arrive");

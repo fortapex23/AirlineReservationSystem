@@ -31,12 +31,17 @@ namespace TravelProgram.Business.Services.Implementations
 
         public async Task<PlaneGetDto> CreateAsync(PlaneCreateDto dto)
 		{
+			if (dto.BusinessSeats < 0 || dto.EconomySeats < 0)
+				throw new Exception("Invalid seat count");
+
 			var existingPlane = await _planeRepository
 			.GetByExpression(false, t => t.Name == dto.Name)
 			.FirstOrDefaultAsync();
 
 			if (existingPlane != null)
 				throw new Exception("A Plane with the same name already exists.");
+
+			//var airline = await 
 
 			var plane = _mapper.Map<Plane>(dto);
 			plane.CreatedTime = DateTime.Now;

@@ -63,10 +63,28 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Create("/Planes", vm);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ModelState.AddModelError("", "cant be null");
-                return View();
+                if (ex.Message.Contains("length"))
+                {
+                    ModelState.AddModelError("", "Plane name length must be < 100");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("same name"))
+                {
+                    ModelState.AddModelError("", "PLane with same name already exists");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("count"))
+                {
+                    ModelState.AddModelError("", "Invalid plane seat count");
+                    return View(vm);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong");
+                    return View();
+                }
             }
 
             return RedirectToAction(nameof(Index));
@@ -78,10 +96,18 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Delete<object>($"/Planes/{id}", id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["Err"] = "not found";
-                return View("Error");
+                if (ex.Message.Contains("flights"))
+                {
+                    TempData["Err"] = "Plane has flights. You cant delete it";
+                }
+                else
+                {
+                    TempData["Err"] = "Plane not found";
+                }
+
+                return RedirectToAction("Index");
             }
 
             return RedirectToAction(nameof(Index));
@@ -106,8 +132,8 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "Entity not found, changes will not be saved");
-                return View(data);
+                TempData["Err"] = "Plane not found";
+                return RedirectToAction("Index");
             }
 
             return View(data);
@@ -122,25 +148,28 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             {
                 await _crudService.Update($"/Planes/{id}", vm);
             }
-            //catch (ModelStateException ex)
-            //{
-            //	ModelState.AddModelError(ex.PropertyName, ex.Message);
-            //	return View();
-            //}
-            //catch (BadrequestException ex)
-            //{
-            //	TempData["Err"] = ex.Message;
-            //	return View("Error");
-            //}
-            //catch (ModelNotFoundException ex)
-            //{
-            //	TempData["Err"] = ex.Message;
-            //	return View("Error");
-            //}
             catch (Exception ex)
             {
-                TempData["Err"] = ex.Message;
-                return View("Error");
+                if (ex.Message.Contains("length"))
+                {
+                    ModelState.AddModelError("", "Plane name length must be < 100");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("same name"))
+                {
+                    ModelState.AddModelError("", "Plane with same name already exists");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("count"))
+                {
+                    ModelState.AddModelError("", "Invalid plane seat count");
+                    return View(vm);
+                }
+                else
+                {
+                    TempData["Err"] = ex.Message;
+                    return View("Error");
+                }
             }
 
             return RedirectToAction("Index");

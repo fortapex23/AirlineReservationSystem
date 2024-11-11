@@ -30,32 +30,6 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			return View(datas);
 		}
 
-		//public async Task<IActionResult> Detail(int id)
-		//{
-		//	AirlineGetVM data = null;
-		//	try
-		//	{
-		//		data = await _crudService.GetByIdAsync<AirlineGetVM>($"/Airlines/{id}", id);
-		//	}
-		//	//catch (BadrequestException ex)
-		//	//{
-		//	//	TempData["Err"] = ex.Message;
-		//	//	return View("Error");
-		//	//}
-		//	//catch (ModelNotFoundException ex)
-		//	//{
-		//	//	TempData["Err"] = ex.Message;
-		//	//	return View("Error");
-		//	//}
-		//	catch (Exception ex)
-		//	{
-		//		TempData["Err"] = ex.Message;
-		//		return View("Error");
-		//	}
-
-		//	return View(data);
-		//}
-
 		public IActionResult Create()
 		{
             SetFullName();
@@ -77,9 +51,22 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			}
 			catch (Exception ex)
 			{
-				ModelState.AddModelError("", "something went wrong");
-				return View();
-			}
+                if (ex.Message.Contains("same name"))
+                {
+                    ModelState.AddModelError("", "Airline with same name already exists");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("length"))
+                {
+                    ModelState.AddModelError("", "Airline name length must be < 100");
+                    return View(vm);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong");
+                    return View();
+                }
+            }
 
 			return RedirectToAction(nameof(Index));
 		}
@@ -90,13 +77,21 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			{
 				await _crudService.Delete<object>($"/Airlines/{id}", id);
 			}
-			catch (Exception ex)
-			{
-				TempData["Err"] = "not found";
-				return RedirectToAction("Error");
-			}
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("plane"))
+                {
+                    TempData["Err"] = "Airline has planes. You cant delete it";
+                }
+                else
+                {
+                    TempData["Err"] = "Airline not found";
+                }
 
-			return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction(nameof(Index));
 		}
 
 		public async Task<IActionResult> Update(int id)
@@ -114,13 +109,13 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			{
 				data = await _crudService.GetByIdAsync<AirlineUpdateVM>($"/Airlines/{id}", id);
 			}
-			catch (Exception)
-			{
-                TempData["ErrorMessage"] = "Something went wrong";
-                return View(data);
-			}
+            catch (Exception)
+            {
+                TempData["Err"] = "Airline not found";
+                return RedirectToAction("Index");
+            }
 
-			return View(data);
+            return View(data);
 		}
 
 		[HttpPost]
@@ -130,26 +125,24 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 			{
 				await _crudService.Update($"/Airlines/{id}", vm);
 			}
-			//catch (ModelStateException ex)
-			//{
-			//	ModelState.AddModelError(ex.PropertyName, ex.Message);
-			//	return View();
-			//}
-			//catch (BadrequestException ex)
-			//{
-			//	TempData["Err"] = ex.Message;
-			//	return View("Error");
-			//}
-			//catch (ModelNotFoundException ex)
-			//{
-			//	TempData["Err"] = ex.Message;
-			//	return View("Error");
-			//}
 			catch (Exception ex)
 			{
-				TempData["Err"] = ex.Message;
-				return View("Error");
-			}
+                if (ex.Message.Contains("same name"))
+                {
+                    ModelState.AddModelError("", "Airline with same name already exists");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("length"))
+                {
+                    ModelState.AddModelError("", "Airline name length must be < 100");
+                    return View(vm);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong");
+                    return View();
+                }
+            }
 
 			return RedirectToAction("Index");
 		}

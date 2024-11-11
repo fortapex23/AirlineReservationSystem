@@ -13,7 +13,10 @@
 					<div class="card-body">
 						<h4 class="card-title">Aiport Table</h4>
 						<a asp-action="create" class="btn btn-success">Create</a>
-						<div asp-validation-summary="ModelOnly" style="text-danger"></div>
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<div class="text-danger" style="margin-top: 10px; margin-bottom: 10px; font-size:larger; font-weight: 600">
+							@TempData["Err"]
+						</div>
 						<div class="table-responsive">
 							<table class="table table-striped">
 								<thead>
