@@ -42,7 +42,14 @@ namespace TravelProgram.MVC.Services.Implementations
 
             if (!response.IsSuccessful)
             {
-                throw new Exception("couldnt login");
+                var errorMessage = response.Data?.ErrorMessage ?? "Couldnt login";
+
+                if (errorMessage.Contains("Invalid email"))
+                {
+                    throw new UnauthorizedAccessException("Invalid email or password");
+                }
+
+                throw new Exception(errorMessage);
             }
 
             return response.Data;

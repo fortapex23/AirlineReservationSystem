@@ -34,14 +34,14 @@ namespace TravelProgram.Business.Services.Implementations
 			if (existingAirport != null)
 				throw new Exception("Airport with the same name already exists.");
 
-			var Airport = _mapper.Map<Airport>(dto);
-			Airport.CreatedTime = DateTime.Now;
-			Airport.UpdatedTime = DateTime.Now;
+			var airport = _mapper.Map<Airport>(dto);
+			airport.CreatedTime = DateTime.Now;
+			airport.UpdatedTime = DateTime.Now;
 
-			await _airportRepository.CreateAsync(Airport);
+			await _airportRepository.CreateAsync(airport);
 			await _airportRepository.CommitAsync();
 
-			return _mapper.Map<AirportGetDto>(Airport);
+			return _mapper.Map<AirportGetDto>(airport);
 		}
 
 		public async Task DeleteAsync(int id)

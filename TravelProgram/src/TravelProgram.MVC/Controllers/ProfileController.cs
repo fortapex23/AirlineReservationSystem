@@ -97,8 +97,22 @@ namespace TravelProgram.MVC.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
+            AuthEditVM user = null;
+
             var id = ViewBag.Id;
-            var user = await _crudService.GetByStringIdAsync<AuthEditVM>($"/auth/{id}", id);
+
+            try
+            {
+                user = await _crudService.GetByStringIdAsync<AuthEditVM>($"/auth/{id}", id);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("Invalid date"))
+                {
+                    ModelState.AddModelError("BirthDate", "Invalid Birth date");
+                    return View();
+                }
+            }
 
             return View(user);
         }

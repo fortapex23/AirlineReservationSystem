@@ -24,23 +24,30 @@ namespace TravelProgram.MVC.Controllers
         {
             if (!ModelState.IsValid) return View();
 
-
-            var data = await _authService.Login(vm);
-
-            if (data == null)
+            try
             {
-                ModelState.AddModelError("", "couldnt login2");
-                return View();
+                var data = await _authService.Login(vm);
+
+                HttpContext.Response.Cookies.Append("token", data.AccessToken, new CookieOptions
+                {
+                    Expires = data.ExpireDate,
+                    HttpOnly = true
+                });
+
+                return RedirectToAction("index", "home");
             }
-
-            HttpContext.Response.Cookies.Append("token", data.AccessToken, new CookieOptions
+            catch (UnauthorizedAccessException)
             {
-                Expires = data.ExpireDate,
-                HttpOnly = true
-            });
-
-            return RedirectToAction("index", "home");
+                ModelState.AddModelError("", "Invalid email or password");
+                return View(vm);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "An error occurred while trying to log in. Please try again.");
+                return View(vm);
+            }
         }
+
 
         public IActionResult Register()
         {

@@ -87,6 +87,11 @@ namespace TravelProgram.Business.Services.Implementations
             user.BirthDate = dto.BirthDate;
             user.Gender = dto.Gender;
 
+			if(user.BirthDate > DateTime.Now)
+			{
+				throw new Exception("Invalid date time");
+			}
+
             var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded)
@@ -126,14 +131,14 @@ namespace TravelProgram.Business.Services.Implementations
 
 			if (appUser == null)
 			{
-				throw new NullReferenceException();
+				throw new Exception("Invalid credentials");
 			}
 
 			var result = await _signInManager.CheckPasswordSignInAsync(appUser, dto.Password, dto.RememberMe);
 
 			if (!result.Succeeded)
 			{
-				throw new NullReferenceException();
+				throw new Exception("Invalid credentials");
 			}
 
 			var roles = await _userManager.GetRolesAsync(appUser);
@@ -171,10 +176,14 @@ namespace TravelProgram.Business.Services.Implementations
 			{
 				Email = dto.Email,
 				BirthDate = dto.BirthDate,
+				PassportNumber = dto.PassportNumber,
 				FullName = dto.FullName,
 				PhoneNumber = dto.PhoneNumber,
 				UserName = dto.Email
 			};
+
+			if (appUser.BirthDate > DateTime.Now)
+				throw new Exception("Invalid birth date");
 
 			var result = await _userManager.CreateAsync(appUser, dto.Password);
 
@@ -199,14 +208,14 @@ namespace TravelProgram.Business.Services.Implementations
 
 			if (appUser == null)
 			{
-				throw new NullReferenceException();
+				throw new Exception("Invalid credentials");
 			}
 
 			var result = await _signInManager.CheckPasswordSignInAsync(appUser, dto.Password, dto.RememberMe);
 
 			if (!result.Succeeded)
 			{
-				throw new NullReferenceException();
+				throw new Exception("Invalid credentials");
 			}
 
 			var roles = await _userManager.GetRolesAsync(appUser);

@@ -77,6 +77,11 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
+                if (ex.Message.Contains("No flight"))
+                {
+                    ModelState.AddModelError("FlightId", "Invalid flight id");
+                    return View(vm);
+                }
                 if (ex.Message.Contains("same number"))
                 {
                     ModelState.AddModelError("SeatNumber", "seat with same number already exists");

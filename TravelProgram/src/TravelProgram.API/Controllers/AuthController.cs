@@ -128,16 +128,21 @@ namespace TravelProgram.API.Controllers
 			{
 				rDto = await _authService.Login(dto);
 			}
-			catch (NullReferenceException)
-			{
-				return BadRequest();
-			}
-			catch (Exception)
-			{
-				return BadRequest();
-			}
+            catch (Exception ex) when (ex.Message == "Invalid credentials")
+            {
+                return BadRequest(new ApiResponse<string>
+                {
+                    Data = null,
+                    ErrorMessage = "Invalid email or password",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+            catch (Exception)
+            {
+                return BadRequest("An error occurred");
+            }
 
-			return Ok(rDto);
+            return Ok(rDto);
 		}
 
         [HttpPost("[action]")]
@@ -149,13 +154,18 @@ namespace TravelProgram.API.Controllers
                 rDto = await _authService.AdminLogin(dto);
                 return Ok(rDto);
             }
-            catch (NullReferenceException)
+            catch (Exception ex) when (ex.Message == "Invalid credentials")
             {
-                return BadRequest();
+                return BadRequest(new ApiResponse<string>
+                {
+                    Data = null,
+                    ErrorMessage = "Invalid email or password",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
             }
             catch (Exception)
             {
-                return BadRequest();
+                return BadRequest("An error occurred");
             }
         }
 
