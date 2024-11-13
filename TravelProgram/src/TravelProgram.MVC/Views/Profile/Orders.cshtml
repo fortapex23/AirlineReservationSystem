@@ -21,7 +21,7 @@
                                 <th>Items</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                @* <th>Action</th> *@
                                 @* <th>Status</th> *@
                             </tr>
                         </thead>
@@ -35,7 +35,7 @@
                                     <td>@item.OrderItems.Count</td>
                                     <td>@item.CreatedTime.ToShortDateString()</td>
                                     <td>@item.Status.ToString()</td>
-                                    <td><a asp-action="orderitems" style="color: white" class="btn btn-primary">see -></a></td>
+                                    @* <td><a asp-action="orderitems" style="color: white" class="btn btn-primary">see -></a></td> *@
                                     @* <td>@item.Status.ToString()</td> *@
                                 </tr>
                             }

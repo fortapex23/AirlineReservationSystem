@@ -86,7 +86,7 @@ namespace TravelProgram.MVC.Controllers
                 {
                     foreach (var error in state.Value.Errors)
                     {
-                        Console.WriteLine($"Error: {error.ErrorMessage}");
+                        Console.WriteLine($"Error --- {error.ErrorMessage}");
                     }
                 }
                 return View("Index", searchVM);
@@ -161,7 +161,7 @@ namespace TravelProgram.MVC.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"An error occurred while searching: {ex.Message}");
+                ModelState.AddModelError("", ex.Message);
                 Console.WriteLine("Error details: " + ex.ToString());
                 return View("Index", searchVM);
             }

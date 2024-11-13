@@ -85,7 +85,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
                     ModelState.AddModelError("BusinessSeatPrice", "Invalid seat price");
                     return View(vm);
                 }
-                if (ex.Message.Contains("plane"))
+                if (ex.Message.Contains("No plane with"))
                 {
                     ModelState.AddModelError("PlaneId", "Plane does not exist");
                     return View(vm);
@@ -192,7 +192,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
                     ModelState.AddModelError("BusinessSeatPrice", "Invalid seat price");
                     return View(vm);
                 }
-                if (ex.Message.Contains("plane"))
+                if (ex.Message.Contains("No plane with"))
                 {
                     ModelState.AddModelError("PlaneId", "Plane does not exist");
                     return View(vm);

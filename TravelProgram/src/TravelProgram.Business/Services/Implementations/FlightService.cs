@@ -32,15 +32,19 @@ namespace TravelProgram.Business.Services.Implementations
         {
             var query = _flightRepository.GetByExpression(true, null, "Bookings", "Seats");
 
+            bool departureExists = true;
+            bool destinationExists = true;
+
             if (!string.IsNullOrEmpty(departureCity))
             {
                 if (Enum.TryParse(typeof(AiportCities), departureCity, true, out var departureCityEnum))
                 {
                     query = query.Where(f => f.DepartureAirport.City == (AiportCities)departureCityEnum);
+                    departureExists = await _flightRepository.Table.AnyAsync(f => f.DepartureAirport.City == (AiportCities)departureCityEnum);
                 }
                 else
                 {
-                    throw new ArgumentException($"Invalid departure city: {departureCity}");
+                    throw new Exception($"No flight found for departure city: {departureCity}");
                 }
             }
 
@@ -49,10 +53,11 @@ namespace TravelProgram.Business.Services.Implementations
                 if (Enum.TryParse(typeof(AiportCities), destinationCity, true, out var destinationCityEnum))
                 {
                     query = query.Where(f => f.ArrivalAirport.City == (AiportCities)destinationCityEnum);
+                    destinationExists = await _flightRepository.Table.AnyAsync(f => f.ArrivalAirport.City == (AiportCities)destinationCityEnum);
                 }
                 else
                 {
-                    throw new ArgumentException($"Invalid destination city: {destinationCity}");
+                    throw new Exception($"No flight found for destination city: {destinationCity}");
                 }
             }
 
@@ -62,8 +67,19 @@ namespace TravelProgram.Business.Services.Implementations
             }
 
             var flights = await query.ToListAsync();
+
+            if (!departureExists)
+                throw new Exception($"No flights found for departure city: {departureCity}");
+
+            if (!destinationExists)
+                throw new Exception($"No flights found for destination city: {destinationCity}");
+
+            if (flights.Count == 0)
+                throw new Exception("No flights found with this search criteria");
+
             return _mapper.Map<ICollection<FlightGetDto>>(flights);
         }
+
 
         public async Task<FlightGetDto> CreateAsync(FlightCreateDto dto)
         {

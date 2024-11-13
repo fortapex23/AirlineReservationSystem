@@ -92,7 +92,8 @@ namespace TravelProgram.MVC.Controllers
             string token = HttpContext.Request.Cookies["token"];
             if (string.IsNullOrEmpty(token))
             {
-                return Unauthorized("You must be logged in to add items to the basket.");
+                //ModelState.AddModelError("", "You must be logged in to add");
+                return RedirectToAction("Index", "Home");
             }
 
             string appUserId = null;

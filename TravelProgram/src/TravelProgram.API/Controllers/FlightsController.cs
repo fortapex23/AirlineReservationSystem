@@ -71,7 +71,7 @@ namespace TravelProgram.API.Controllers
                 return BadRequest(new ApiResponse<string>
                 {
                     StatusCode = StatusCodes.Status400BadRequest,
-                    ErrorMessage = $"An error occurred while searching: {ex.Message}",
+                    ErrorMessage = ex.Message,
                     Data = null
                 });
             }

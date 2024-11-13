@@ -79,10 +79,15 @@
                     </div>
                 </div>
                 <div style="display:flex;flex-direction:column" class="receipt qr-code">
-                    @* <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chooseclass">Choose Class</a> *@
+                    @if (ViewBag.Role is not null)
+                    {
+                        <a data-bs-toggle="modal" data-bs-target="#staticBackdrop_@item.Id" class="btn btn-outline-primary">Select Seats<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
 
-                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-primary">Select Seats<i style="margin-left: 3px" class="fas fa-arrow-right"></i></a>
-                    @* <a data-bs-toggle="modal" data-bs-target="#staticBackdrop2" style="margin-top: 10px" class="btn btn-outline-warning">Select Business Seat<i style="margin-left: 6px" class="fas fa-arrow-right"></i></a> *@
+                    }
+                    else
+                    {
+                        <a class="text-danger">login to add seats to basket</a>
+                    }
                 </div>
             </div>
         </div>
@@ -90,16 +95,20 @@
 
 
     <!-- Seat Selection Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop_@item.Id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel_@item.Id" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel">Choose a Seat</h1>
+                    <h1 style="font-size: 25px" class="modal-title fs-5" id="staticBackdropLabel_@item.Id">Choose a Seat</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
                 </div>
                 <form asp-action="AddToBasket" asp-controller="Home" method="post">
                     <div class="modal-body">
-                        <div id="selectedSeatsContainer"></div>
+                        <div id="selectedSeatsContainer_@item.Id"></div>
+
+                        <div id="noSeatsSelectedMessage_@item.Id" style="color: red; font-weight: bold; display: none;">
+                            You have not selected any seats.
+                        </div>
 
                         <h5>Business Seats</h5>
                         <div class="seat-layout business-seats">
@@ -120,13 +129,15 @@
                             {
                                 <button type="button" class="seat @((seat.IsAvailable ? "available" : "unavailable"))"
                                         data-seat-id="@seat.Id"
-                                        onclick="selectSeat(this, @seat.Id)"
+                                        onclick="selectSeat(this, @seat.Id, @item.Id)"
                                 @(seat.IsAvailable ? "" : "disabled")>
                                     @seat.SeatNumber
                                 </button>
+
                             }
                         </div>
                     </div>
+                    <div asp-validation-summary="ModelOnly"></div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Add</button>
@@ -163,29 +174,30 @@
             cursor: pointer;
         }
 
-            .seat.available {
-                background-color: #28a745;
-                color: #fff;
-            }
+        .seat.available {
+            background-color: #28a745;
+            color: #fff;
+        }
 
-            .seat.unavailable {
-                background-color: #dc3545;
-                color: #fff;
-                cursor: not-allowed;
-            }
+        .seat.unavailable {
+            background-color: #dc3545;
+            color: #fff;
+            cursor: not-allowed;
+        }
 
-            .seat.selected {
-                background-color: #007bff;
-                color: #fff;
-            }
+        .seat.selected {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
 
 
     <script>
         const selectedSeats = new Set();
 
-        function selectSeat(button, seatId) {
-            const selectedSeatsContainer = document.getElementById('selectedSeatsContainer');
+        function selectSeat(button, seatId, flightId) {
+            const selectedSeatsContainer = document.getElementById('selectedSeatsContainer_' + flightId);
+            const noSeatsMessage = document.getElementById('noSeatsSelectedMessage_' + flightId);
 
             if (button.classList.contains('selected')) {
                 button.classList.remove('selected');
@@ -196,7 +208,6 @@
             }
 
             selectedSeatsContainer.innerHTML = '';
-
             selectedSeats.forEach(id => {
                 const input = document.createElement('input');
                 input.type = 'hidden';
@@ -205,11 +216,7 @@
                 selectedSeatsContainer.appendChild(input);
             });
 
-            // console.log("Selected seats:", Array.from(selectedSeats));
+            noSeatsMessage.style.display = selectedSeats.size > 0 ? 'none' : 'block';
         }
     </script>
-
-
-
 }
-
