@@ -49,6 +49,10 @@ namespace TravelProgram.Business.Services.Implementations
 
         public async Task RemoveFromBasketAsync(string appUserId, int seatId)
         {
+            var seat = _seatRepository.GetByIdAsync(seatId);
+            if (seat is null)
+                throw new Exception("Seat not found");
+
             var basketItem = _basketItemRepository
                 .GetByExpression(false, b => b.AppUserId == appUserId && b.SeatId == seatId)
                 .FirstOrDefault();
@@ -59,7 +63,6 @@ namespace TravelProgram.Business.Services.Implementations
                 await _basketItemRepository.CommitAsync();
             }
         }
-
 
         public IQueryable<BasketItemDTO> GetBasketItems(string appUserId)
         {

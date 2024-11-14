@@ -64,7 +64,14 @@ namespace TravelProgram.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest($"Failed-{ex.Message}");
+                if(ex.Message.Contains("not found"))
+                {
+                    return NotFound("Seat not found");
+                }
+                else
+                {
+                    return BadRequest(ex.Message);
+                }
             }
         }
     }

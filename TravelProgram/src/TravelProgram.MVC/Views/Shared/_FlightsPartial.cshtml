@@ -110,18 +110,20 @@
                             You have not selected any seats.
                         </div>
 
+
                         <h5>Business Seats</h5>
                         <div class="seat-layout business-seats">
                             @foreach (var seat in item.Seats.Where(x => x.ClassType == TravelProgram.MVC.Enums.SeatClassType.Business))
                             {
                                 <button type="button" class="seat @((seat.IsAvailable ? "available" : "unavailable"))"
-                                        data-seat-id="@seat.Id"
-                                        onclick="selectSeat(this, @seat.Id)"
-                                @(seat.IsAvailable ? "" : "disabled")>
+                                    data-seat-id="@seat.Id"
+                                    onclick="selectSeat(this, @seat.Id, @item.Id)"
+                                    @(seat.IsAvailable ? "" : "disabled")>
                                     @seat.SeatNumber
                                 </button>
                             }
                         </div>
+
 
                         <h5>Economy Seats</h5>
                         <div class="seat-layout economy-seats">
@@ -130,12 +132,12 @@
                                 <button type="button" class="seat @((seat.IsAvailable ? "available" : "unavailable"))"
                                         data-seat-id="@seat.Id"
                                         onclick="selectSeat(this, @seat.Id, @item.Id)"
-                                @(seat.IsAvailable ? "" : "disabled")>
+                                    @(seat.IsAvailable ? "" : "disabled")>
                                     @seat.SeatNumber
                                 </button>
-
                             }
                         </div>
+
                     </div>
                     <div asp-validation-summary="ModelOnly"></div>
                     <div class="modal-footer">
@@ -147,7 +149,6 @@
         </div>
     </div>
 
-    <!-- CSS for Seat Layout -->
     <style>
         .seat-layout {
             display: grid;
@@ -193,9 +194,14 @@
 
 
     <script>
-        const selectedSeats = new Set();
+        const selectedSeatsByFlight = {};
 
         function selectSeat(button, seatId, flightId) {
+            if (!selectedSeatsByFlight[flightId]) {
+                selectedSeatsByFlight[flightId] = new Set();
+            }
+
+            const selectedSeats = selectedSeatsByFlight[flightId];
             const selectedSeatsContainer = document.getElementById('selectedSeatsContainer_' + flightId);
             const noSeatsMessage = document.getElementById('noSeatsSelectedMessage_' + flightId);
 
@@ -218,5 +224,30 @@
 
             noSeatsMessage.style.display = selectedSeats.size > 0 ? 'none' : 'block';
         }
+
+        function resetSeatSelection(flightId) {
+            const seats = document.querySelectorAll(`#staticBackdrop_${flightId} .seat.selected`);
+            seats.forEach(seat => seat.classList.remove('selected'));
+            selectedSeatsByFlight[flightId] = new Set();
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const modals = document.querySelectorAll(".modal");
+            modals.forEach(modal => {
+                const flightId = modal.id.split("_")[1];
+
+                const form = modal.querySelector("form");
+                form.addEventListener("submit", function () {
+                    resetSeatSelection(flightId);
+                });
+
+                modal.addEventListener("hidden.bs.modal", function () {
+                    resetSeatSelection(flightId);
+                    document.getElementById('selectedSeatsContainer_' + flightId).innerHTML = '';
+                    document.getElementById('noSeatsSelectedMessage_' + flightId).style.display = 'block';
+                });
+            });
+        });
+
     </script>
 }
