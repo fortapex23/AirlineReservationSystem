@@ -34,8 +34,14 @@ namespace TravelProgram.Business.Services.Implementations
 
         public async Task<SeatGetDto> CreateAsync(SeatCreateDto dto)
 		{
-			var existingSeat = await _seatRepository
-			.GetByExpression(false, t => t.SeatNumber == dto.SeatNumber)
+			if (dto.SeatNumber <= 0)
+				throw new Exception("Seat number cant be <= 0");
+
+            if (dto.Price <= 0)
+                throw new Exception("Price cant be <= 0");
+
+            var existingSeat = await _seatRepository
+			.GetByExpression(false, t => t.SeatNumber == dto.SeatNumber && t.FlightId == dto.FlightId)
 			.FirstOrDefaultAsync();
 
 			if (existingSeat != null)
@@ -109,14 +115,20 @@ namespace TravelProgram.Business.Services.Implementations
 		{
 			if (id < 1 || id is null) throw new NullReferenceException("id is invalid");
 
-			var seat = await _seatRepository.GetByIdAsync((int)id);
+            if (dto.SeatNumber <= 0)
+                throw new Exception("Seat number cant be <= 0");
+
+            if (dto.Price <= 0)
+                throw new Exception("Price cant be <= 0");
+
+            var seat = await _seatRepository.GetByIdAsync((int)id);
 			if (seat == null) throw new Exception("Seat not found");
 
 			if (dto.IsAvailable == false)
 				throw new Exception("Seat is not available for update");
 
             var existingSeat = await _seatRepository
-			.GetByExpression(true, t => t.SeatNumber == dto.SeatNumber && t.Id != id)
+			.GetByExpression(true, t => t.SeatNumber == dto.SeatNumber && t.Id != id && t.FlightId == dto.FlightId)
 			.FirstOrDefaultAsync();
 
 			if (existingSeat != null)

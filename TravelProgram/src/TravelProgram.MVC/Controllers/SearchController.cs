@@ -109,7 +109,7 @@ namespace TravelProgram.MVC.Controllers
 
                 if (searchResults == null || !searchResults.Any())
                 {
-                    ModelState.AddModelError("", "No flights found for the given criteria.");
+                    ModelState.AddModelError("", "No flights found for the given criteria");
                     return View("Index", searchVM);
                 }
 

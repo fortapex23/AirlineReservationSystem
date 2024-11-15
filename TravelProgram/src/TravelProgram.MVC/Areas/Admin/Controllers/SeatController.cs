@@ -87,10 +87,20 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
                     ModelState.AddModelError("SeatNumber", "seat with same number already exists");
                     return View(vm);
                 }
+                if (ex.Message.Contains("Seat number"))
+                {
+                    ModelState.AddModelError("SeatNumber", "seat number cant be <= 0");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("Price"))
+                {
+                    ModelState.AddModelError("Price", "Price cant be below 0");
+                    return View(vm);
+                }
                 else
                 {
-                    TempData["Err"] = ex.Message;
-                    return View("Error");
+                    ModelState.AddModelError("", "Something went wrong");
+                    return View(vm);
                 }
             }
 
@@ -159,15 +169,30 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
+                if (ex.Message.Contains("No flight"))
+                {
+                    ModelState.AddModelError("FlightId", "Invalid flight id");
+                    return View(vm);
+                }
                 if (ex.Message.Contains("same number"))
                 {
                     ModelState.AddModelError("SeatNumber", "seat with same number already exists");
                     return View(vm);
                 }
+                if (ex.Message.Contains("Seat number cant"))
+                {
+                    ModelState.AddModelError("SeatNumber", "seat number cant be <= 0");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("Price cant"))
+                {
+                    ModelState.AddModelError("Price", "Price cant be below 0");
+                    return View(vm);
+                }
                 else
                 {
-                    TempData["Err"] = ex.Message;
-                    return View("Error");
+                    ModelState.AddModelError("", "Something went wrong");
+                    return View(vm);
                 }
             }
 
