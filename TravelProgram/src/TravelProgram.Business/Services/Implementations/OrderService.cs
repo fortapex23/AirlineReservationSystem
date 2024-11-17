@@ -102,9 +102,19 @@ namespace TravelProgram.Business.Services.Implementations
             return _mapper.Map<ICollection<OrderGetDto>>(orders);
         }
 
-        public async Task<OrderGetDto> GetById(int id)
+		public async Task<OrderGetDto> GetSingleByExpression(bool asnotracking = false, Expression<Func<Order, bool>>? expression = null, params string[] includes)
+		{
+			var Order = await _orderRepository.GetByExpression(asnotracking, expression, includes).FirstOrDefaultAsync();
+			if (Order == null) throw new Exception("Order not found");
+
+			return _mapper.Map<OrderGetDto>(Order);
+		}
+
+		public async Task<OrderGetDto> GetById(int id)
         {
-            var order = await _orderRepository.GetByIdAsync(id);
+			if (id < 1) throw new Exception();
+
+			var order = await _orderRepository.GetByIdAsync(id);
             if (order == null) throw new Exception("Order not found");
 
             return _mapper.Map<OrderGetDto>(order);
@@ -117,6 +127,9 @@ namespace TravelProgram.Business.Services.Implementations
 				.FirstOrDefaultAsync(o => o.Id == id);
 
 			if (order == null) throw new Exception("Order not found");
+
+			if (order.Status == OrderStatus.Completed)
+				throw new Exception("You cant change completed order");
 
 			_mapper.Map(dto, order);
 			order.UpdatedTime = DateTime.Now;

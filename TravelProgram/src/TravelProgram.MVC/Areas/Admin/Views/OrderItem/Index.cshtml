@@ -22,23 +22,14 @@
 											No
 										</th>
 										<th>
+											Flight
+										</th>
+										<th>
 											Seat
 										</th>
 										<th>
 											Price
 										</th>
-										@* <th>
-											Items
-										</th>
-										<th>
-											Date
-										</th>
-										<th>
-											Status
-										</th> *@
-										@* <th>
-											Actions
-										</th> *@
 									</tr>
 								</thead>
 								<tbody>
@@ -50,23 +41,14 @@
 												@count
 											</td>
 											<td>
+												@ord.FlightNumber
+											</td>
+											<td>
 												@ord.SeatNumber
 											</td>
 											<td>
 												@ord.Price
 											</td>
-											@* <td>
-												@ord.OrderItems.Count
-											</td>
-											<td>
-												@ord.CreatedTime.ToShortDateString()
-											</td>
-											<td>
-												@ord.Status
-											</td> *@
-											@* <td>
-												<a asp-controller="order" asp-action="index" class="btn btn-primary">go back</a>
-											</td> *@
 										</tr>
 									}
 								</tbody>

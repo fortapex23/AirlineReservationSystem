@@ -13,6 +13,7 @@ using TravelProgram.MVC.ViewModels.AirlineVMs;
 using TravelProgram.MVC.ViewModels.AirportVMs;
 using TravelProgram.MVC.ViewModels.FlightVMs;
 using TravelProgram.MVC.ViewModels.PlaneVMs;
+using TravelProgram.MVC.ViewModels.SeatVM;
 using TravelProgram.MVC.ViewModels.WishListVMs;
 
 namespace TravelProgram.MVC.Controllers
@@ -116,18 +117,27 @@ namespace TravelProgram.MVC.Controllers
 
                 if (string.IsNullOrEmpty(appUserId))
                 {
-                    return Unauthorized("User identity not found in the token.");
+                    return Unauthorized("User not found in the token.");
                 }
             }
             catch (SecurityTokenException)
             {
-                return Unauthorized("Invalid token. Please log in again.");
+                return Unauthorized("Invalid token");
             }
 
             try
             {
+                var seats = await _crudService.GetAllAsync<List<SeatGetVM>>("/seats");
+
                 foreach (var seatId in SelectedSeats)
                 {
+                    var avaseat = seats.FirstOrDefault(x => x.Id == seatId);
+
+                    if(avaseat.IsAvailable == false)
+                    {
+                        return View();
+                    }
+
                     var apiUrl = $"{_configuration.GetSection("Api:URL").Value}/basketitem?appUserId={appUserId}&seatId={seatId}";
                     var response = await _httpClient.PostAsync(apiUrl, null);
 

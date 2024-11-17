@@ -110,6 +110,11 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
                     ModelState.AddModelError("ArrivalTime", "Arrival time must be > departure time");
                     return View(vm);
                 }
+                if (ex.Message.Contains("This plane is already assigned"))
+                {
+                    ModelState.AddModelError("", "this plane is assigned to another fligth in that time range");
+                    return View(vm);
+                }
                 else
                 {
                     ModelState.AddModelError("", "Something went wrong");
@@ -215,6 +220,16 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
                 if (ex.Message.Contains("Arrival time"))
                 {
                     ModelState.AddModelError("ArrivalTime", "Arrival time must be > departure time");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("This plane is already assigned"))
+                {
+                    ModelState.AddModelError("", "this plane is assigned to another fligth in that time range");
+                    return View(vm);
+                }
+                if (ex.Message.Contains("flight plane because seats have"))
+                {
+                    ModelState.AddModelError("", "Flights plane cant be changed because seats has been booked");
                     return View(vm);
                 }
                 else

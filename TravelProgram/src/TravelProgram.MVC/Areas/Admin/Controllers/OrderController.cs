@@ -41,7 +41,7 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
                 //var bookSeatNum = seats.FirstOrDefault(x => x.Id == book.SeatId);
 
                 //book.SeatNumber = bookSeatNum.SeatNumber;
-                book.AppUserName = bUserName?.FullName ?? "Unknown";
+                book.AppUserName = bUserName?.FullName ?? "User";
                 //book.FlightNumber = bookFlghtNum.FlightNumber;
             }
 
@@ -66,8 +66,17 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 
 			order.Status = OrderStatus.Completed;
 
-			await _crudService.Update($"/orders/{id}", order);
-
+			try
+			{
+				await _crudService.Update($"/orders/{id}", order);
+			}
+			catch (Exception ex)
+			{
+				if (ex.Message.Contains("already booking "))
+				{
+					TempData["Err"] = "seat from this order has already been booked. You should cancel order";
+				}
+			}
 			return RedirectToAction("Index");
 		}
 
@@ -89,7 +98,17 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 
 			order.Status = OrderStatus.Canceled;
 
-			await _crudService.Update($"/orders/{id}", order);
+			try
+			{
+				await _crudService.Update($"/orders/{id}", order);
+			}
+			catch (Exception ex)
+			{
+				if (ex.Message.Contains("You cant change"))
+				{
+					TempData["Err"] = "You cant reject completed order!";
+				}
+			}
 
 			return RedirectToAction("Index");
 		}

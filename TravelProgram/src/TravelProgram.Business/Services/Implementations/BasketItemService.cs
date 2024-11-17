@@ -49,19 +49,21 @@ namespace TravelProgram.Business.Services.Implementations
 
         public async Task RemoveFromBasketAsync(string appUserId, int seatId)
         {
-            var seat = _seatRepository.GetByIdAsync(seatId);
+            var seat = await _seatRepository.GetByIdAsync(seatId);
             if (seat is null)
                 throw new Exception("Seat not found");
 
             var basketItem = _basketItemRepository
-                .GetByExpression(false, b => b.AppUserId == appUserId && b.SeatId == seatId)
+                .GetByExpression(true, b => b.AppUserId == appUserId && b.SeatId == seatId)
                 .FirstOrDefault();
 
-            if (basketItem != null)
+            if (basketItem is null)
             {
-                _basketItemRepository.Delete(basketItem);
-                await _basketItemRepository.CommitAsync();
+                throw new Exception("No basketitem found");
             }
+
+            _basketItemRepository.Delete(basketItem);
+            await _basketItemRepository.CommitAsync();
         }
 
         public IQueryable<BasketItemDTO> GetBasketItems(string appUserId)

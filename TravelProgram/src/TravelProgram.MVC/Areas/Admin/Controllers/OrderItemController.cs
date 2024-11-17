@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TravelProgram.MVC.Controllers;
 using TravelProgram.MVC.Services.Interfaces;
+using TravelProgram.MVC.ViewModels.FlightVMs;
 using TravelProgram.MVC.ViewModels.OrderItemVMs;
 using TravelProgram.MVC.ViewModels.SeatVM;
 
@@ -29,11 +30,16 @@ namespace TravelProgram.MVC.Areas.Admin.Controllers
 
 			var seats = await _crudService.GetAllAsync<List<SeatGetVM>>("/seats");
 
-			foreach (var item in orderItems)
+			var flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/flights");
+
+            foreach (var item in orderItems)
             {
                 var seat = seats.FirstOrDefault(x => x.Id == item.SeatId);
 
+                var flight = flights.FirstOrDefault(f => f.Id == seat.FlightId);
+
 				item.SeatNumber = seat.SeatNumber;
+                item.FlightNumber = flight.FlightNumber;
 			}
 
 			if (orderItems == null)

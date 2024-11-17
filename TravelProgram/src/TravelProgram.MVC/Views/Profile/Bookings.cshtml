@@ -2,6 +2,8 @@
 
 @model List<BookingGetVM>
 @{
+    int count = 0;
+
     Layout = "_ProfileLayout";
 }
 
@@ -14,6 +16,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Count</th>
                                 <th>Book Num</th>
                                 <th>Destination</th>
                                 <th>Seat</th>
@@ -25,7 +28,9 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
+                                count++;
                                 <tr>
+                                    <td>@count</td>
                                     <td>@item.BookingNumber</td>
                                     <td>@item.Destination</td>
                                     <td>@item.SeatNumber</td>

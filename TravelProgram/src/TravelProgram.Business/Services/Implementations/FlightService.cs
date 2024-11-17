@@ -236,7 +236,7 @@ namespace TravelProgram.Business.Services.Implementations
                 throw new Exception("No arrival airport with this id");
 
             var alreadyFlights = await _flightRepository
-                .GetByExpression(false, f => f.PlaneId == dto.PlaneId &&
+                .GetByExpression(false, f => f.PlaneId == dto.PlaneId && f.Id != id &&
                                              (f.DepartureTime.AddHours(-5) <= dto.DepartureTime && f.ArrivalTime.AddHours(5) >= dto.DepartureTime))
                 .ToListAsync();
 
@@ -245,11 +245,11 @@ namespace TravelProgram.Business.Services.Implementations
 
             bool planeChanged = flight.PlaneId != dto.PlaneId;
 
-            bool seatConfigurationChanged = flight.PlaneId == dto.PlaneId &&
-                                            (existingPlane.EconomySeats != flight.Seats.Count(s => s.ClassType == SeatClassType.Economy) ||
-                                             existingPlane.BusinessSeats != flight.Seats.Count(s => s.ClassType == SeatClassType.Business));
+            //bool seatConfigurationChanged = flight.PlaneId == dto.PlaneId &&
+            //                                (existingPlane.EconomySeats != flight.Seats.Count(s => s.ClassType == SeatClassType.Economy) ||
+            //                                 existingPlane.BusinessSeats != flight.Seats.Count(s => s.ClassType == SeatClassType.Business));
 
-            if (planeChanged || seatConfigurationChanged)
+            if (planeChanged) // || seatConfigurationChanged
             {
                 var books = await _flightRepository.Table.AnyAsync(x => x.Id == id && x.Bookings.Any());
 

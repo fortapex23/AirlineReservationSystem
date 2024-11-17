@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using TravelProgram.Business.DTOs.AirportDTOs;
 using TravelProgram.Business.DTOs.OrderDTOs;
 using TravelProgram.Core.Models;
 
@@ -12,5 +13,6 @@ namespace TravelProgram.Business.Services.Interfaces
         Task<ICollection<OrderGetDto>> GetByExpression(bool asNoTracking = false, Expression<Func<Order, bool>>? expression = null, params string[] includes);
         Task<OrderGetDto> GetById(int id);
         Task UpdateAsync(int id, OrderUpdateDto dto);
-    }
+		Task<OrderGetDto> GetSingleByExpression(bool asnotracking = false, Expression<Func<Order, bool>>? expression = null, params string[] includes);
+	}
 }

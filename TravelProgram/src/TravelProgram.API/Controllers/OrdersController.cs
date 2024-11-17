@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TravelProgram.API.ApiResponses;
+using TravelProgram.Business.DTOs.AirportDTOs;
 using TravelProgram.Business.DTOs.OrderDTOs;
 using TravelProgram.Business.Services.Implementations;
 using TravelProgram.Business.Services.Interfaces;
@@ -80,9 +81,11 @@ namespace TravelProgram.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+            OrderGetDto order = null;
+
             try
             {
-                var order = await _orderService.GetByExpression(true, x => x.Id == id, "OrderItems");
+                order = await _orderService.GetSingleByExpression(false, x => x.Id == id, "OrderItems");
             }
             catch (Exception ex)
             {
@@ -92,8 +95,13 @@ namespace TravelProgram.API.Controllers
                     ErrorMessage = ex.Message
                 });
             }
-            return Ok();
-        }
+
+			return Ok(new ApiResponse<OrderGetDto>
+			{
+				Data = order,
+				StatusCode = StatusCodes.Status200OK
+			});
+		}
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, OrderUpdateDto dto)

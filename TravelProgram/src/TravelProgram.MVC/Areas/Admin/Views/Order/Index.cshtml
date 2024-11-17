@@ -67,9 +67,15 @@
 												@ord.Status
 											</td>
 											<td>
-												<a asp-controller="orderitem" asp-route-orderId="@ord.Id" class="btn btn-warning">items</a>
-												<a asp-action="ApproveOrder" asp-route-id="@ord.Id" class="btn btn-primary">approve</a>
-												<a asp-action="CancelOrder" asp-route-id="@ord.Id" class="btn btn-danger">reject</a>
+												<a asp-controller="orderitem" asp-route-orderId="@ord.Id" class="btn btn-warning">seats</a>
+												@if (ord.Status.ToString().Trim().ToLower() != "completed")
+												{
+													<a asp-action="ApproveOrder" asp-route-id="@ord.Id" class="btn btn-primary">approve</a>
+												}
+												@if (ord.Status.ToString().Trim().ToLower() == "pending")
+												{
+													<a asp-action="CancelOrder" asp-route-id="@ord.Id" class="btn btn-danger">reject</a>
+												}
 											</td>
 										</tr>
 									}
