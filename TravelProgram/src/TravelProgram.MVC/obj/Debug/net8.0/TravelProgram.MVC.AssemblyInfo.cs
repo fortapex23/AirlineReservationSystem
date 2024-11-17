@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TravelProgram.MVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+417f49e990c6bd4cbff05e28f93bd997dfd246b7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3a49239ccac09015279eb284f9454e5153006e98")]
 [assembly: System.Reflection.AssemblyProductAttribute("TravelProgram.MVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TravelProgram.MVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

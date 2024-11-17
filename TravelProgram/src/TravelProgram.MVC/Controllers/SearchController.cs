@@ -86,7 +86,7 @@ namespace TravelProgram.MVC.Controllers
                 {
                     foreach (var error in state.Value.Errors)
                     {
-                        Console.WriteLine($"Error --- {error.ErrorMessage}");
+                        Console.WriteLine($"Error --> {error.ErrorMessage}");
                     }
                 }
                 return View("Index", searchVM);
@@ -113,7 +113,6 @@ namespace TravelProgram.MVC.Controllers
                     return View("Index", searchVM);
                 }
 
-                //var flights = await _crudService.GetAllAsync<List<FlightGetVM>>("/flights");
                 var airports = await _crudService.GetAllAsync<List<AirportGetVM>>("/airports");
                 var airlines = await _crudService.GetAllAsync<List<AirlineGetVM>>("/airlines");
                 var planes = await _crudService.GetAllAsync<List<PlaneGetVM>>("/planes");
@@ -126,10 +125,10 @@ namespace TravelProgram.MVC.Controllers
 
                     if (plane != null)
                     {
-                        if (flight.Plane == null)
-                        {
-                            flight.Plane = new PlaneGetVM();
-                        }
+                        //if (flight.Plane == null)
+                        //{
+                        //    flight.Plane = new PlaneGetVM();
+                        //}
 
                         flight.PlaneName = plane.Name;
 
@@ -138,10 +137,10 @@ namespace TravelProgram.MVC.Controllers
                         {
                             flight.Plane.AirlineName = airline.Name;
                         }
-                        else
-                        {
-                            flight.Plane.AirlineName = "Airline Not Available";
-                        }
+                        //else
+                        //{
+                        //    flight.Plane.AirlineName = "Airline not";
+                        //}
                     }
 
                     if (departureAirport != null)
@@ -162,8 +161,8 @@ namespace TravelProgram.MVC.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                Console.WriteLine("Error details: " + ex.ToString());
-                return View("Index", searchVM);
+                Console.WriteLine("details -> " + ex.ToString());
+                return RedirectToAction("Index", "Home");
             }
         }
 

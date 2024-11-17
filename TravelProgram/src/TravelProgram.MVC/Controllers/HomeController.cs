@@ -76,7 +76,7 @@ namespace TravelProgram.MVC.Controllers
             var homevm = new HomeVM()
             {
                 FullName = ViewBag.FullName,
-                Flights = flights?.Take(3).ToList(),
+                Flights = flights?.Take(6).ToList(),
             };
 
             return View(homevm);
