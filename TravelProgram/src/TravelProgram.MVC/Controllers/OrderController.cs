@@ -86,7 +86,7 @@ namespace TravelProgram.MVC.Controllers
             if (basketItems == null || !basketItems.Any())
             {
                 ModelState.AddModelError("", "Your basket is empty.");
-                return View("Order");
+                return RedirectToAction("Checkout", "Order");
             }
 
             var orderItems = new List<OrderItemCreateVM>();
@@ -98,7 +98,7 @@ namespace TravelProgram.MVC.Controllers
                 if (seatDetails == null)
                 {
                     ModelState.AddModelError("", $"Seat with ID {item.SeatId} not found.");
-                    return View("Order");
+                    return RedirectToAction("Checkout", "Order");
                 }
 
                 orderItems.Add(new OrderItemCreateVM
@@ -134,11 +134,6 @@ namespace TravelProgram.MVC.Controllers
 			}
 
 			return RedirectToAction("Checkout", "Order");
-        }
-
-        public IActionResult Confirmation()
-        {
-            return View();
         }
 
     }
